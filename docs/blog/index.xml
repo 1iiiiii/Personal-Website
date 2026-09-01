@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss  xmlns:atom="http://www.w3.org/2005/Atom" 
+      xmlns:media="http://search.yahoo.com/mrss/" 
+      xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+      xmlns:dc="http://purl.org/dc/elements/1.1/" 
+      version="2.0">
+<channel>
+<title>Yi Li</title>
+<link>https://1iiiiii.github.io/Personal-Website/blog/</link>
+<atom:link href="https://1iiiiii.github.io/Personal-Website/blog/index.xml" rel="self" type="application/rss+xml"/>
+<description>Weekly notes on economic data — acquisition, cleaning, analysis.</description>
+<generator>quarto-1.9.38</generator>
+<lastBuildDate>Tue, 16 Jun 2026 04:00:00 GMT</lastBuildDate>
+<item>
+  <title>My First Blog Post</title>
+  <link>https://1iiiiii.github.io/Personal-Website/blog/posts/post1/</link>
+  <description><![CDATA[ 
+
+
+
+
+<p><img src="https://1iiiiii.github.io/Personal-Website/blog/posts/post1/figure1.png" class="img-fluid" width="500"></p>
+<p>This is my first blog post. Example <img src="https://latex.codecogs.com/png.latex?%5CLaTeX"> equation: <img src="https://latex.codecogs.com/png.latex?%5Cfrac%7B1%7D%7B2%7D%5Csum_%7Bi=1%7D%5En%20x_i"></p>
+
+
+<!-- -->
+
+
+ ]]></description>
+  <category>personal</category>
+  <category>data-science</category>
+  <guid>https://1iiiiii.github.io/Personal-Website/blog/posts/post1/</guid>
+  <pubDate>Tue, 16 Jun 2026 04:00:00 GMT</pubDate>
+</item>
+<item>
+  <title>My Second Blog Post</title>
+  <link>https://1iiiiii.github.io/Personal-Website/blog/posts/post2/</link>
+  <description><![CDATA[ 
+
+
+
+
+<p>This is my second blog post.</p>
+
+
+<!-- -->
+
+
+ ]]></description>
+  <category>opinion</category>
+  <category>labor market</category>
+  <guid>https://1iiiiii.github.io/Personal-Website/blog/posts/post2/</guid>
+  <pubDate>Tue, 16 Jun 2026 04:00:00 GMT</pubDate>
+</item>
+</channel>
+</rss>

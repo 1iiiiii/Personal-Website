@@ -1,9 +1,8 @@
 ---
 title: "My Second Blog Post"
+description: "One or two sentences summarising what this post found."
 date: 2026-06-16
-categories:
-  - opinion
-  - labor market
+categories: [opinion, labor market]
 ---
 
-## This is my second blog post.
+This is my second blog post.

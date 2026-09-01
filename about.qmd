@@ -2,8 +2,29 @@
 title: "About"
 ---
 
-About this site
+[Write two or three paragraphs here in your own voice. Who you are, what you
+work on, and why. This page is the one a reader lands on after the home page
+convinces them you are worth a second click — so it should read like a person,
+not a CV.]
 
-```{r}
-1 + 1
-```
+## Education
+
+**University of Pennsylvania** — M.S. Applied Economics & Data Science, expected 2027
+
+**[Undergraduate institution]** — [B.A./B.S. in Subject], [year]
+
+## Research interests
+
+- [Interest one — a sentence on what draws you to it]
+- [Interest two]
+- [Interest three]
+
+## Technical background
+
+Comfortable in **Python** and **SQL**; working in **R** through the tidyverse
+this semester. Reproducible workflows in **Quarto** and **Git**, typesetting in
+**LaTeX**. [Add or cut as it becomes true.]
+
+## Contact
+
+[YOUR@EMAIL.COM](mailto:YOUR@EMAIL.COM) · [GitHub](https://github.com/1iiiiii) · [LinkedIn](https://linkedin.com/in/USERNAME)

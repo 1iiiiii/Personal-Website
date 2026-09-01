@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "Yi Li",
     "section": "",
-    "text": "Yi Li\nUniversity of Pennsylvaina\nWelcome to my personal website.\n\nQuick Links"
+    "text": "University of Pennsylvania\n\nYi Li\n\nM.S. Applied Economics & Data Science · Expected 2027\n\nI study [your research interests — e.g. labor economics and applied econometrics], with a focus on [your specific topic]. Before Penn I [prior degree / role]. This site is where I publish weekly notes on economic data: what I pulled, how I cleaned it, and what it actually shows.\n\nGitHub LinkedIn Email Curriculum Vitae\n\n\n\n\n\nRecent writing All posts →\n\n\n\n\n\nNo matching items\n\n\n\nInterests\n\n[Interest one]\n[Interest two]\n[Interest three]\n\n\n\nToolkit\n\nR · Python · SQL\nQuarto · Git · LaTeX\n[Anything else]\n\n\n\nElsewhere\n\nGoogle Scholar\nGitHub\nLinkedIn"
   },
   {
     "objectID": "bio.html",
@@ -44,9 +44,9 @@
   {
     "objectID": "blog/index.html",
     "href": "blog/index.html",
-    "title": "Blog",
+    "title": "Writing",
     "section": "",
-    "text": "My First Blog Post\n\n\n\n\n\n\n\n\n\n\n\nJun 16, 2026\n\n\n\n\n\n\n\n\n\n\n\n\nMy Second Blog Post\n\n\n\n\n\n\n\n\n\n\n\nJun 16, 2026\n\n\n\n\n\n\nNo matching items"
+    "text": "My First Blog Post\n\n\n\npersonal\n\ndata-science\n\n\n\nOne or two sentences summarising what this post found. This text is what appears on the Writing page.\n\n\n\n\n\nJun 16, 2026\n\n\n\n\n\n\n\nMy Second Blog Post\n\n\n\nopinion\n\nlabor market\n\n\n\nOne or two sentences summarising what this post found.\n\n\n\n\n\nJun 16, 2026\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "blog/posts/post1/Untitled.html",
@@ -58,9 +58,9 @@
   {
     "objectID": "resume.html",
     "href": "resume.html",
-    "title": "Resume",
+    "title": "Curriculum Vitae",
     "section": "",
-    "text": "Download my resume here:"
+    "text": "Download PDF Email me"
   },
   {
     "objectID": "resume.html#resume-pdf",
@@ -74,6 +74,76 @@
     "href": "about.html",
     "title": "About",
     "section": "",
-    "text": "About this site\n\n1 + 1\n\n[1] 2"
+    "text": "[Write two or three paragraphs here in your own voice. Who you are, what you work on, and why. This page is the one a reader lands on after the home page convinces them you are worth a second click — so it should read like a person, not a CV.]"
+  },
+  {
+    "objectID": "blog/posts/post1/index.html",
+    "href": "blog/posts/post1/index.html",
+    "title": "My First Blog Post",
+    "section": "",
+    "text": "This is my first blog post. Example \\LaTeX equation: \\frac{1}{2}\\sum_{i=1}^n x_i"
+  },
+  {
+    "objectID": "resume.html#education",
+    "href": "resume.html#education",
+    "title": "Curriculum Vitae",
+    "section": "Education",
+    "text": "Education\nUniversity of Pennsylvania, Philadelphia PA — M.S. Applied Economics & Data Science 2026 – 2027 (expected)\n[Undergraduate institution] — [Degree] [years]"
+  },
+  {
+    "objectID": "resume.html#experience",
+    "href": "resume.html#experience",
+    "title": "Curriculum Vitae",
+    "section": "Experience",
+    "text": "Experience\n[Role], [Organisation] — [dates]\n\n[What you did, and what changed because you did it]\n[Second bullet]"
+  },
+  {
+    "objectID": "resume.html#skills",
+    "href": "resume.html#skills",
+    "title": "Curriculum Vitae",
+    "section": "Skills",
+    "text": "Skills\nLanguages — Python, R, SQL Tools — Quarto, Git, LaTeX, [others]"
+  },
+  {
+    "objectID": "resume.html#projects",
+    "href": "resume.html#projects",
+    "title": "Curriculum Vitae",
+    "section": "Projects",
+    "text": "Projects\n[Project name] — [one line, with a link to the repo]"
+  },
+  {
+    "objectID": "blog/posts/post2/index.html",
+    "href": "blog/posts/post2/index.html",
+    "title": "My Second Blog Post",
+    "section": "",
+    "text": "This is my second blog post."
+  },
+  {
+    "objectID": "about.html#education",
+    "href": "about.html#education",
+    "title": "About",
+    "section": "Education",
+    "text": "Education\nUniversity of Pennsylvania — M.S. Applied Economics & Data Science, expected 2027\n[Undergraduate institution] — [B.A./B.S. in Subject], [year]"
+  },
+  {
+    "objectID": "about.html#research-interests",
+    "href": "about.html#research-interests",
+    "title": "About",
+    "section": "Research interests",
+    "text": "Research interests\n\n[Interest one — a sentence on what draws you to it]\n[Interest two]\n[Interest three]"
+  },
+  {
+    "objectID": "about.html#technical-background",
+    "href": "about.html#technical-background",
+    "title": "About",
+    "section": "Technical background",
+    "text": "Technical background\nComfortable in Python and SQL; working in R through the tidyverse this semester. Reproducible workflows in Quarto and Git, typesetting in LaTeX. [Add or cut as it becomes true.]"
+  },
+  {
+    "objectID": "about.html#contact",
+    "href": "about.html#contact",
+    "title": "About",
+    "section": "Contact",
+    "text": "Contact\nYOUR@EMAIL.COM · GitHub · LinkedIn"
   }
 ]

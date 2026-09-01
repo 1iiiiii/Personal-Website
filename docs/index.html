@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Student Name</title>
+<title>Yi Li</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -33,16 +33,17 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-listing/list.min.js"></script>
+<script src="site_libs/quarto-listing/quarto-listing.js"></script>
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-f806d9ca3cded21450884136ceca1cc5.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-6033a600180109c3731f6a886c29932c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-4db4869f860506a759817984f9786ea6.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -70,9 +71,80 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script>
 
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    const listingTargetEl = window.document.querySelector('#listing-recent .list');
+    if (!listingTargetEl) {
+      // No listing discovered, do not attach.
+      return; 
+    }
 
-<link rel="stylesheet" href="styles.css">
+    const options = {
+      valueNames: ['listing-date','listing-title','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      
+      searchColumns: [],
+    };
+
+    window['quarto-listings'] = window['quarto-listings'] || {};
+    window['quarto-listings']['listing-recent'] = new List('listing-recent', options);
+
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  });
+
+  window.addEventListener('hashchange',() => {
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  })
+  </script>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
 </head>
 
 <body class="nav-fixed fullcontent quarto-light">
@@ -83,7 +155,7 @@ ul.task-list li input[type="checkbox"] {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">Student Name</span>
+    <span class="navbar-title">Yi Li</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -97,16 +169,16 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./bio.html"> 
-<span class="menu-text">About Me</span></a>
+    <a class="nav-link" href="./blog/index.html"> 
+<span class="menu-text">Writing</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./about.html"> 
+<span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./resume.html"> 
-<span class="menu-text">Resume</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./blog/index.html"> 
-<span class="menu-text">Blog</span></a>
+<span class="menu-text">CV</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -126,37 +198,66 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<div class="columns">
-<div class="column" style="width:35%;">
-<p><img src="images/profile.png" class="img-fluid" style="width:100.0%"></p>
-</div><div class="column" style="width:65%;">
-<p><img src="images/UniversityofPennsylvania_FullLogo_RGB.png" class="img-fluid" width="250"></p>
+<div class="hero">
+<div class="hero-portrait">
+<p><img src="images/profile.png" class="img-fluid"></p>
+</div>
+<div class="hero-body">
+<p><span class="eyebrow">University of Pennsylvania</span></p>
 <section id="yi-li" class="level1">
 <h1>Yi Li</h1>
-<p>University of Pennsylvaina</p>
-<p>Welcome to my personal website.</p>
-<section id="quick-links" class="level3">
-<h3 class="anchored" data-anchor-id="quick-links">Quick Links</h3>
+<div class="hero-affil">
+<p>M.S. Applied Economics &amp; Data Science · Expected 2027</p>
+</div>
+<p>I study [your research interests — e.g.&nbsp;labor economics and applied econometrics], with a focus on [your specific topic]. Before Penn I [prior degree / role]. This site is where I publish weekly notes on economic data: what I pulled, how I cleaned it, and what it actually shows.</p>
+<div class="link-row">
+<p><a href="https://github.com/1iiiiii">GitHub</a> <a href="https://linkedin.com/in/USERNAME">LinkedIn</a> <a href="mailto:YOUR@EMAIL.COM">Email</a> <a href="./resume.html">Curriculum Vitae</a></p>
+</div>
+</section>
+</div>
+</div>
+<div class="section-head">
+<p><span class="eyebrow">Recent writing</span> <a href="./blog/index.html">All posts →</a></p>
+</div>
+<div id="listing-recent" class="quarto-listing quarto-listing-container-default">
+<div class="list quarto-listing-default">
+
+</div>
+<div class="listing-no-matching d-none">No matching items</div>
+</div>
+<div class="strip">
 <div>
-<p><a href="https://github.com/USERNAME"><i class="bi bi-github fs-3"></i></a> <a href="https://linkedin.com/in/USERNAME"><i class="bi bi-linkedin fs-3"></i></a> <a href="./resume.html"><i class="bi bi-file-earmark-person-fill fs-3"></i></a> <a href="mailto:student@email.com"><i class="bi bi-envelope-fill fs-3"></i></a></p>
+<p><span class="eyebrow">Interests</span></p>
+<ul>
+<li>[Interest one]</li>
+<li>[Interest two]</li>
+<li>[Interest three]</li>
+</ul>
 </div>
-</section>
-</section>
+<div>
+<p><span class="eyebrow">Toolkit</span></p>
+<ul>
+<li>R · Python · SQL</li>
+<li>Quarto · Git · LaTeX</li>
+<li>[Anything else]</li>
+</ul>
+</div>
+<div>
+<p><span class="eyebrow">Elsewhere</span></p>
+<ul>
+<li><a href="#">Google Scholar</a></li>
+<li><a href="https://github.com/1iiiiii">GitHub</a></li>
+<li><a href="https://linkedin.com/in/USERNAME">LinkedIn</a></li>
+</ul>
 </div>
 </div>
+
 
 
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
-    const icon = "";
-    const anchorJS = new window.AnchorJS();
-    anchorJS.options = {
-      placement: 'right',
-      icon: icon
-    };
-    anchorJS.add('.anchored');
     const isCodeAnnotation = (el) => {
       for (const clz of el.classList) {
         if (clz.startsWith('code-annotation-')) {                     
@@ -221,7 +322,7 @@ ul.task-list li input[type="checkbox"] {
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp('/' + window.location.host + '/');
+        var filterRegex = new RegExp("https:\/\/1iiiiii\.github\.io\/Personal-Website\/");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
@@ -235,6 +336,11 @@ ul.task-list li input[type="checkbox"] {
           if (link.dataset.originalHref !== undefined) {
             link.href = link.dataset.originalHref;
           }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
         }
       }
     function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
@@ -552,14 +658,14 @@ ul.task-list li input[type="checkbox"] {
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p><img src="./images/UniversityofPennsylvania_FullLogo_RGB.png" class="img-fluid" width="100"></p>
+<p><img src="./images/UniversityofPennsylvania_FullLogo_RGB.png" class="img-fluid" width="112"></p>
 </div>   
     <div class="nav-footer-center">
-<p>© 2026 Student Name</p>
-</div>
-    <div class="nav-footer-right">
       &nbsp;
     </div>
+    <div class="nav-footer-right">
+<p>© 2026 Yi Li · Built with <a href="https://quarto.org">Quarto</a></p>
+</div>
   </div>
 </footer>
 

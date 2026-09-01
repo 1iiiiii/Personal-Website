@@ -1,28 +1,73 @@
 ---
-title: ""
+pagetitle: "Yi Li"
+listing:
+  - id: recent
+    contents: blog/posts
+    type: default
+    sort: "date desc"
+    max-items: 3
+    fields: [date, title, description]
+    date-format: "MMM D, YYYY"
 ---
 
-::::: columns
-::: {.column width="35%"}
-![](images/profile.png){width="100%"}
+:::{.hero}
+:::{.hero-portrait}
+![](images/profile.png)
 :::
 
-::: {.column width="65%"}
-![](images/UniversityofPennsylvania_FullLogo_RGB.png){width="250px"}
+:::{.hero-body}
+[University of Pennsylvania]{.eyebrow}
 
 # Yi Li
 
-University of Pennsylvaina
-
-Welcome to my personal website.
-
-### Quick Links
-
-<div>
-  <a href="https://github.com/USERNAME"><i class="bi bi-github fs-3"></i></a>
-  <a href="https://linkedin.com/in/USERNAME"><i class="bi bi-linkedin fs-3"></i></a>
-  <a href="resume.qmd"><i class="bi bi-file-earmark-person-fill fs-3"></i></a>
-  <a href="mailto:student@email.com"><i class="bi bi-envelope-fill fs-3"></i></a>
-</div>
+::: {.hero-affil}
+M.S. Applied Economics & Data Science · Expected 2027
 :::
-:::::
+
+I study [your research interests — e.g. labor economics and applied econometrics],
+with a focus on [your specific topic]. Before Penn I [prior degree / role].
+This site is where I publish weekly notes on economic data: what I pulled,
+how I cleaned it, and what it actually shows.
+
+:::{.link-row}
+[GitHub](https://github.com/1iiiiii)
+[LinkedIn](https://linkedin.com/in/USERNAME)
+[Email](mailto:YOUR@EMAIL.COM)
+[Curriculum Vitae](resume.qmd)
+:::
+:::
+:::
+
+:::{.section-head}
+[Recent writing]{.eyebrow}
+[All posts →](blog/index.qmd)
+:::
+
+:::{#recent}
+:::
+
+:::{.strip}
+:::{}
+[Interests]{.eyebrow}
+
+- [Interest one]
+- [Interest two]
+- [Interest three]
+:::
+
+:::{}
+[Toolkit]{.eyebrow}
+
+- R · Python · SQL
+- Quarto · Git · LaTeX
+- [Anything else]
+:::
+
+:::{}
+[Elsewhere]{.eyebrow}
+
+- [Google Scholar](#)
+- [GitHub](https://github.com/1iiiiii)
+- [LinkedIn](https://linkedin.com/in/USERNAME)
+:::
+:::

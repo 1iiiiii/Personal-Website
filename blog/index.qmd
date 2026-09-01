@@ -1,8 +1,16 @@
 ---
-title: "Blog"
+title: "Writing"
+subtitle: "Weekly notes on economic data — acquisition, cleaning, analysis, and the code behind every figure."
 
 listing:
   contents: posts
   sort: "date desc"
   type: default
+  fields: [date, title, description, categories]
+  categories: true
+  sort-ui: false
+  filter-ui: false
+  date-format: "MMM D, YYYY"
+  feed: true
+  page-size: 10
 ---

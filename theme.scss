@@ -1,0 +1,373 @@
+/*-- scss:defaults --*/
+
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=Newsreader:opsz,wght@6..72,300;6..72,400;6..72,500;6..72,600&display=swap');
+
+// ── palette ────────────────────────────────────────────────────────────────
+// Change $accent and the whole site follows: links, rules, drop caps, chart
+// highlights. Everything else is a warm neutral scale from paper to ink.
+$paper:       #fffdf9;
+$ink:         #16130f;
+$body-text:   #221e18;
+$muted:       #6e6559;
+$faint:       #857b6c;
+$fainter:     #b5ab9b;
+$rule:        #e6dfd2;
+$rule-soft:   #efe9dd;
+$panel:       #f8f4ec;
+$accent:      #a8442a;
+$accent-dark: #7d3320;
+
+// ── type ───────────────────────────────────────────────────────────────────
+// Newsreader carries the reading. Archivo does the small, letterspaced work:
+// nav, dates, categories, captions, labels.
+$font-family-serif:      "Newsreader", Georgia, "Times New Roman", serif;
+$font-family-sans-serif: "Archivo", system-ui, -apple-system, "Segoe UI", sans-serif;
+$font-family-monospace:  ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+$font-family-base:       $font-family-serif;
+
+$font-size-base:   1.0625rem;
+$line-height-base: 1.75;
+
+$headings-font-family: $font-family-serif;
+$headings-font-weight: 400;
+$headings-color:       $ink;
+
+// ── bootstrap wiring ───────────────────────────────────────────────────────
+$body-bg:          $paper;
+$body-color:       $body-text;
+$link-color:       $accent;
+$link-hover-color: $accent-dark;
+$border-color:     $rule;
+
+$navbar-bg: $paper;
+$navbar-fg: $muted;
+$navbar-hl: $ink;
+
+$footer-bg: $paper;
+$footer-fg: $faint;
+
+$code-color:              #4a443b;
+$code-bg:                 $panel;
+$code-block-bg:           $panel;
+$code-block-border-left:  $accent;
+
+$toc-color:         $muted;
+$toc-active-border: $accent;
+
+
+/*-- scss:rules --*/
+
+// ── navbar ─────────────────────────────────────────────────────────────────
+.navbar {
+  border-bottom: 1px solid $rule;
+  padding-top: 0.9rem;
+  padding-bottom: 0.9rem;
+}
+.navbar .navbar-brand {
+  font-family: $font-family-serif;
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: $ink;
+}
+.navbar .nav-link {
+  font-family: $font-family-sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: $muted;
+  padding-left: 0.95rem !important;
+  padding-right: 0.95rem !important;
+}
+.navbar .nav-link:hover { color: $ink; }
+.navbar .nav-link.active {
+  color: $ink;
+  box-shadow: inset 0 -2px 0 0 $accent;
+}
+
+// ── headings & prose ───────────────────────────────────────────────────────
+h1, .title {
+  font-size: 2.75rem;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.6rem;
+}
+h2 { font-size: 1.75rem; letter-spacing: -0.015em; margin-top: 2.4rem; }
+h3 { font-size: 1.3rem;  letter-spacing: -0.01em;  margin-top: 1.9rem; }
+
+p { text-wrap: pretty; }
+
+// Underline links inside running prose only — never listing rows, dates,
+// category chips or page chrome, all of which are also <a> tags in Quarto.
+main p > a,
+main li > a {
+  text-decoration: none;
+  border-bottom: 1px solid rgba($accent, 0.28);
+}
+main p > a:hover,
+main li > a:hover { border-bottom-color: $accent; }
+
+div.quarto-post a,
+.listing-categories a,
+.quarto-title .quarto-categories a,
+.code-tools-button,
+.quarto-listing-category a { border-bottom: none !important; text-decoration: none; }
+
+// Small letterspaced label. Used for section headers and metadata.
+.eyebrow {
+  font-family: $font-family-sans-serif;
+  font-size: 0.69rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: $faint;
+}
+
+hr, .content-hr { border-top: 1px solid $rule; opacity: 1; }
+
+// ── home: hero ─────────────────────────────────────────────────────────────
+.hero {
+  display: flex;
+  gap: 3.5rem;
+  align-items: flex-start;
+  padding: 3.2rem 0 3.6rem 0;
+}
+.hero-portrait { width: 216px; flex-shrink: 0; }
+.hero-portrait img {
+  width: 100%;
+  display: block;
+  border: 1px solid $rule;
+}
+.hero-body { flex-grow: 1; }
+.hero-body h1 { margin: 0.75rem 0 0.5rem 0; font-size: 3.1rem; }
+.hero-affil {
+  font-family: $font-family-sans-serif;
+  font-size: 0.95rem;
+  color: $muted;
+  margin-bottom: 1.4rem;
+}
+.hero-body p { max-width: 54ch; }
+
+.link-row {
+  margin-top: 1.6rem;
+  font-family: $font-family-sans-serif;
+  font-size: 0.86rem;
+  letter-spacing: 0.02em;
+}
+.link-row p {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.6rem;
+  margin: 0;
+}
+
+// ── home: three-column strip ───────────────────────────────────────────────
+.strip {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 3rem;
+  border-top: 1px solid $rule;
+  padding-top: 2rem;
+  margin-top: 2.6rem;
+}
+.strip .eyebrow { display: block; margin-bottom: 0.8rem; }
+.strip ul { list-style: none; padding: 0; margin: 0; }
+.strip li { font-size: 0.95rem; line-height: 1.9; }
+
+// ── section header with a trailing rule ────────────────────────────────────
+.section-head {
+  border-top: 1px solid $rule;
+  padding-top: 2rem;
+  margin-bottom: 1.6rem;
+}
+.section-head p {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin: 0;
+}
+.section-head a {
+  font-family: $font-family-sans-serif;
+  font-size: 0.78rem;
+  border-bottom: none;
+}
+
+// ── blog listing: date column left, title + description right ──────────────
+.quarto-listing { margin-top: 0.5rem; }
+
+div.quarto-post {
+  border-bottom: 1px solid $rule-soft;
+  padding: 1.6rem 0;
+  gap: 2.2rem;
+  align-items: flex-start;
+}
+div.quarto-post .metadata {
+  flex-basis: 116px;
+  flex-shrink: 0;
+  padding-top: 0.45rem;
+}
+div.quarto-post .listing-date {
+  font-family: $font-family-sans-serif;
+  font-size: 0.8rem;
+  font-variant-numeric: tabular-nums;
+  color: $faint;
+}
+div.quarto-post .body h3.listing-title,
+div.quarto-post .body .listing-title {
+  font-family: $font-family-serif;
+  font-size: 1.42rem;
+  font-weight: 400;
+  line-height: 1.28;
+  letter-spacing: -0.01em;
+  margin: 0 0 0.45rem 0;
+}
+div.quarto-post .body .listing-title a { border-bottom: none; color: $ink; }
+div.quarto-post .body .listing-title a:hover { color: $accent; }
+div.quarto-post .listing-description {
+  font-size: 0.98rem;
+  line-height: 1.62;
+  color: $muted;
+  margin-bottom: 0.6rem;
+}
+
+// Category chips, on posts and in the listing
+.listing-categories .listing-category,
+.quarto-title .quarto-categories .quarto-category {
+  font-family: $font-family-sans-serif;
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: $faint;
+  background: transparent;
+  border: 1px solid $rule;
+  border-radius: 0;
+  padding: 0.22rem 0.6rem;
+  opacity: 1;
+}
+.listing-categories .listing-category,
+.quarto-title .quarto-categories .quarto-category,
+div.quarto-post .listing-categories a.listing-category {
+  color: $faint !important;
+}
+.listing-categories .listing-category:hover,
+div.quarto-post .listing-categories a.listing-category:hover {
+  color: $accent !important;
+  border-color: $accent;
+}
+
+// Quarto emits title, categories, description in that order. Put the
+// description second so the row reads title -> summary -> tags.
+div.quarto-post .body { display: flex; flex-direction: column; }
+div.quarto-post .body .listing-title { order: 1; }
+div.quarto-post .body .listing-subtitle { order: 2; }
+div.quarto-post .body .listing-description { order: 3; margin-bottom: 0.7rem; }
+div.quarto-post .body .listing-categories { order: 4; }
+
+// Category rail beside the listing
+.quarto-listing-category .category {
+  font-family: $font-family-sans-serif;
+  font-size: 0.82rem;
+  color: $muted;
+  padding: 0.22rem 0;
+}
+.quarto-listing-category .category.active { color: $accent; font-weight: 600; }
+.quarto-listing-category-title {
+  font-family: $font-family-sans-serif;
+  font-size: 0.69rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: $faint;
+}
+
+// ── post pages ─────────────────────────────────────────────────────────────
+.quarto-title-block .quarto-title h1.title { font-size: 2.6rem; }
+.quarto-title-meta {
+  font-family: $font-family-sans-serif;
+  font-size: 0.8rem;
+  color: $faint;
+}
+.quarto-title-meta-heading {
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+// Figures
+figure { margin: 2.4rem 0; }
+main figure img,
+main p > img,
+main .cell-output-display img {
+  border: 1px solid $rule;
+  background: #fff;
+}
+.nav-footer img { border: none; }
+figcaption, .figure-caption {
+  font-family: $font-family-sans-serif;
+  font-size: 0.8rem;
+  line-height: 1.55;
+  color: $faint;
+  margin-top: 0.7rem;
+}
+
+// Code
+pre.sourceCode, div.sourceCode {
+  border: 1px solid $rule;
+  border-left: 3px solid $accent;
+  border-radius: 0;
+  background: $panel;
+}
+code:not(.sourceCode) {
+  background: $panel;
+  padding: 0.1em 0.35em;
+  font-size: 0.86em;
+}
+.code-copy-button, .code-tools-button { color: $faint; }
+.code-tools-button:hover { color: $accent; }
+
+// Callouts, squared off to match the rules elsewhere
+.callout { border-radius: 0; border-left-width: 3px; }
+
+// Blockquote as a pull quote
+blockquote {
+  border-left: none;
+  border-top: 1px solid $ink;
+  border-bottom: 1px solid $ink;
+  padding: 1.3rem 0;
+  margin: 2.2rem 0;
+  font-size: 1.42rem;
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.4;
+  text-align: center;
+  color: $ink;
+}
+
+// ── footer ─────────────────────────────────────────────────────────────────
+.nav-footer {
+  border-top: 1px solid $rule;
+  font-family: $font-family-sans-serif;
+  font-size: 0.78rem;
+  color: $faint;
+  padding-top: 1.4rem;
+  padding-bottom: 2.2rem;
+}
+.nav-footer img { opacity: 0.7; }
+.nav-footer a { color: $muted; border-bottom: none; }
+
+// ── responsive ─────────────────────────────────────────────────────────────
+@media (max-width: 767px) {
+  .hero { flex-direction: column; gap: 2rem; padding-top: 2rem; }
+  .hero-portrait { width: 168px; }
+  .hero-body h1 { font-size: 2.4rem; }
+  .strip { grid-template-columns: 1fr; gap: 1.8rem; }
+  div.quarto-post { flex-direction: column; gap: 0.4rem; }
+  // Quarto orders .body before .metadata in the DOM and repositions with
+  // flex order; stacked, the date needs to lead the row again.
+  div.quarto-post .metadata { order: -1; padding-top: 0; flex-basis: auto; }
+  div.quarto-post .body .listing-description { margin-bottom: 0.5rem; }
+}

@@ -1,0 +1,16 @@
+# Defaults inherited by every post in this folder.
+# Set it once here instead of repeating it in twelve YAML headers.
+
+toc: true
+toc-depth: 2
+code-tools: true          # "</> Code" button to view the post's source
+code-fold: false
+fig-align: center
+fig-width: 7.5
+fig-height: 4.5
+fig-cap-location: bottom
+
+execute:
+  freeze: auto            # re-run a post's code only when the post changes
+  warning: false
+  message: false

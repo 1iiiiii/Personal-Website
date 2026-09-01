@@ -1,7 +1,32 @@
 ---
-title: "Resume"
+title: "Curriculum Vitae"
 ---
 
-Download my resume here:
+:::{.link-row}
+[Download PDF](files/Yi-Li-CV.pdf)
+[Email me](mailto:YOUR@EMAIL.COM)
+:::
 
-##  [Resume PDF](files/Resume.pdf)
+## Education
+
+**University of Pennsylvania**, Philadelphia PA — *M.S. Applied Economics & Data Science*
+2026 – 2027 (expected)
+
+**[Undergraduate institution]** — *[Degree]*
+[years]
+
+## Experience
+
+**[Role]**, [Organisation] — [dates]
+
+- [What you did, and what changed because you did it]
+- [Second bullet]
+
+## Skills
+
+**Languages** — Python, R, SQL
+**Tools** — Quarto, Git, LaTeX, [others]
+
+## Projects
+
+**[Project name]** — [one line, with a link to the repo]

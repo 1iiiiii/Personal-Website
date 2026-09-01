@@ -1,0 +1,39 @@
+---
+title: "[Headline that states the finding, not the topic]"
+description: "One or two sentences. This is what shows on the listing page and it is the only thing most readers see — write it last, when you know what you found."
+date: 2026-09-14
+categories: [labor market, R, ggplot2]
+---
+
+[Open with the question. One paragraph: what did you want to know, and why
+would anyone care about the answer?]
+
+## Getting the data
+
+```{r}
+#| label: load
+library(tidyverse)
+
+# read the data here
+```
+
+## Cleaning decisions
+
+[Every cleaning choice is an assumption. Name the ones that could change the
+answer — dropped observations, top-coding, how you handled missings.]
+
+## What the data shows
+
+```{r}
+#| label: fig-main
+#| fig-cap: "What the reader should take from this figure. Source: [dataset]."
+
+# the plot that carries the post
+```
+
+[Read the figure out loud for the reader. Do not make them find it themselves.]
+
+## Caveats
+
+[What this cannot answer. This is the paragraph that separates a check from a
+check-plus.]
