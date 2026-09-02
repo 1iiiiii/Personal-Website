@@ -1,4 +1,45 @@
 ---
+# ─────────────────────────────────────────────────────────────────────────
+# CHEAT SHEET — everything below is a YAML comment. Quarto strips these
+# before Pandoc ever sees them, so none of it reaches the published HTML.
+#
+# PUBLISH A CHANGE  (run from this folder, in the RStudio Terminal)
+#   quarto render                 rebuild docs/  <- ALWAYS do this first,
+#                                 GitHub Pages serves docs/, not the .qmd
+#   git add .
+#   git commit -m "message"
+#   git push
+#
+# WORK ON IT LIVE
+#   quarto preview                opens a browser, auto-reloads on save
+#                                 Ctrl-C in the terminal to stop
+#   quarto render index.qmd       rebuild one page instead of the whole site
+#
+# NEW BLOG POST
+#   1. cp -r blog/posts/_template.qmd blog/posts/YYYY-MM-DD-slug/index.qmd
+#      (make the folder first: mkdir blog/posts/YYYY-MM-DD-slug)
+#   2. edit its title / description / date / categories
+#   3. quarto render, then commit and push
+#   The description field is what shows on the Writing page — write it.
+#
+# CHECK BEFORE YOU PANIC
+#   git status                    what changed
+#   git log --oneline -5          recent commits
+#   git diff                      unstaged changes
+#   git restore <file>            throw away edits to one file
+#
+# WHERE THINGS LIVE
+#   theme.scss          all colours + type; $accent at the top drives the site
+#   _quarto.yml         nav bar, footer, site-wide format options
+#   files/              CV pdf and any other download — copied to docs/ on render
+#   images/             portrait.jpg (resized); keep web images under ~200 KB
+#   blog/posts/_metadata.yml   defaults every post inherits
+#
+# GOTCHAS
+#   - Filenames are case-sensitive on GitHub Pages, not on your Mac.
+#   - No spaces in filenames you link to.
+#   - Pages takes 1-2 min to rebuild after a push; hard-refresh if unsure.
+# ─────────────────────────────────────────────────────────────────────────
 pagetitle: "Yi Li"
 listing:
   - id: recent
@@ -12,7 +53,7 @@ listing:
 
 :::{.hero}
 :::{.hero-portrait}
-![](images/profile.png)
+![](images/portrait.jpg){fig-alt="Yi Li"}
 :::
 
 :::{.hero-body}
@@ -24,17 +65,16 @@ listing:
 M.S. Applied Economics & Data Science · Expected 2027
 :::
 
-I study [your research interests — e.g. labor economics and applied econometrics],
-with a focus on [your specific topic]. Before Penn I [prior degree / role].
-This site is where I publish weekly notes on economic data: what I pulled,
-how I cleaned it, and what it actually shows.
+I study macroeconomics, with a focus on macro-financial linkages and monetary policies. Before Penn, I studied economics and philosophy at Boston University.
+This site is where I publish blog posts on interesting economic and data science analyses: what I pulled,
+how I cleaned it, and what it actually shows and the economic content.
 
-:::{.link-row}
-[GitHub](https://github.com/1iiiiii)
-[LinkedIn](https://linkedin.com/in/USERNAME)
-[Email](mailto:YOUR@EMAIL.COM)
-[Curriculum Vitae](resume.qmd)
-:::
+<div class="icon-row">
+<a href="https://github.com/1iiiiii" aria-label="GitHub" title="GitHub"><i class="bi bi-github"></i></a>
+<a href="https://linkedin.com/in/USERNAME" aria-label="LinkedIn" title="LinkedIn"><i class="bi bi-linkedin"></i></a>
+<a href="mailto:YOUR@EMAIL.COM" aria-label="Email" title="Email"><i class="bi bi-envelope"></i></a>
+<a href="resume.qmd" aria-label="Curriculum vitae" title="Curriculum vitae"><i class="bi bi-file-earmark-person"></i></a>
+</div>
 :::
 :::
 
@@ -44,30 +84,4 @@ how I cleaned it, and what it actually shows.
 :::
 
 :::{#recent}
-:::
-
-:::{.strip}
-:::{}
-[Interests]{.eyebrow}
-
-- [Interest one]
-- [Interest two]
-- [Interest three]
-:::
-
-:::{}
-[Toolkit]{.eyebrow}
-
-- R · Python · SQL
-- Quarto · Git · LaTeX
-- [Anything else]
-:::
-
-:::{}
-[Elsewhere]{.eyebrow}
-
-- [Google Scholar](#)
-- [GitHub](https://github.com/1iiiiii)
-- [LinkedIn](https://linkedin.com/in/USERNAME)
-:::
 :::

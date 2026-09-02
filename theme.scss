@@ -162,18 +162,28 @@ hr, .content-hr { border-top: 1px solid $rule; opacity: 1; }
   margin: 0;
 }
 
-// ── home: three-column strip ───────────────────────────────────────────────
-.strip {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 3rem;
-  border-top: 1px solid $rule;
-  padding-top: 2rem;
-  margin-top: 2.6rem;
+// ── home: icon links ───────────────────────────────────────────────────────
+// Bootstrap Icons ships with Quarto, so <i class="bi bi-github"> needs no
+// extra dependency. Each <a> is a 44px box so it stays tappable on a phone;
+// the negative left margin optically aligns the first icon with the text.
+.icon-row {
+  display: flex;
+  gap: 0.55rem;
+  margin: 1.7rem 0 0 -0.6rem;
 }
-.strip .eyebrow { display: block; margin-bottom: 0.8rem; }
-.strip ul { list-style: none; padding: 0; margin: 0; }
-.strip li { font-size: 0.95rem; line-height: 1.9; }
+.icon-row a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  font-size: 1.32rem;
+  line-height: 1;
+  color: $muted;
+  border-bottom: none;
+  transition: color 0.15s ease;
+}
+.icon-row a:hover { color: $accent; border-bottom: none; }
 
 // ── section header with a trailing rule ────────────────────────────────────
 .section-head {
@@ -347,6 +357,28 @@ blockquote {
   color: $ink;
 }
 
+// ── CV page: embedded PDF ──────────────────────────────────────────────────
+// aspect-ratio matches US Letter so the frame is the shape of the page.
+// The <object> fallback shows on browsers that refuse inline PDFs (most
+// phones), which is why the download links above it are not optional.
+.pdf-frame {
+  margin-top: 1.8rem;
+  border: 1px solid $rule;
+  background: $panel;
+}
+.pdf-frame object {
+  display: block;
+  width: 100%;
+  aspect-ratio: 8.5 / 11;
+  border: 0;
+}
+.pdf-frame p {
+  margin: 0;
+  padding: 3rem 1.5rem;
+  text-align: center;
+  color: $muted;
+}
+
 // ── footer ─────────────────────────────────────────────────────────────────
 .nav-footer {
   border-top: 1px solid $rule;
@@ -364,7 +396,6 @@ blockquote {
   .hero { flex-direction: column; gap: 2rem; padding-top: 2rem; }
   .hero-portrait { width: 168px; }
   .hero-body h1 { font-size: 2.4rem; }
-  .strip { grid-template-columns: 1fr; gap: 1.8rem; }
   div.quarto-post { flex-direction: column; gap: 0.4rem; }
   // Quarto orders .body before .metadata in the DOM and repositions with
   // flex order; stacked, the date needs to lead the row again.
