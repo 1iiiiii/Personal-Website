@@ -10,27 +10,420 @@
 <atom:link href="https://1iiiiii.github.io/Personal-Website/blog/index.xml" rel="self" type="application/rss+xml"/>
 <description>Weekly notes on economic data — acquisition, cleaning, analysis.</description>
 <generator>quarto-1.9.38</generator>
-<lastBuildDate>Tue, 16 Jun 2026 04:00:00 GMT</lastBuildDate>
+<lastBuildDate>Mon, 14 Sep 2026 04:00:00 GMT</lastBuildDate>
 <item>
-  <title>My First Blog Post</title>
+  <title>Understanding the Nonfarm Payroll Data</title>
   <link>https://1iiiiii.github.io/Personal-Website/blog/posts/post1/</link>
   <description><![CDATA[ 
 
 
 
 
-<p><img src="https://1iiiiii.github.io/Personal-Website/blog/posts/post1/figure1.png" class="img-fluid" width="500"></p>
-<p>This is my first blog post. Example <img src="https://latex.codecogs.com/png.latex?%5CLaTeX"> equation: <img src="https://latex.codecogs.com/png.latex?%5Cfrac%7B1%7D%7B2%7D%5Csum_%7Bi=1%7D%5En%20x_i"></p>
+<p>Nonfarm payrolls</p>
+<section id="i.-what-the-number-is" class="level1">
+<h1>I. What the number is</h1>
+<ul>
+<li><strong>Definition:</strong> The nonfarm payroll data measure 80% of paid workers who contribute to GDP in the U.S.<sup>1</sup></li>
+<li><strong>Source &amp; Frequency:</strong> The Bureau of Labor Statistics (BLS) collects payroll data from private and government entities <u>on a monthly basis</u> and usually publishes the data on the <u>first Friday of each month</u> at 8:30 a.m. ET.</li>
+<li><strong>Reference Period:</strong> The CES defines employment as persons on the establishment payrolls who work or receive payments for any part of the pay period that includes the <u>12th day of the month</u>.<sup>2</sup></li>
+<li><strong>The Measure Excludes:</strong> farm employees, active-duty military members, unpaid volunteers for non-profit organizations, sole proprietors, and private household employees.<sup>3</sup></li>
+</ul>
+<section id="why-are-certain-groups-excluded" class="level2">
+<h2 data-anchor-id="why-are-certain-groups-excluded">Why are certain groups excluded?</h2>
+<ul>
+<li><strong>Agriculture</strong>
+<ul>
+<li>CES draws its sample based on administrative records from the Office of Unemployment Insurance (UI). This means workers who are not covered under the government’s unemployment insurance program wouldn’t be counted. In agriculture, however, workers tend to have exemptions to requirements for unemployment coverage.</li>
+<li>In addition, businesses are frequently family-owned (i.e.&nbsp;sole proprietors), which make them out of scope for CES.<sup>4</sup></li>
+<li>Lastly, the sample size for farming would be too small to make statistically sound estimates (0.9%–1.2% of total employment).<sup>5</sup></li>
+<li>This doesn’t mean that farming employment is completely unaccounted for. The U.S. Department of Agriculture (USDA) conducts surveys twice every year to collect data on agricultural workers.</li>
+</ul></li>
+<li><strong>Military:</strong> The nonfarm payroll report primarily covers employment that is associated with the business cycle. Military employment changes primarily based on the need for national defense, not the performance of the economy.</li>
+</ul>
+</section>
+</section>
+<section id="ii.-how-the-number-is-made" class="level1">
+<h1>II. How the number is made</h1>
+<section id="the-sample-and-the-census" class="level2">
+<h2 data-anchor-id="the-sample-and-the-census">The sample and the census</h2>
+<div class="cell">
+<div id="tbl-ces-qcew" class="cell quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-ces-qcew-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Comparison Table: CES vs.&nbsp;QCEW (data as of 2025)
+</figcaption>
+<div aria-describedby="tbl-ces-qcew-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="cell caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: center;"></th>
+<th style="text-align: center;">CES</th>
+<th style="text-align: center;">QCEW</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">Source</td>
+<td style="text-align: center;">Sample survey, UI-derived frame</td>
+<td style="text-align: center;">Near-census of UI tax records</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Units covered</td>
+<td style="text-align: center;">~119,000 firms / ~622,000 worksites<sup>6</sup></td>
+<td style="text-align: center;">~12.1 million establishments<sup>7</sup></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Employment covered</td>
+<td style="text-align: center;">~26% of nonfarm payroll jobs</td>
+<td style="text-align: center;">~97% of in-scope nonfarm employment<sup>8</sup> / ~95% of all U.S. jobs<sup>9</sup></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Frequency</td>
+<td style="text-align: center;">Monthly</td>
+<td style="text-align: center;">Quarterly</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Lag</td>
+<td style="text-align: center;">~3 weeks</td>
+<td style="text-align: center;">within 6 months</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+</section>
+<section id="the-birth-death-model" class="level2">
+<h2 data-anchor-id="the-birth-death-model">The birth-death model</h2>
+<p>[WRITE. The thing to establish first is that this is <strong>two mechanisms, not one</strong>, and almost every popular criticism is aimed at the smaller of the two.]</p>
+<ol type="1">
+<li><strong>Imputation.</strong> BLS “excludes employment losses due to business deaths from sample-based estimation in order to offset the missing employment gains from business births” — in practice, “not reflecting sample units going out of business and imputing to them the same trend as the other firms in the sample.”<sup>10</sup> BLS says this step “accounts for most of the birth and death employment.”</li>
+<li><strong>An ARIMA model on the residual only</strong>, estimating “the residual birth-death employment not accounted for by the imputation,” fitted on the trailing five years.<sup>11</sup></li>
+</ol>
+<p>[SIZE — so the reader can judge for themselves. Net birth-death, total nonfarm, as forecast: <strong>+372,000 across April–December 2025</strong> (nine months) and <strong>+861,000 across January–August 2026</strong> (eight months).<sup>12</sup> Set that against the −911,000 benchmark and let the reader do the arithmetic rather than doing it for them.]</p>
+<p>[WRITE — the mechanism of failure, which is not the one people name. The model does not “invent” jobs; it assumes deaths are a usable proxy for unobserved births. Michael Horrigan — 33 years at BLS, six of them running employment measurement — puts the failure mode in one sentence: “If employment losses from firm deaths begin exceeding employment gains from new firms, using deaths as a proxy for unobserved births will result in an overestimation of job creation.”<sup>13</sup> That is a statement about the economy, not about the statistics.]</p>
+<p>[THE COMPARISON THAT DOES THE WORK — the 2009 benchmark revision was <strong>−902,000</strong>; the 2025 preliminary was <strong>−911,000</strong>.<sup>14</sup> Sixteen years apart, effectively the same number, both in or near a downturn. Decide what you think that similarity means before you write Part IV.]</p>
+<p>[FIXES ALREADY MADE — quarterly updates since the January 2011 benchmark cut the forecast horizon from up to 21 months to at most 12.<sup>15</sup> Effective with preliminary January 2026 estimates, BLS modified the ARIMA component “by incorporating current sample information to inform the forecasts,” applied retroactively to April–December 2025.<sup>16</sup>]</p>
+<section id="a-falling-response-rate" class="level3">
+<h3 data-anchor-id="a-falling-response-rate">A Falling Response Rate</h3>
+<div id="tbl-response" class="quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-response-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2: CES response and collection rates, annual averages, percent. Source: BLS Office of Survey Methods Research.
+</figcaption>
+<div aria-describedby="tbl-response-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 23%">
+<col style="width: 27%">
+<col style="width: 28%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Year</th>
+<th style="text-align: center;">Overall response rate</th>
+<th style="text-align: center;">Collected at 1st release</th>
+<th style="text-align: center;">Collected at final release</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">2016</td>
+<td style="text-align: center;">60.8</td>
+<td style="text-align: center;">74.7</td>
+<td style="text-align: center;">95.7</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2019</td>
+<td style="text-align: center;">59.3</td>
+<td style="text-align: center;">73.9</td>
+<td style="text-align: center;">93.2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">2022</td>
+<td style="text-align: center;">45.2</td>
+<td style="text-align: center;">65.4</td>
+<td style="text-align: center;">94.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2025</td>
+<td style="text-align: center;">42.2</td>
+<td style="text-align: center;">65.2</td>
+<td style="text-align: center;">91.5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">2026</td>
+<td style="text-align: center;">43.3</td>
+<td style="text-align: center;">63.0</td>
+<td style="text-align: center;">—</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>[WRITE — the point is the gap between column one and column three. The share of <em>units</em> answering has fallen roughly 18 points since 2016. The share of <em>employment</em> collected by final closing has barely moved. Both are true because collection is employment-weighted: the large employers still report. What the survey is losing is small establishments — which is the same population the birth-death model is extrapolating over.<br>
+<br>
+Resist the temptation to assert that this causes the revisions. State the overlap and say what evidence would settle it.]</p>
+</section>
+</section>
+<section id="seasonal-adjustment" class="level2">
+<h2 data-anchor-id="seasonal-adjustment">Seasonal adjustment</h2>
+<p>Seasonal adjustments make it easier to determine whether an employment change is due to normal changes throughout the year or an indicator of anomalies.</p>
+<ul>
+<li>The question seasonal adjustment answers is “what does a normal January look like?” X-11, the engine inside X-13, answers it by <strong>averaging, not by fitting a model</strong>. Take the same calendar month across several years and average it — that is your estimate of what that month normally does. Divide it out of the raw series and what is left is trend plus noise. Smooth that to get a cleaner trend, take the trend back out, re-estimate the monthly pattern on the cleaner residual, and go round again. After three or four passes the estimate stops moving. [The particular moving averages have names — 2×12, 3×3, 3×5, Henderson — but the names are not the idea. One parenthetical at most.]</li>
+<li>Two things follow directly from <em>averaging</em> rather than <em>fitting</em>, and they are the reason Part III exists at all. <strong>First</strong>, every new observation changes the average, so <em>last</em> January’s factor moves when <em>this</em> January arrives. <strong>Second</strong>, the newest months sit at the end of the sample with no future to average over — so X-13 forecasts the series forward and averages over the forecast. Those are the least stable factors in the series.</li>
+<li>CES runs this <strong>concurrently</strong>: factors are recomputed every month with the latest data rather than fixed in advance, and the models are re-specified annually.<sup>17</sup> X-13 wraps X-11 in a regARIMA step that first strips out outliers, trading-day effects and moving holidays (CES adjusts for Easter and Labor Day) so the averaging is not contaminated by them.</li>
+<li><strong>The seasonally adjusted history changes every month even when not one additional survey response arrives</strong></li>
+</ul>
+<p>[WRITE — the scale of the adjustment. Month-over-month change in total nonfarm payrolls each January, thousands, as first published:]</p>
+<div id="tbl-jan" class="quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-jan-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;3: NSA vs.&nbsp;SA for January (2023–2026). Source: author’s calculations from ALFRED vintages of <code>PAYEMS</code> and <code>PAYNSA</code>.
+</figcaption>
+<div aria-describedby="tbl-jan-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: center;">January</th>
+<th style="text-align: center;">Unadjusted</th>
+<th style="text-align: center;">Adjusted</th>
+<th style="text-align: center;">Adjustment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">2023</td>
+<td style="text-align: center;">−2,505</td>
+<td style="text-align: center;">+517</td>
+<td style="text-align: center;">+3,022</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2024</td>
+<td style="text-align: center;">−2,635</td>
+<td style="text-align: center;">+353</td>
+<td style="text-align: center;">+2,988</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">2025</td>
+<td style="text-align: center;">−2,852</td>
+<td style="text-align: center;">+143</td>
+<td style="text-align: center;">+2,995</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2026</td>
+<td style="text-align: center;">−2,649</td>
+<td style="text-align: center;">+130</td>
+<td style="text-align: center;">+2,779</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>[The point: the headline is a residual. Roughly three million jobs genuinely come off payrolls every January; the adjustment adds back very slightly less; the difference is what gets reported and argued about. A 5% error in an adjustment that size would be 150,000 — larger than most of the monthly prints in this table.]</p>
+</section>
+</section>
+<section id="iii.-how-the-number-changes" class="level1">
+<h1>III. How the number changes</h1>
+<p>Three structurally different operations all get called “a revision,” and they have different causes, sizes and meanings.</p>
+<div class="cell">
+<div id="tbl-vocab" class="cell quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-vocab-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;4: Vocabulary for CES payroll estimates and their revisions.
+</figcaption>
+<div aria-describedby="tbl-vocab-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="cell caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 39%">
+<col style="width: 39%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">What you’ll hear</th>
+<th style="text-align: center;">What BLS calls it</th>
+<th style="text-align: center;">What drives the change</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">initial print</td>
+<td style="text-align: center;">first preliminary estimate</td>
+<td style="text-align: center;">—</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">first revision</td>
+<td style="text-align: center;">second preliminary estimate</td>
+<td style="text-align: center;">late survey responses</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">second revision</td>
+<td style="text-align: center;">final estimate / third closing</td>
+<td style="text-align: center;">late survey responses</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">the big revision</td>
+<td style="text-align: center;">preliminary benchmark estimate</td>
+<td style="text-align: center;">QCEW, March anchor only</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">annual benchmark</td>
+<td style="text-align: center;">final benchmark</td>
+<td style="text-align: center;">QCEW + rescaling + birth-death</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>Two traps worth naming for the reader: the “final sample-based estimate” is not final — the benchmark is still coming; and the number in the news is usually the <em>preliminary</em> benchmark, which itself gets revised.</p>
+<section id="the-monthly-cycle" class="level2">
+<h2 data-anchor-id="the-monthly-cycle">The monthly cycle</h2>
+<p>CES “revises its initial monthly estimates twice, in the immediately succeeding 2 months, to incorporate additional sample receipts from respondents in the survey.”<sup>18</sup></p>
+<p><img src="https://1iiiiii.github.io/Personal-Website/blog/posts/post1/fig-release-schedule.png" class="img-fluid"></p>
+<p>[WRITE — July 2026 is the example: the initial print said the economy <em>lost</em> 23,000 jobs; one month of additional survey responses flipped it to a <em>gain</em> of 21,000. Same month, same method, opposite sign.]</p>
+</section>
+<section id="the-annual-benchmark" class="level2">
+<h2 data-anchor-id="the-annual-benchmark">The annual benchmark</h2>
+<p>The final benchmark is published with the January preliminary estimates in early February, and affects <strong>21 months</strong> of previously published data, anchored to <strong>March of the previous year</strong>.<sup>19</sup></p>
+<p><img src="https://1iiiiii.github.io/Personal-Website/blog/posts/post1/fig-benchmark-window.png" class="img-fluid"></p>
+<p>[WRITE — the split almost nobody mentions: the 12 months up to the March anchor get the QCEW treatment; the 9 months after it are only rescaled and re-modelled. BofA states the consequence plainly: April–December 2025 payrolls “will not be revised based on the QCEW until 2027.”<sup>20</sup> So a payroll number is roughly eighteen months old before anyone checks it against tax records.]</p>
+<p><img src="https://1iiiiii.github.io/Personal-Website/blog/posts/post1/fig-successive-windows.png" class="img-fluid"></p>
+<p>Also worth folding in: <strong>five years of seasonally adjusted data are recalculated</strong> with every benchmark.<sup>21</sup> Months far outside the 21-month window change every February from seasonal factors alone.</p>
+</section>
+<section id="decomposition-of-revisions" class="level2">
+<h2 data-anchor-id="decomposition-of-revisions">Decomposition of Revisions</h2>
+<p>The decomposition is arithmetic on two vintages of the same month:</p>
+<p><img src="https://latex.codecogs.com/png.latex?%5Cunderbrace%7B%5Ctext%7BSA%7D_%7B%5Ctext%7Blatest%7D%7D%20-%20%5Ctext%7BSA%7D_%7B%5Ctext%7Bfirst%7D%7D%7D_%7B%5Ctext%7Btotal%20revision%7D%7D%0A%5C;=%5C;%0A%5Cunderbrace%7B%5Ctext%7BNSA%7D_%7B%5Ctext%7Blatest%7D%7D%20-%20%5Ctext%7BNSA%7D_%7B%5Ctext%7Bfirst%7D%7D%7D_%7B%5Ctext%7Bdata:%20late%20responses%7D%5C,+%5C,%5Ctext%7Bbenchmark%7D%7D%0A%5C;+%5C;%0A%5Cunderbrace%7B%5C;%5Ctext%7Bresidual%7D%5C;%7D_%7B%5Ctext%7Bseasonal-factor%20re-estimation%7D%7D"></p>
+<p>The unadjusted series never touches a seasonal factor, so anything that moves it is incoming data. Whatever is left when you subtract that from the adjusted revision is the adjustment changing its mind. [Say plainly that the cross-term — revised data being re-adjusted by revised factors — falls into the second bucket, so read it as “factors, and everything that interacts with them.”]</p>
+<p><img src="https://1iiiiii.github.io/Personal-Website/blog/posts/post1/fig-revision-decomposition.png" class="img-fluid"></p>
+<p>[WRITE — the finding. Total nonfarm, September 2022 to July 2026, 47 months:]</p>
+<ul>
+<li>The <strong>drift</strong> is data. Mean total revision <strong>−61k</strong>; mean data component <strong>−50k</strong>, mean factor component <strong>−11k</strong>. Payrolls have been revised down persistently, and late reporting plus the benchmark explains most of it.</li>
+<li>The <strong>noise</strong> is not. Mean absolute factor component is <strong>48k</strong> against <strong>71k</strong> for data, and the factor component is the <em>larger</em> of the two in <strong>20 of 47 months</strong>.</li>
+<li>The two pull in <strong>opposite directions in 26 of 47 months</strong> (correlation −0.46). The published revision routinely understates how much actually moved underneath it.</li>
+<li><strong>October 2024</strong> is the month to lead with: the revision as published was <strong>+21k</strong>. Underneath, late responses took <strong>−84k</strong> off and seasonal re-estimation put <strong>+105k</strong> back. Nothing about that month was quiet.</li>
+<li><strong>January 2025</strong> runs the other way: <strong>−191k</strong> total, of which only <strong>−55k</strong> was data. <strong>−136k</strong> came from re-estimated seasonal factors — in the month where, per Table&nbsp;3, the adjustment is already doing roughly three million jobs of work.</li>
+</ul>
+<p>[CAVEAT TO STATE, NOT BURY — the data component mixes two of the three mechanisms in the vocabulary table: late survey responses and the benchmark. Months inside a benchmark window carry both. Don’t let the reader assume it is all late responses.]</p>
+<p>[CHECK BEFORE PUBLISHING — October 2025 onward. The October 2025 employment report was cancelled during the shutdown, which shifts the vintage-counting logic in <code>fetch_nfp_vintages.py</code> by one release slot. Verify Oct–Dec 2025 against the published vintages before quoting those months.]</p>
+<p>[OPTIONAL SECOND CUT — your report also splits the same total by <em>stage</em> (first revision / second revision / everything after). That one maps straight onto the vocabulary table and would make a clean companion panel if the post has room.]</p>
+</section>
+</section>
+<section id="iv.-what-happened-in-20242026" class="level1">
+<h1>IV. What happened in 2024–2026</h1>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: center;">Benchmark (to March)</th>
+<th style="text-align: center;">Preliminary</th>
+<th style="text-align: center;">Final</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">March 2024</td>
+<td style="text-align: center;">−818,000</td>
+<td style="text-align: center;">−598,000</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">March 2025</td>
+<td style="text-align: center;">−911,000</td>
+<td style="text-align: center;">−862,000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">March 2026</td>
+<td style="text-align: center;">−79,000</td>
+<td style="text-align: center;"><em>pending Feb 2027</em></td>
+</tr>
+</tbody>
+</table>
+<p>[WRITE — the arc. A −911k revision fed a year of “the data is fake” arguments. BLS changed the birth-death model effective January 2026. The next preliminary benchmark came in at −79,000 and was released on 28 August 2026 to near-silence.]</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://1iiiiii.github.io/Personal-Website/blog/posts/post1/figure1.png" class="img-fluid figure-img"></p>
+<figcaption>Nonfarm payroll growth by industry, seasonally adjusted, expressed as a within-row z-score against each industry’s own ten-year distribution (2015–2025, excluding 2020). Blue is a weaker month than that industry’s own norm; red is stronger. Source: author’s calculations.</figcaption>
+</figure>
+</div>
+<p>[WHY THIS SITS HERE — Part IV turns on whether the labour market actually weakened, and this is evidence for that independent of any benchmark revision. Read it left to right.<br>
+<br>
+Two cautions before you lean on it: the reference distribution runs to 2025, so it contains the 2021–22 hiring boom, which makes “normal” look strong; and a z-score says <em>unusual for that industry</em>, not <em>large</em>. Say what the panel shows and let the reader weigh it.]</p>
+<p>[THE OPEN QUESTION YOU CAN TAKE A POSITION ON — is that the model fix working, or just a calmer labour market? Note the Cleveland Fed finds 1980–2025 benchmark revisions have a mean of −4.51k and a median of −2.00k, and that structural-break tests find <em>no break</em> — so 2024–25 was extreme but not a regime change.<sup>22</sup>]</p>
+<section id="questions-worth-further-exploration" class="level2">
+<h2 data-anchor-id="questions-worth-further-exploration">Questions worth further exploration</h2>
+<p><strong>Is the CES sample shrinking, and does it matter?</strong> The August 2026 technical note puts the sample at 119,000 businesses and 622,000 worksites, against 121,000 and 631,000 a year earlier — a decline of roughly 1.5%. Over the same period the stated coverage moved from “about one-third” of nonfarm payroll jobs to “approximately 26 percent.” A 1.5% reduction in the sample cannot produce a shift of that size, so either the denominator changed or BLS restated the basis. This is a separate question from Table&nbsp;2 — that one is about who answers, this one is about how many are asked. [Worth running down — if the sample really is contracting, the standard error on every monthly print is widening, and nobody is writing about it.]</p>
+<p><strong>Can the adjustment be reproduced?</strong> X-13ARIMA-SEATS is public — the Census Bureau distributes the binary and the <code>seasonal</code> package wraps it in R. Feed it the unadjusted payroll series, compare your factors against the published ones, and you have a direct test of how much of any given revision the adjustment can account for. [Worth doing: it turns Part II from something you read into something you checked. The interesting version is running it on two vintages of the same series and watching the factors move.]</p>
+<hr>
+</section>
+<section id="notes" class="level2">
+<h2 data-anchor-id="notes">Notes</h2>
+<hr>
+</section>
+</section>
+<section id="todo-delete-this-section-before-publishing" class="level1">
+<h1>TODO — delete this section before publishing</h1>
+<p><strong>Corrections made to the previous draft</strong></p>
+<ol type="1">
+<li><code>\bullet</code> replaced with markdown <code>-</code>. LaTeX macros don’t render in HTML.</li>
+<li>Sample size was 121,000 / 631,000 — the current figure is <strong>119,000 / 622,000, ~26% of nonfarm jobs</strong>, per the August 2026 technical note. The old numbers are a prior vintage.</li>
+<li>The QCEW 97% figure was cited to <code>benchmark-tables.htm</code>, which is an index page and doesn’t contain it. The real source is the <strong>CES National Benchmark Article</strong>, and the precise claim is 97% of nonfarm employment <em>within the scope of the establishment survey</em> — not 97% of all US employment.</li>
+<li>The seasonal-adjustment example used farming, which nonfarm payrolls exclude. Needs replacing.</li>
+<li>The revision schedule was listed three times in three forms. Replaced with one vocabulary table plus Figure 1.</li>
+</ol>
+<p><strong>Still open</strong></p>
+<ul>
+<li><del>QCEW establishment count</del> — settled at <strong>12.1 million (2025)</strong>, with a quotable sentence from the Employment and Wages annual averages publication. Your 12,238,200 from the BLS video is the same order and is probably a different vintage or a quarterly count, but cite the publication rather than the video — a YouTube link is a weak reference for a post graded on sourcing.</li>
+<li>Publication lag: your draft said five months and BofA says five, but BLS’s own wording is “within 6 months after the end of each referenced quarter.” Use BLS’s, or say “about five to six months.”</li>
+<li><strong>Still missing from this folder</strong> — <code>fig-release-schedule.png</code>, <code>fig-benchmark-window.png</code>, <code>fig-successive-windows.png</code>. The post already links all three, so the render will show broken images until they are exported from the design canvas. <code>figure1.png</code> and <code>fig-revision-decomposition.png</code> are in place.</li>
+</ul>
 
 
 <!-- -->
 
+</section>
 
- ]]></description>
-  <category>personal</category>
-  <category>data-science</category>
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p><a href="https://fred.stlouisfed.org/series/payems" class="uri">https://fred.stlouisfed.org/series/payems</a>↩︎</p></li>
+<li id="fn2"><p>BLS, <em>CES Frequently Asked Questions</em>. <a href="https://www.bls.gov/web/empsit/cesfaq.htm" class="uri">https://www.bls.gov/web/empsit/cesfaq.htm</a>↩︎</p></li>
+<li id="fn3"><p><a href="https://fred.stlouisfed.org/series/payems" class="uri">https://fred.stlouisfed.org/series/payems</a>↩︎</p></li>
+<li id="fn4"><p>BLS, <em>Why doesn’t CES collect agricultural employment?</em> <a href="https://www.bls.gov/web/empsit/cesfaq.htm" class="uri">https://www.bls.gov/web/empsit/cesfaq.htm</a>↩︎</p></li>
+<li id="fn5"><p>USDA ERS. <a href="https://www.ers.usda.gov/data-products/chart-gallery/58282" class="uri">https://www.ers.usda.gov/data-products/chart-gallery/58282</a>↩︎</p></li>
+<li id="fn6"><p>BLS, <em>Employment Situation Technical Note</em>, August 2026. <a href="https://www.bls.gov/news.release/empsit.tn.htm" class="uri">https://www.bls.gov/news.release/empsit.tn.htm</a>↩︎</p></li>
+<li id="fn7"><p>BLS, <em>Employment and Wages, Annual Averages 2025</em>. <a href="https://www.bls.gov/cew/publications/employment-and-wages-annual-averages/current/" class="uri">https://www.bls.gov/cew/publications/employment-and-wages-annual-averages/current/</a>↩︎</p></li>
+<li id="fn8"><p>BLS, <em>CES National Benchmark Article</em>. <a href="https://www.bls.gov/web/empsit/cesbmart.htm" class="uri">https://www.bls.gov/web/empsit/cesbmart.htm</a>↩︎</p></li>
+<li id="fn9"><p>BLS, <em>QCEW Overview</em>. <a href="https://www.bls.gov/cew/overview.htm" class="uri">https://www.bls.gov/cew/overview.htm</a>↩︎</p></li>
+<li id="fn10"><p>BLS, <em>CES Net Birth-Death Model</em>. <a href="https://www.bls.gov/web/empsit/cesbd.htm" class="uri">https://www.bls.gov/web/empsit/cesbd.htm</a>↩︎</p></li>
+<li id="fn11"><p>BLS, <em>CES Net Birth-Death Model</em>. <a href="https://www.bls.gov/web/empsit/cesbd.htm" class="uri">https://www.bls.gov/web/empsit/cesbd.htm</a>↩︎</p></li>
+<li id="fn12"><p>BLS, <em>CES Net Birth-Death Model</em>. <a href="https://www.bls.gov/web/empsit/cesbd.htm" class="uri">https://www.bls.gov/web/empsit/cesbd.htm</a>↩︎</p></li>
+<li id="fn13"><p>Michael W. Horrigan, <em>BLS revisions to payroll data are concerning, but not for the reasons the Trump administration thinks</em>, W.E. Upjohn Institute. <a href="https://www.upjohn.org/horrigan-bls-revisions-payroll-data-are-concerning-not-reasons-trump-administration-thinks" class="uri">https://www.upjohn.org/horrigan-bls-revisions-payroll-data-are-concerning-not-reasons-trump-administration-thinks</a>↩︎</p></li>
+<li id="fn14"><p>Michael W. Horrigan, <em>BLS revisions to payroll data are concerning, but not for the reasons the Trump administration thinks</em>, W.E. Upjohn Institute. <a href="https://www.upjohn.org/horrigan-bls-revisions-payroll-data-are-concerning-not-reasons-trump-administration-thinks" class="uri">https://www.upjohn.org/horrigan-bls-revisions-payroll-data-are-concerning-not-reasons-trump-administration-thinks</a>↩︎</p></li>
+<li id="fn15"><p>BLS, <em>Introduction of Quarterly Birth-Death Model Updates</em>. <a href="https://www.bls.gov/ces/methods/ces-quarterly-birthdeath.htm" class="uri">https://www.bls.gov/ces/methods/ces-quarterly-birthdeath.htm</a>↩︎</p></li>
+<li id="fn16"><p>BLS, <em>Upcoming Changes to the Establishment Survey Birth-Death Model</em>. <a href="https://www.bls.gov/sae/notices/2025/upcoming-changes-to-the-establishment-survey-birth-death-model.htm" class="uri">https://www.bls.gov/sae/notices/2025/upcoming-changes-to-the-establishment-survey-birth-death-model.htm</a>↩︎</p></li>
+<li id="fn17"><p>BLS, <em>CES Seasonal Adjustment</em>. <a href="https://www.bls.gov/web/empsit/cesseasadj.htm" class="uri">https://www.bls.gov/web/empsit/cesseasadj.htm</a>↩︎</p></li>
+<li id="fn18"><p>BLS, <em>CES Frequently Asked Questions</em>. <a href="https://www.bls.gov/web/empsit/cesfaq.htm" class="uri">https://www.bls.gov/web/empsit/cesfaq.htm</a>↩︎</p></li>
+<li id="fn19"><p>BLS, <em>CES Frequently Asked Questions</em>. <a href="https://www.bls.gov/web/empsit/cesfaq.htm" class="uri">https://www.bls.gov/web/empsit/cesfaq.htm</a>↩︎</p></li>
+<li id="fn20"><p>BofA Global Research, <em>US Economic Viewpoint — QCEW: 2025 FAQs</em>, 3 September 2025.↩︎</p></li>
+<li id="fn21"><p>BLS, <em>Employment Situation Quick Guide</em>. <a href="https://www.bls.gov/bls/empsitquickguide.htm" class="uri">https://www.bls.gov/bls/empsitquickguide.htm</a>↩︎</p></li>
+<li id="fn22"><p>Federal Reserve Bank of Cleveland, <em>BLS Benchmark Revisions: Is This Time Different?</em>, 2026. <a href="https://www.clevelandfed.org/publications/economic-commentary/2026/ec-202612-bls-benchmark-revisions-is-this-time-different" class="uri">https://www.clevelandfed.org/publications/economic-commentary/2026/ec-202612-bls-benchmark-revisions-is-this-time-different</a>↩︎</p></li>
+</ol>
+</section></div> ]]></description>
+  <category>labor market</category>
+  <category>nonfarm payroll</category>
   <guid>https://1iiiiii.github.io/Personal-Website/blog/posts/post1/</guid>
-  <pubDate>Tue, 16 Jun 2026 04:00:00 GMT</pubDate>
+  <pubDate>Mon, 14 Sep 2026 04:00:00 GMT</pubDate>
 </item>
 <item>
   <title>My Second Blog Post</title>

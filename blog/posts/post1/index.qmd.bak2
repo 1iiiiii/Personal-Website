@@ -1,0 +1,178 @@
+---
+title: "[HEADLINE — state the finding. e.g. Why 911,000 Jobs Vanished, and Why the Next Revision Barely Moved]"
+description: "[One or two sentences. This is what shows on the Writing page — write it last, when you know what you found.]"
+date: 2026-09-13
+categories: [labor market, methods, R]
+---
+
+\[STANDFIRST — one short paragraph. The question the post answers, before any method.\]
+
+# I. What the number is
+
+- The nonfarm payroll data measure 80% of paid workers who contribute to GDP in the U.S.[^1]
+- The Bureau of Labor Statistics (BLS) collects payroll data from private and government entities on a monthly basis and usually publishes the data on the first Friday of each month.
+- The measure excludes: farm employees, active-duty military members, unpaid volunteers for non-profit organizations, sole proprietors, and private household employees.[^2]
+- The reference period for the CES survey is the pay period which includes the 12th day of the month.[^3]
+
+[^1]: <https://fred.stlouisfed.org/series/payems>
+
+[^2]: <https://fred.stlouisfed.org/series/payems>
+
+[^3]: BLS, *CES Frequently Asked Questions*. <https://www.bls.gov/web/empsit/cesfaq.htm>
+
+## Why are certain groups excluded?
+
+- CES draws its sample based on administrative records from the Office of Unemployment Insurance (UI). This means workers who are not covered under the government's unemployment insurance program wouldn't be counted. In agriculture, workers tend to have exemptions to requirements for unemployment coverage. In addition, businesses are frequently family-owned (i.e. sole proprietors), which make them out of scope for CES.[^4] Lastly, the sample size for farming would be too small to make statistically sound estimates (0.9%–1.2% of total employment).[^5]
+- This doesn't mean that farming employment is completely unaccounted for. The U.S. Department of Agriculture (USDA) conducts surveys twice every year to collect data on agricultural workers.
+- The nonfarm payroll report primarily covers employment that is associated with the business cycle. Military employment changes primarily based on the need for national defense, not the performance of the economy. \[FINISH — self-employed individuals: why they're out of scope.\]
+
+[^4]: BLS, *Why doesn't CES collect agricultural employment?* <https://www.bls.gov/web/empsit/cesfaq.htm>
+
+[^5]: USDA ERS. <https://www.ers.usda.gov/data-products/chart-gallery/58282>
+
+# II. How the number is made
+
+## The sample and the census
+
+> "Each month the CES program surveys about 119,000 businesses and government agencies, representing approximately 622,000 individual worksites... The active sample includes approximately 26 percent of all nonfarm payroll jobs."[^6]
+
+[^6]: BLS, *Employment Situation Technical Note*, August 2026. <https://www.bls.gov/news.release/empsit.tn.htm>
+
+> "About 97 percent of total nonfarm employment within the scope of the establishment survey is covered by UI and is available to the CES program via QCEW records."[^7]
+
+[^7]: BLS, *CES National Benchmark Article*. <https://www.bls.gov/web/empsit/cesbmart.htm>
+
+\[WRITE — the core trade-off: CES is fast and partial, QCEW is complete and slow. Everything in Parts III and IV follows from this one design choice.\]
+
+```{r}
+#| label: tbl-ces-qcew
+#| tbl-cap: "The two employment measures."
+#| echo: false
+
+library(knitr)
+data.frame(
+  x = c("Source", "Units covered", "Employment covered", "Frequency", "Lag"),
+  ces = c("Sample survey, UI-derived frame", "~119,000 firms / ~622,000 worksites",
+          "~26% of nonfarm payroll jobs", "Monthly", "~3 weeks"),
+  qcew = c("Near-census of UI tax records", "[FILL — establishment count]",
+           "~97% of in-scope nonfarm employment", "Quarterly", "~5 months")
+) |> kable(col.names = c("", "CES", "QCEW"))
+```
+
+## The birth-death model
+
+\[WRITE. Two components, not one:\]
+
+1.  *Imputation* — firms that stop reporting are carried forward at the trend of continuing firms, which implicitly nets most births against deaths.
+2.  *An ARIMA model on the residual only*, fitted to QCEW microdata over the trailing five years.[^8]
+
+[^8]: BLS, *CES Net Birth-Death Model*. <https://www.bls.gov/web/empsit/cesbd.htm>
+
+\[The honest criticism is not "BLS invents jobs." It is that step 2 assumes the historical birth–death relationship holds, which fails exactly at turning points. Quarterly updates since January 2011 cut the forecast horizon from up to 21 months to at most 12.[^9] Effective with January 2026 estimates, BLS began feeding current sample information into the ARIMA forecasts.[^10]\]
+
+[^9]: BLS, *Introduction of Quarterly Birth-Death Model Updates*. <https://www.bls.gov/ces/methods/ces-quarterly-birthdeath.htm>
+
+[^10]: BLS, *Upcoming Changes to the Establishment Survey Birth-Death Model*. <https://www.bls.gov/sae/notices/2025/upcoming-changes-to-the-establishment-survey-birth-death-model.htm>
+
+## Seasonal adjustment
+
+Seasonal adjustments make it easier to determine whether an employment change is due to normal changes throughout the year or an indicator of anomalies.
+
+\[REWRITE THE EXAMPLE — the old draft used farming, but nonfarm payrolls exclude agriculture. Use retail hiring in November–December, construction collapsing in winter, or education, where teachers roll off payrolls every summer.\]
+
+\[WRITE — the mechanism:\]
+
+- CES uses **X-13ARIMA-SEATS** with a **concurrent** methodology; models are re-specified annually.[^11]
+- X-11 is the engine: an iterative sequence of moving averages, not a regression.
+- X-13 wraps X-11 in a regARIMA preprocessing step handling outliers, trading-day and moving-holiday effects (CES adjusts for Easter and Labor Day), and *forecast extension* — which is why the most recent months' factors are the least stable.
+- Concurrent adjustment is a revision source in its own right: the seasonally adjusted history changes every month even when no new survey responses arrive.
+
+[^11]: BLS, *CES Seasonal Adjustment*. <https://www.bls.gov/web/empsit/cesseasadj.htm>
+
+\[CHART IDEA — plot NSA against SA for one year. January NSA falls \~2.5–3 million while SA shows roughly +100k. The adjustment does 20–30× as much work as the signal.\]
+
+# III. How the number changes
+
+Three structurally different operations all get called "a revision," and they have different causes, sizes and meanings.
+
+```{r}
+#| label: tbl-vocab
+#| tbl-cap: "Vocabulary for CES payroll estimates and their revisions."
+#| echo: false
+
+library(knitr)
+data.frame(
+  Colloquial = c("initial print", "first revision", "second revision, \"final\"",
+                 "the big revision", "annual benchmark"),
+  BLS = c("first preliminary estimate", "second preliminary estimate", "third closing",
+          "preliminary benchmark estimate", "final benchmark"),
+  Driver = c("—", "late survey responses", "late survey responses",
+             "QCEW, March anchor only", "QCEW + rescaling + birth-death")
+) |> kable(col.names = c("What you'll hear", "What BLS calls it", "What drives the change"))
+```
+
+Two traps worth naming for the reader: the "final sample-based estimate" is not final — the benchmark is still coming; and the number in the news is usually the *preliminary* benchmark, which itself gets revised.
+
+## The monthly cycle
+
+CES "revises its initial monthly estimates twice, in the immediately succeeding 2 months, to incorporate additional sample receipts from respondents in the survey."[^12]
+
+[^12]: BLS, *CES Frequently Asked Questions*. <https://www.bls.gov/web/empsit/cesfaq.htm>
+
+![](fig-release-schedule.png)
+
+\[WRITE — July 2026 is the example: the initial print said the economy *lost* 23,000 jobs; one month of additional survey responses flipped it to a *gain* of 21,000. Same month, same method, opposite sign.\]
+
+## The annual benchmark
+
+The final benchmark is published with the January preliminary estimates in early February, and affects **21 months** of previously published data, anchored to **March of the previous year**.[^13]
+
+[^13]: BLS, *CES Frequently Asked Questions*. <https://www.bls.gov/web/empsit/cesfaq.htm>
+
+![](fig-benchmark-window.png)
+
+\[WRITE — the split almost nobody mentions: the 12 months up to the March anchor get the QCEW treatment; the 9 months after it are only rescaled and re-modelled. BofA states the consequence plainly: April–December 2025 payrolls "will not be revised based on the QCEW until 2027."[^14] So a payroll number is roughly eighteen months old before anyone checks it against tax records.\]
+
+[^14]: BofA Global Research, *US Economic Viewpoint — QCEW: 2025 FAQs*, 3 September 2025.
+
+Also worth folding in: **five years of seasonally adjusted data are recalculated** with every benchmark.[^15] Months far outside the 21-month window change every February from seasonal factors alone.
+
+[^15]: BLS, *Employment Situation Quick Guide*. <https://www.bls.gov/bls/empsitquickguide.htm>
+
+# IV. What happened in 2024–2026
+
+| Benchmark (to March) | Preliminary | Final              |
+|----------------------|-------------|--------------------|
+| March 2024           | −818,000    | −598,000           |
+| March 2025           | −911,000    | −862,000           |
+| March 2026           | −79,000     | *pending Feb 2027* |
+
+\[WRITE — the arc. A −911k revision fed a year of "the data is fake" arguments. BLS changed the birth-death model effective January 2026. The next preliminary benchmark came in at −79,000 and was released on 28 August 2026 to near-silence.\]
+
+\[THE OPEN QUESTION YOU CAN TAKE A POSITION ON — is that the model fix working, or just a calmer labour market? Note the Cleveland Fed finds 1980–2025 benchmark revisions have a mean of −4.51k and a median of −2.00k, and that structural-break tests find *no break* — so 2024–25 was extreme but not a regime change.[^16]\]
+
+[^16]: Federal Reserve Bank of Cleveland, *BLS Benchmark Revisions: Is This Time Different?*, 2026. <https://www.clevelandfed.org/publications/economic-commentary/2026/ec-202612-bls-benchmark-revisions-is-this-time-different>
+
+\[CAVEATS — what this cannot answer.\]
+
+------------------------------------------------------------------------
+
+## Notes
+
+------------------------------------------------------------------------
+
+# TODO — delete this section before publishing
+
+**Corrections made to the previous draft**
+
+1.  `\bullet` replaced with markdown `-`. LaTeX macros don't render in HTML.
+2.  Sample size was 121,000 / 631,000 — the current figure is **119,000 / 622,000, \~26% of nonfarm jobs**, per the August 2026 technical note. The old numbers are a prior vintage.
+3.  The QCEW 97% figure was cited to `benchmark-tables.htm`, which is an index page and doesn't contain it. The real source is the **CES National Benchmark Article**, and the precise claim is 97% of nonfarm employment *within the scope of the establishment survey* — not 97% of all US employment.
+4.  The seasonal-adjustment example used farming, which nonfarm payrolls exclude. Needs replacing.
+5.  The revision schedule was listed three times in three forms. Replaced with one vocabulary table plus Figure 1.
+
+**Still open**
+
+- QCEW establishment count for the comparison table. BofA says \~11.6 million as of 2023Q1; find a primary BLS source.
+- Whether the CES sample is genuinely shrinking. 121k→119k firms and 631k→622k worksites is about 1.5% and verifiable. But coverage moved from "about one-third" (Cleveland Fed, 2026) to "26 percent" (BLS technical note), which is far too large a gap for a 1.5% sample cut to explain. Either the denominator changed or BLS restated the basis. Worth a paragraph **if** you can establish which — not worth asserting a shrinking-sample story you can't source.
+- Figures: export Fig 1 and Fig 2 as PNG from the design canvas into this folder as `fig-release-schedule.png` and `fig-benchmark-window.png`.

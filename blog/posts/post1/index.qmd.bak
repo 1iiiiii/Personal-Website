@@ -1,0 +1,57 @@
+---
+title: "My First Blog Post"
+description: "Understanding the Nonfarm Payroll Data"
+date: 2026-09-13
+categories: [personal, data-science]
+---
+
+![](figure1.png){width="500px"}
+
+# What is Nonfarm Payroll (NFP)?
+\bullet The nonfarm payroll data measure 80% of paid workers who contribute to GDP in the U.S. [1] St.Louis Fed Current employment statistics (CES) surveys approximately 121000 business and government entities, representing about 631000 individual worksites. [https://www.bls.gov/ces/methods/benchmark-tables.htm]
+\bullet The Bureau of Labor Statistics (BLS) collects payroll data from private and government entities on a monthly basis and usually publishes the data on the first Friday of each month.
+\bullet The measure excludes: farm employees, active-duty military members, unpaid volunteers for non-profit organizations, sole proprietors, and private household employees. [1] FRED
+\bullet The reference period for the CES survey is the pay period which includes the 12th day of the month. 
+## Why are certain groups excluded in the measure?
+- CES draws its sample based on administrative records from the Office of Unemployment Insurance (UI). This means workers who are not covered under the government's unemployment insurance program wouldn't be counted. In agriculture, workers tend to have exemptions to requirements for unemployment coverage. In addition, businesses are frequently family-owned (i.e. sole proprietors), which make them out of scope for CES [2] BLS Lastly, the sample size for farming would be too small to make statistically sound estimates (0.9% - 1.2% of total employment) [3] USDA
+- This doesn't mean that farming employment is completely unaccounted for. U.S. Department of Agriculture (USDA) conducts surveys twice every year to collect data on agricultural workers. 
+- The nonfarm payroll report primarily covers employment that is associated with the business cycle. Military employment changes primarily based on the need for national defense, not the performance of the economy. Self-employed individuals
+
+# How is the data measured and collected?
+
+# What is the difference between SA and NSA data?
+Seasonal adjustments make it easier to determine whether an employment change is due to normal changes throughout the year or an indicator of anomalies. For example, the farming sector hires more workers during spring (March-May) for planting, as well as summer-to-fall (June-November) for harvesting, but it hires fewer workers during winter. This is a regular seasonal fluctuation, which is reflected in the NSA data, but more hiring or less hiring in this case does not suggest expansion nor recession. 
+
+# Revisions
+BLS revises the data when more data become available, and the release schedule is like this: 
+initial print -> first revision -> second revision -> annual benchmark revision
+first / preliminary estimate -> second estimate -> third estimate -> fourth estimate
+1st revision (monthly)
+2nd revision (monthly)
+3rd revision (annual benchmark revision)
+
+```{r}
+#| label: tbl-vocab
+#| tbl-cap: "Vocabulary for CES payroll estimates and their revisions."
+#| echo: false
+
+library(knitr)
+data.frame(
+  Colloquial = c("initial print", "first revision", "second revision, \"final\"",
+                 "the big revision", "annual benchmark"),
+  BLS = c("first preliminary estimate", "second preliminary estimate", "third closing",
+          "preliminary benchmark estimate", "final benchmark"),
+  Driver = c("—", "late survey responses", "late survey responses",
+             "QCEW, March anchor only", "QCEW + rescaling + birth-death")
+) |> kable(col.names = c("What you'll hear", "What BLS calls it", "What drives the change"))
+```
+
+Quarterly Census of Employment and Wages
+compiled from state-level unemployment insurance data and reflects about 97% of total nonfarm employment. [https://www.bls.gov/ces/methods/benchmark-tables.htm]  Thus, it is a more reliable measure than CES, but it publishes with a five-month lag. 
+
+Citations
+https://fred.stlouisfed.org/series/payems
+https://www.bls.gov/web/empsit/cesfaq.htm#:~:text=Why%20doesn%27t%20CES%20collect%20agricultural%20employment%3F%20Is%20agricultural%20employment%20available%20elsewhere%3F
+https://www.cnn.com/2023/09/02/economy/farmers-us-monthly-jobs-report
+https://www.ers.usda.gov/data-products/chart-gallery/58282
+https://www.stlouisfed.org/open-vault/2019/july/nonfarm-payrolls-why-farmers-not-included

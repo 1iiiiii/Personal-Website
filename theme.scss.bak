@@ -324,65 +324,6 @@ figcaption, .figure-caption {
   margin-top: 0.7rem;
 }
 
-// Tables
-// Centred by default. Pandoc writes per-column alignment as an inline style,
-// so a column marked :---: or ---: in the source still overrides this.
-main table {
-  font-family: $font-family-sans-serif;
-  font-size: 0.86rem;
-  line-height: 1.5;
-  margin: 2rem auto 0.4rem auto;
-  border-collapse: collapse;
-  width: 100%;
-}
-main table th,
-main table td {
-  text-align: center;
-  vertical-align: top;
-  padding: 0.6rem 0.9rem;
-  border: 0;
-}
-main table thead th {
-  border-bottom: 1px solid $ink;
-  font-weight: 600;
-  color: $ink;
-}
-main table tbody tr { border-bottom: 1px solid $rule-soft; }
-main table tbody tr:last-child { border-bottom: 1px solid $rule; }
-main table tbody td { font-variant-numeric: tabular-nums; color: $body-text; }
-// Wide tables scroll rather than forcing the page to.
-main .cell-output-display > table,
-main .quarto-float-tbl table { display: table; }
-main figure.quarto-float-tbl,
-main div.quarto-float-tbl { overflow-x: auto; }
-
-// Table captions read like figure captions. Quarto centres them above the
-// table and that is left alone here — it matches the centred cells.
-main table caption,
-figcaption.quarto-float-caption {
-  font-family: $font-family-sans-serif;
-  font-size: 0.8rem;
-  line-height: 1.55;
-  color: $faint;
-}
-
-// Source line under a figure or table. Caption carries the title; this
-// carries the attribution and the units, nothing else.
-.fig-source {
-  font-family: $font-family-sans-serif;
-  font-size: 0.75rem;
-  line-height: 1.5;
-  color: $faint;
-  margin: -1.2rem 0 2.2rem 0;
-  padding-top: 0;
-}
-.fig-source p { margin: 0; }
-.fig-source em { font-style: italic; }
-// A table's source sits directly under the table, not under a figure margin.
-main table + .fig-source,
-.quarto-float-tbl + .fig-source,
-.cell + .fig-source { margin-top: 0.5rem; }
-
 // Code
 pre.sourceCode, div.sourceCode {
   border: 1px solid $rule;
