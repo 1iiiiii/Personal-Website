@@ -179,17 +179,11 @@ data.frame(
 Source: BLS, *CES Frequently Asked Questions*.
 :::
 
-The terminology seems very obscure. The terms are easier to hold onto once we sort them by the data sources behind them.
-
-The first three rows all rest on the CES sample. Each is built from whatever survey responses have arrived by the time of publication, which is exactly what "preliminary" means here. That is, the data are open to change as the rest of the sample reports. The last two rows rest on QCEW instead. That is why they arrive once a year rather than once a month, and why they reset the *level* of employment rather than nudging a single month's change.
-
-Two of the official labels can seem misleading, as there are two "finals". The "final estimate" is final only in that no further *monthly* revision is coming, but the benchmark still is. And the benchmark figure that makes the news is almost always the *preliminary* benchmark, which is itself revised by the "final benchmark" the following February.
-
-This post uses the terms in the first column throughout. The naming is based on my interpretation of each data. The BLS names are the official ones, but they are harder to keep straight.
+The terminology seems very obscure. It'll make more sense when we divide them based on what underlying data source they are using. The first three rows are all based on the CES sample, as they are estimated using firms' survey responses, which is also why they are preliminary in the sense that it is subject to revision once more complete data become available. "final estimate" is final in the sense that there won't be monthly revisions, but the benchmark is still coming, and the number in the news is usually the *preliminary* benchmark, which itself gets revised.
 
 ## The monthly cycle
 
-CES "revises its initial monthly estimates twice, in the immediately succeeding 2 months, to incorporate additional sample receipts from respondents in the survey."[^15] For example, the June NFP data has its initial print in early July. In early August, not only does BLS release the initial print of the July NFP data, but it also release the first monthly revision of the June data, as well as the second monthly revision of the May data. In early September, when the August NFP is released, June receives its second monthly revision.
+CES "revises its initial monthly estimates twice, in the immediately succeeding 2 months, to incorporate additional sample receipts from respondents in the survey."[^15]
 
 [^15]: BLS, *CES Frequently Asked Questions*. <https://www.bls.gov/web/empsit/cesfaq.htm>
 

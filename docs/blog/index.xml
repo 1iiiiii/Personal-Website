@@ -19,7 +19,7 @@
 
 
 
-<p>Nonfarm payrolls may be the most closely watched indicator of the U.S. labor market. There is a carefully designed statistical methodology, making the measure rather hard to interpret beyond the headline. This post attempts to provide an overview, as well as to shed light on some technical details about the indicator, especially regarding the revisions and seasonal adjustment.</p>
+<p>Nonfarm payrolls may be the most closely watched indicator of the U.S. labor market. However, the sophisticated statistical methodology the measure makes it rather hard to interpret beyond the headline. This post attempts to provide an overview, as well as to shed light on some technical details about the indicator, especially regarding the revisions and seasonal adjustment.</p>
 <section id="i.-what-the-number-is" class="level1">
 <h1>I. What the number is</h1>
 <ul>
@@ -108,7 +108,7 @@ Table&nbsp;1: CES and QCEW compared
 <div class="fig-source">
 <p>Source: BLS, <em>Employment Situation Technical Note</em> (August 2026); <em>CES National Benchmark Article</em>; <em>Employment and Wages, Annual Averages 2025</em>; <em>QCEW Overview</em>.</p>
 </div>
-<p>The sample has one defect that no amount of additional response will fix. A survey drawn from an existing frame cannot see firms that did not exist when the frame was drawn, and it cannot readily tell a firm that has gone out of business from one that simply has not answered this month. Both problems concern the same population, and BLS handles them together with the net birth-death model.</p>
+<p>The sample from the CES has one defect that no amount of additional response will fix. A survey drawn from an existing frame cannot see firms that did not exist when the frame was drawn, and it cannot readily tell a firm that has gone out of business from one that simply has not answered this month. Both problems concern the same population, and BLS handles them together with the net birth-death model.</p>
 </section>
 <section id="the-birth-death-model" class="level2">
 <h2 data-anchor-id="the-birth-death-model">The birth-death model</h2>
@@ -237,13 +237,13 @@ Table&nbsp;2: Vocabulary for payroll revisions
 <div class="cell-output-display">
 <table class="cell caption-top table table-sm table-striped small">
 <colgroup>
-<col style="width: 21%">
-<col style="width: 39%">
-<col style="width: 39%">
+<col style="width: 29%">
+<col style="width: 35%">
+<col style="width: 35%">
 </colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: center;">What you’ll hear</th>
+<th style="text-align: center;">What we’ll hear</th>
 <th style="text-align: center;">What BLS calls it</th>
 <th style="text-align: center;">What drives the change</th>
 </tr>
@@ -255,12 +255,12 @@ Table&nbsp;2: Vocabulary for payroll revisions
 <td style="text-align: center;">—</td>
 </tr>
 <tr class="even">
-<td style="text-align: center;">first revision</td>
+<td style="text-align: center;">first monthly revision</td>
 <td style="text-align: center;">second preliminary estimate</td>
 <td style="text-align: center;">late survey responses</td>
 </tr>
 <tr class="odd">
-<td style="text-align: center;">second revision</td>
+<td style="text-align: center;">second monthly revision</td>
 <td style="text-align: center;">final estimate / third closing</td>
 <td style="text-align: center;">late survey responses</td>
 </tr>
@@ -270,7 +270,7 @@ Table&nbsp;2: Vocabulary for payroll revisions
 <td style="text-align: center;">QCEW, March anchor only</td>
 </tr>
 <tr class="odd">
-<td style="text-align: center;">annual benchmark</td>
+<td style="text-align: center;">annual benchmark revision</td>
 <td style="text-align: center;">final benchmark</td>
 <td style="text-align: center;">QCEW + rescaling + birth-death</td>
 </tr>
@@ -284,10 +284,13 @@ Table&nbsp;2: Vocabulary for payroll revisions
 <div class="fig-source">
 <p>Source: BLS, <em>CES Frequently Asked Questions</em>.</p>
 </div>
-<p>“final estimate” is final in the sense that there won’t be monthly revisions, but the benchmark is still coming, and the number in the news is usually the <em>preliminary</em> benchmark, which itself gets revised.</p>
+<p>The terminology seems very obscure. The terms are easier to hold onto once we sort them by the data sources behind them.</p>
+<p>The first three rows all rest on the CES sample. Each is built from whatever survey responses have arrived by the time of publication, which is exactly what “preliminary” means here. That is, the data are open to change as the rest of the sample reports. The last two rows rest on QCEW instead. That is why they arrive once a year rather than once a month, and why they reset the <em>level</em> of employment rather than nudging a single month’s change.</p>
+<p>Two of the official labels can seem misleading, as there are two “finals”. The “final estimate” is final only in that no further <em>monthly</em> revision is coming, but the benchmark still is. And the benchmark figure that makes the news is almost always the <em>preliminary</em> benchmark, which is itself revised by the “final benchmark” the following February.</p>
+<p>This post uses the terms in the first column throughout. The naming is based on my interpretation of each data. The BLS names are the official ones, but they are harder to keep straight.</p>
 <section id="the-monthly-cycle" class="level2">
 <h2 data-anchor-id="the-monthly-cycle">The monthly cycle</h2>
-<p>CES “revises its initial monthly estimates twice, in the immediately succeeding 2 months, to incorporate additional sample receipts from respondents in the survey.”<sup>13</sup></p>
+<p>CES “revises its initial monthly estimates twice, in the immediately succeeding 2 months, to incorporate additional sample receipts from respondents in the survey.”<sup>13</sup> For example, the June NFP data has its initial print in early July. In early August, not only does BLS release the initial print of the July NFP data, but it also release the first monthly revision of the June data, as well as the second monthly revision of the May data. In early September, when the August NFP is released, June receives its second monthly revision.</p>
 <div id="fig-schedule" class="quarto-float quarto-figure quarto-figure-center">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-schedule-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -301,7 +304,6 @@ Figure&nbsp;1: Monthly release and revision schedule
 <div class="fig-source">
 <p>Source: BLS, Current Employment Statistics revision table.</p>
 </div>
-<p><strong>Example:</strong> July 2026 has its initial print at -23,000 jobs. One month of additional survey responses flipped it to a <em>gain</em> of 21,000.</p>
 </section>
 <section id="the-annual-benchmark" class="level2">
 <h2 data-anchor-id="the-annual-benchmark">The annual benchmark</h2>
