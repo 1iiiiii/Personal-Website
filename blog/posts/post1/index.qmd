@@ -5,7 +5,7 @@ date: 2026-09-14
 categories: [labor market, nonfarm payroll]
 ---
 
-Nonfarm payrolls may be the most closely watched indicator of the U.S. labor market. It is also the output of a long chain of statistical machinery: a monthly sample standing in for a census that will not arrive for another year and a half, a model filling the gap the sample cannot see, and a seasonal adjustment that in January runs to roughly twenty times the size of the number actually reported. None of this is hidden — BLS documents all of it — but very little of it is visible from the headline. This post is an attempt to make it visible: how the number is built, why it keeps changing after publication, and what the 2024–2026 revisions did and did not show.
+Nonfarm payrolls may be the most closely watched indicator of the U.S. labor market. There is a carefully designed statistical methodology, making the measure rather hard to interpret beyond the headline. This post attempts to provide an overview, as well as to shed light on some technical details about the indicator, especially regarding the revisions and seasonal adjustment.
 
 # I. What the number is
 
@@ -48,11 +48,11 @@ The **Quarterly Census of Employment and Wages (QCEW)** is assembled from the un
 
 [^8]: BLS, *QCEW Overview*. <https://www.bls.gov/cew/overview.htm>
 
-Markets, forecasters and the Federal Reserve will not wait six months. So BLS also runs the **Current Employment Statistics (CES)** survey: a monthly sample drawn from that same UI-derived universe, covering about 119,000 businesses and government agencies and approximately 622,000 individual worksites — roughly 26% of all nonfarm payroll jobs.[^9] CES reports about three weeks after the reference period rather than six months after the quarter.
+The BLS also runs the **Current Employment Statistics (CES)** survey, which is a monthly sample drawn from that same UI-derived universe, covering about 119,000 businesses and government agencies and approximately 622,000 individual worksites, roughly 26% of all nonfarm payroll jobs.[^9] CES reports about three weeks after the reference period rather than six months after the quarter.
 
 [^9]: BLS, *Employment Situation Technical Note*, August 2026. <https://www.bls.gov/news.release/empsit.tn.htm>
 
-That is the entire design trade-off, and it is deliberate: **CES is fast and partial; QCEW is complete and slow.** Nearly everything in Part III follows from it. A monthly estimate is published before the sample has finished reporting, so it gets revised as the late responses arrive. A year or so later the census catches up, and the published series is re-anchored to it.
+Below is a comparison table of the two surveys.
 
 ::: {.content-hidden unless-meta="show-notes"}
 > "Each month the CES program surveys about 119,000 businesses and government agencies, representing approximately 622,000 individual worksites... The active sample includes approximately 26 percent of all nonfarm payroll jobs."
@@ -85,7 +85,7 @@ data.frame(
 Source: BLS, *Employment Situation Technical Note* (August 2026); *CES National Benchmark Article*; *Employment and Wages, Annual Averages 2025*; *QCEW Overview*.
 :::
 
-The sample has one defect that no amount of additional response will fix. A survey drawn from an existing frame cannot see firms that did not exist when the frame was drawn, and it cannot readily tell a firm that has gone out of business from one that simply has not answered this month. Both problems concern the same population — establishments being born and dying — and BLS handles them together with the net birth-death model.
+The sample has one defect that no amount of additional response will fix. A survey drawn from an existing frame cannot see firms that did not exist when the frame was drawn, and it cannot readily tell a firm that has gone out of business from one that simply has not answered this month. Both problems concern the same population, and BLS handles them together with the net birth-death model.
 
 ## The birth-death model
 
@@ -116,7 +116,7 @@ the mechanism of failure. The model does not "invent" jobs; it assumes deaths ar
 ### A Falling Response Rate
 
 | Year | Overall response rate | Collected at 1st release | Collected at final release |
-|:--:|:--:|:--:|:--:|
+|:----------------:|:----------------:|:----------------:|:----------------:|
 | 2016 | 60.8 | 74.7 | 95.7 |
 | 2019 | 59.3 | 73.9 | 93.2 |
 | 2022 | 45.2 | 65.4 | 94.0 |
@@ -135,8 +135,8 @@ The share of *units* answering has fallen roughly 18 points since 2016. The shar
 
 Seasonal adjustments make it easier to determine whether an employment change is due to normal changes throughout the year or an indicator of anomalies. For example, This is a regular seasonal fluctuation, which is reflected in the NSA data, but more hiring or less hiring in this case does not suggest expansion nor recession.
 
-- The question seasonal adjustment answers is "what does a normal January look like?" X-11, the engine inside X-13, answers it by **averaging, not by fitting a model**. Take the same calendar month across several years and average it. Divide it out of the raw series and what is left is trend plus noise. Smooth that to get a cleaner trend, take the trend back out, re-estimate the monthly pattern on the cleaner residual, and go round again. After three or four passes the estimate stops moving.
-- Two things follow directly from *averaging* rather than *fitting*. **First**, every new observation changes the average, so *last* January's factor moves when *this* January arrives. **Second**, the newest months sit at the end of the sample with no future to average over, so X-13 forecasts the series forward and averages over the forecast. Those are the least stable factors in the series.
+- The question seasonal adjustment answers is "what does a normal January look like?" X-11, the engine inside X-13, answers it by **averaging, not by fitting a model**. Take the same calendar month across several years and average it. Divide it out of the raw series and what is left is trend plus noise. Smooth that to get a cleaner trend, take the trend back out, re-estimate the monthly pattern on the cleaner residual, and go round again.
+- Two things follow directly from *averaging* rather than *fitting*. **First**, every new observation changes the average, so *last* January's factor moves when *this* January arrives. **Second**, the newest months sit at the end of the sample with no future to average over, so X-13 forecasts the series forward and averages over the forecast.
 - CES runs this **concurrently**: factors are recomputed every month with the latest data rather than fixed in advance, and the models are re-specified annually.[^14] X-13 wraps X-11 in a regARIMA step that first strips out outliers, trading-day effects and moving holidays (CES adjusts for Easter and Labor Day) so the averaging is not contaminated by them.
 - **The seasonally adjusted history changes every month even when not one additional survey response arrives**
 
@@ -155,11 +155,9 @@ Seasonal adjustments make it easier to determine whether an employment change is
 Source: author's calculations from ALFRED vintages of `PAYEMS` and `PAYNSA`. Thousands, as first published.
 :::
 
-\[The point: the headline is a residual. Roughly three million jobs genuinely come off payrolls every January; the adjustment adds back very slightly less; the difference is what gets reported and argued about. A 5% error in an adjustment that size would be 150,000 — larger than most of the monthly prints in this table.\]
-
 # III. How the number changes
 
-Three structurally different operations all get called "a revision," and they have different causes, sizes and meanings.
+Three structurally different operations all get called a revision, and they have different causes, sizes and meanings.
 
 ```{r}
 #| label: tbl-vocab
@@ -181,7 +179,7 @@ data.frame(
 Source: BLS, *CES Frequently Asked Questions*.
 :::
 
-"final estimate" is final in the sense that — the benchmark is still coming; and the number in the news is usually the *preliminary* benchmark, which itself gets revised.
+"final estimate" is final in the sense that there won't be monthly revisions, but the benchmark is still coming, and the number in the news is usually the *preliminary* benchmark, which itself gets revised.
 
 ## The monthly cycle
 
@@ -195,7 +193,7 @@ CES "revises its initial monthly estimates twice, in the immediately succeeding 
 Source: BLS, Current Employment Statistics revision table.
 :::
 
-\[WRITE — July 2026 is the example: the initial print said the economy *lost* 23,000 jobs; one month of additional survey responses flipped it to a *gain* of 21,000. Same month, same method, opposite sign.\]
+**Example:** July 2026 has its initial print at -23,000 jobs. One month of additional survey responses flipped it to a *gain* of 21,000.
 
 ## The annual benchmark
 
@@ -209,15 +207,9 @@ The final benchmark is published with the January preliminary estimates in early
 Source: BLS, *CES Frequently Asked Questions*; BofA Global Research, *QCEW: 2025 FAQs*, 3 September 2025.
 :::
 
-\[WRITE — the split almost nobody mentions: the 12 months up to the March anchor get the QCEW treatment; the 9 months after it are only rescaled and re-modelled. BofA states the consequence plainly: April–December 2025 payrolls "will not be revised based on the QCEW until 2027."[^17] So a payroll number is roughly eighteen months old before anyone checks it against tax records.\
-\
-@fig-benchmark shows it twice over: April–December 2025 is pale in the February 2026 row (modelled) and rust in the February 2027 row (measured). Same nine months, two completely different treatments, a year apart.\]
+The 12 months up to the March anchor get the QCEW revision, and the 9 months after it are only rescaled and re-modelled. BofA states that April–December 2025 payrolls "will not be revised based on the QCEW until 2027."[^17] So a payroll number is roughly eighteen months old before anyone checks it against tax records.
 
 [^17]: BofA Global Research, *US Economic Viewpoint — QCEW: 2025 FAQs*, 3 September 2025.
-
-Also worth folding in: **five years of seasonally adjusted data are recalculated** with every benchmark.[^18] Months far outside the 21-month window change every February from seasonal factors alone.
-
-[^18]: BLS, *Employment Situation Quick Guide*. <https://www.bls.gov/bls/empsitquickguide.htm>
 
 ## Decomposition of Revisions
 
@@ -241,6 +233,7 @@ Source: author's calculations from ALFRED vintages. Total nonfarm, thousands.
 - The **noise** is not. Mean absolute factor component is **48k** against **71k** for data, and the factor component is the *larger* of the two in **20 of 47 months**.
 - The two pull in **opposite directions in 26 of 47 months** (correlation −0.46). The published revision routinely understates how much actually moved underneath it.
 
+::::: {.content-hidden unless-meta="show-notes"}
 # IV. What happened in 2024–2026
 
 | Benchmark (to March) | Preliminary |       Final        |
@@ -267,34 +260,13 @@ Source: author's calculations from BLS CES data. Seasonally adjusted, within-row
 \
 Two cautions before you lean on it: the reference distribution runs to 2025, so it contains the 2021–22 hiring boom, which makes "normal" look strong; and a z-score says *unusual for that industry*, not *large*. Say what the panel shows and let the reader weigh it.\]
 
-\[THE OPEN QUESTION YOU CAN TAKE A POSITION ON — is that the model fix working, or just a calmer labour market? Note the Cleveland Fed finds 1980–2025 benchmark revisions have a mean of −4.51k and a median of −2.00k, and that structural-break tests find *no break* — so 2024–25 was extreme but not a regime change.[^19]\]
+\[THE OPEN QUESTION YOU CAN TAKE A POSITION ON — is that the model fix working, or just a calmer labour market? Note the Cleveland Fed finds 1980–2025 benchmark revisions have a mean of −4.51k and a median of −2.00k, and that structural-break tests find *no break* — so 2024–25 was extreme but not a regime change.[^18]\]
+:::::
 
-[^19]: Federal Reserve Bank of Cleveland, *BLS Benchmark Revisions: Is This Time Different?*, 2026. <https://www.clevelandfed.org/publications/economic-commentary/2026/ec-202612-bls-benchmark-revisions-is-this-time-different>
+[^18]: Federal Reserve Bank of Cleveland, *BLS Benchmark Revisions: Is This Time Different?*, 2026. <https://www.clevelandfed.org/publications/economic-commentary/2026/ec-202612-bls-benchmark-revisions-is-this-time-different>
 
 ## Questions worth further exploration
 
 **Is the CES sample shrinking, and does it matter?** The August 2026 technical note puts the sample at 119,000 businesses and 622,000 worksites, against 121,000 and 631,000 a year earlier, which is a decline of roughly 1.5%. Over the same period the stated coverage moved from "about one-third" of nonfarm payroll jobs to "approximately 26 percent." A 1.5% reduction in the sample cannot produce a shift of that size, so either the denominator changed or BLS restated the basis. This is a separate question from @tbl-response because that one is about who answers, this one is about how many are asked. The worry is that if the sample really is contracting, the standard error on every monthly print is widening.
 
 **Can the adjustment be reproduced?** The seasonal adjustment tool X-13ARIMA-SEATS is public. The Census Bureau distributes the binary and the `seasonal` package wraps it in R.
-
-------------------------------------------------------------------------
-
-## Notes
-
-------------------------------------------------------------------------
-
-# TODO — delete this section before publishing
-
-**Corrections made to the previous draft**
-
-1.  `\bullet` replaced with markdown `-`. LaTeX macros don't render in HTML.
-2.  Sample size was 121,000 / 631,000 — the current figure is **119,000 / 622,000, \~26% of nonfarm jobs**, per the August 2026 technical note. The old numbers are a prior vintage.
-3.  The QCEW 97% figure was cited to `benchmark-tables.htm`, which is an index page and doesn't contain it. The real source is the **CES National Benchmark Article**, and the precise claim is 97% of nonfarm employment *within the scope of the establishment survey* — not 97% of all US employment.
-4.  The seasonal-adjustment example used farming, which nonfarm payrolls exclude. Needs replacing.
-5.  The revision schedule was listed three times in three forms. Replaced with one vocabulary table plus Figure 1.
-
-**Still open**
-
-- ~~QCEW establishment count~~ — settled at **12.1 million (2025)**, with a quotable sentence from the Employment and Wages annual averages publication. Your 12,238,200 from the BLS video is the same order and is probably a different vintage or a quarterly count, but cite the publication rather than the video — a YouTube link is a weak reference for a post graded on sourcing.
-- Publication lag: your draft said five months and BofA says five, but BLS's own wording is "within 6 months after the end of each referenced quarter." Use BLS's, or say "about five to six months."
-- All four figures are now in this folder. `fig-successive-windows.png` is no longer used — the two-year version exported as `fig-benchmark-window.png` replaces both.
