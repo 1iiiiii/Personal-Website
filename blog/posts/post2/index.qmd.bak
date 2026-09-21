@@ -1,0 +1,147 @@
+---
+title: "[WRITE - headline that states the FINDING, not the topic. The finding is that the footprint supports roughly 400 units against a 1,000 target, and that the reason is not the one you would guess.]"
+description: "[WRITE - one or two sentences. Write this LAST, once you know what you found; it is the only thing most readers see.]"
+date: 2026-09-21
+categories: [web scraping, restaurants, market sizing, R]
+---
+This blog post scrapes data of store locations from Sweetgreen and Chipotle, in
+order to glean insights into what the chosen places have in common and the
+decision-making behind choosing the stores. Sweetgreen has opened 292 restaurants,
+and it plans to open 1000 units by 2030. Whether this goal is achievable is not
+the question; rather, the question is: what are the rest of the ~700 places 
+that Sweetgreen has in mind to open stores in?
+
+## Three HTTP requests
+
+Sweetgreen puts its entire store base on one server-rendered page. Chipotle
+publishes a sitemap encoding state and city information about all 4,155 stores it
+has, so two XML files give all 4,155 stores without fetching a single store page.
+There were no logins, paywalls or CAPTCHAs involved. 
+
+## Data Cleaning
+
+There were two problems encountered during the data cleaning process. 
+1. The first is regarding parsing error of the ZIP code. For example, 
+a store in Boston was  silently rendered as `2109` when it was supposed to be 
+`02109`. Without doing anything, Boston would disappear. In total, there are 
+43 out of 299 Sweetgreen ZIPs that share the same problem. 
+
+2. Second is regarding mismatch between location on the website and that in the 
+Census. Since NYC boroughs aren't Census places, there is no "Brooklyn" or "Bronx" 
+in the place file. Similar problems with New England towns, which are county
+subdivisions rather than places. As such, a county-subdivision layer is added
+for the six New England states so that city-county names are consolidated.
+
+Both problems would haved remove important markets. After fixing them, 
+95.7% of Sweetgreen and 95.2% of Chipotle stores match a metro.
+
+## The Naive Build
+![](fig-penetration.png)
+
+The naive benchmark for the future pathway of expansion for Sweetgreen is that 
+it follows Chipotle's national density applied to US metro population. 
+
+## What actually predicts where these chains are
+
+![](fig-education-elasticity.png)
+
+We can't observe which metro could support a Sweetgreen store, but what we do
+observe is something correlated with it. That is, whether there is a store in 
+the metro, and what the density of the stores is in that metro. Log is being
+used here because it ensures that density is non-negative. More importantly,
+i am comparing chains of different sizes. Chipotle is much larger than Sweetgreen.
+When analyzed in levels, the two education coefficients came out 12.2 and 13.9, which
+were almost identical, but 12.2 on a bse of 1.82 is enormous and 13.9 on a base of
+11.66 is modest. Logs convert to percentages, and in percentage terms the two are 
+6.42 and 1.03. 
+
+The R^2 is 0.43 for Sweetgreen and 0.12 for Chipotle. Metro characteristics 
+predict Sweetgreen's footprint well and Chipotle's badly, because Chipotle is 
+nearly everywhere, so knowing a metro is rich or educated barely helps to guess 
+its Chipotle count.
+[WRITE - read this figure out loud. On a log y-axis the vertical GAP between
+the two lines is the ratio of densities, and the difference in their SLOPES is
+the difference in elasticities. Both are visible without a table.]
+
+### The same picture against income
+
+![](fig-income-elasticity.png)
+
+[WRITE - this one is here because it is misleading, and saying why is the most
+useful paragraph in the post. Both lines slope up, yet income is insignificant
+in the regression. These smoothers are bivariate; the regression controls for
+education, and income correlates with education at 0.55 across the metros
+Sweetgreen has entered. Income is standing in for education rather than doing
+anything of its own. A reader who has ever looked at a scatterplot and
+concluded "X drives Y" needs this paragraph.]
+
+[WRITE - THE FINDING. Read the current coefficients off
+results/tables/model_comparison.csv, filtering to spec == "log" - the numbers
+moved when Puerto Rico was dropped and the model was refitted in logs, so do
+not quote anything from memory.
+
+The SHAPE of the result, which held across both specifications:
+
+  - Income does essentially nothing for either chain; neither coefficient is
+    distinguishable from zero.
+  - The BA-or-higher share of the metro does almost all the work, and the
+    Sweetgreen and Chipotle coefficients are statistically indistinguishable
+    from each other. On the dimension you would expect to separate these
+    concepts, they behave the same.
+  - The one real difference is density: Chipotle's penetration rises with it,
+    Sweetgreen's does not.
+
+Say directly that you expected an income story and did not find one. A negative
+result you can defend is worth more than a positive one you cannot.
+
+Note in one clause that the log coefficients are elasticities, not
+stores-per-million responses - do not quote the two kinds as if interchangeable.]
+
+## The ceiling, and why I do not fully trust it
+
+![](fig-ceiling.png)
+
+[WRITE - open stores today, the ceiling under each specification, and the
+1,000 target. Take the numbers from results/tables/ceiling.csv.
+
+Report the RANGE across the log and level specifications rather than defending
+a point estimate. Two defensible specifications disagreeing tells the reader
+how much the answer rests on functional form, and that is information, not
+embarrassment.
+
+Worth telling as a short story: the first version of this model was linear in
+stores per million, and it wanted to open restaurants in San Juan - a metro
+where neither chain has a single store - because its income coefficient came
+out negative and low income therefore read as high predicted density. Modelling
+log density instead makes non-negativity structural rather than something you
+clamp on afterwards. That is the same reason discrete-choice demand models use
+exp(delta)/sum(exp(delta)) instead of a linear index. Be precise that this is a
+borrowed functional form, not a demand system: store counts are chosen by a
+firm, not by consumers.]
+
+## What I would actually tell someone
+
+[WRITE - the recommendation, and name the metros rather than gesturing at them.
+This is the criterion the assignment is really testing.]
+
+## Caveats
+
+[WRITE - the ones that matter:
+  - a store base is a STOCK; it records where the chain has chosen to be, not
+    where it could profitably be, so the regression measures revealed strategy
+  - no opening dates, so "has not entered" cannot be separated from "entered
+    and stalled" - the main thing this cannot answer
+  - one cross-section, one scrape
+  - income and education correlate at 0.55 across entered metros, so their
+    coefficients should not be read independently
+  - the store count is CHOSEN by the firm, and it is chosen higher where
+    unobserved metro appeal is high - office density, lunch culture, rents,
+    who is already there. That is the same endogeneity structure as price in a
+    BLP demand model, where price is set higher where unobserved appeal is
+    high. The instrument you would want is a cost shifter for opening a store
+    that does not move demand, such as commercial rent per square foot. Name
+    it even though you do not have it.
+  - counts across markets are really the object of an ENTRY model
+    (Bresnahan-Reiss, Berry), not a demand system - worth one sentence so the
+    reader knows you know the difference
+  - metro population is the wrong denominator for an urban-core concept]
