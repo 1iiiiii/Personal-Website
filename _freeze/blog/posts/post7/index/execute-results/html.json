@@ -1,0 +1,15 @@
+{
+  "hash": "8b66ed5ff4334fd24deb6af38b1ece88",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"[WRITE - headline that states the finding, not the topic]\"\ndescription: \"[WRITE - one or two sentences. Write it last, when you know what you found.]\"\ndate: 2026-01-01\ndraft: true   # remove this line when the post is ready to publish\ncategories: [plotly, interactive]\n---\n\n<!-- ASSIGNMENT 7: Interactive Data Visualization with Plotly\n\nAn interactive Plotly visualisation answering a substantive question. Interactivity must add\nvalue beyond a static graph - exploring, selecting, identifying observations.\nGraded on: 7 interactive Plotly  8 it works  9 interactivity adds value  10 discussion of what it reveals.\n\n-->\n\n[Open with the question. One paragraph: what did you want to know, and why\nwould anyone care about the answer?]\n\n## Getting the data\n\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(tidyverse)\n\n# read the data here\n```\n:::\n\n\n## Cleaning decisions\n\n[Every cleaning choice is an assumption. Name the ones that could change the\nanswer.]\n\n## What the data shows\n\n\n::: {.cell}\n\n```{.r .cell-code}\n# the plot that carries the post\n```\n:::\n\n\n[Read the figure out loud for the reader.]\n\n## Caveats\n\n[What this cannot answer.]\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "hash": "d0ec50c9b3107a07ecd9438afd9a2e88",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"[WRITE - headline that states the finding, not the topic]\"\ndescription: \"[WRITE - one or two sentences. Write it last, when you know what you found.]\"\ndate: 2026-01-01\ndraft: true   # remove this line when the post is ready to publish\ncategories: [R, ggplot2]\n---\n\n<!-- ASSIGNMENT 4: Data Visualization Using a Dataset of Your Choice\n\nA new dataset, a substantive question, at least THREE visualisations. Acquire the data\nprogrammatically (API, package, URL) wherever possible. Use economically meaningful\ntransformations - inflation adjustment, per-capita.\nGraded on: 7 new appropriate dataset  8 three visuals  9 programmatic acquisition  10 meaningful transformations.\n\n-->\n\n[Open with the question. One paragraph: what did you want to know, and why\nwould anyone care about the answer?]\n\n## Getting the data\n\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(tidyverse)\n\n# read the data here\n```\n:::\n\n\n## Cleaning decisions\n\n[Every cleaning choice is an assumption. Name the ones that could change the\nanswer.]\n\n## What the data shows\n\n\n::: {.cell}\n\n```{.r .cell-code}\n# the plot that carries the post\n```\n:::\n\n\n[Read the figure out loud for the reader.]\n\n## Caveats\n\n[What this cannot answer.]\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

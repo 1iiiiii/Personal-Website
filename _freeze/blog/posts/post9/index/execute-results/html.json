@@ -1,0 +1,15 @@
+{
+  "hash": "47e70a861fff60f708d70ef3a25eb4ef",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"[WRITE - headline that states the finding, not the topic]\"\ndescription: \"[WRITE - one or two sentences. Write it last, when you know what you found.]\"\ndate: 2026-01-01\ndraft: true   # remove this line when the post is ready to publish\ncategories: [machine learning, finance]\n---\n\n<!-- ASSIGNMENT 9: Predicting Stock Returns with Gradient Boosting\n\nRevisit the in-class experiment, explain it and why predicting returns is hard. Then try to\nimprove the gradient boosting model. Evaluate OUT OF SAMPLE against both the original model and a\nsimple benchmark. Discuss predictive AND economic performance. Failing to beat the benchmark is a\nlegitimate result.\nGraded on: 7 explains the experiment  8 substantive improvement attempt  9 out-of-sample vs benchmark  10 both kinds of performance.\n\n-->\n\n[Open with the question. One paragraph: what did you want to know, and why\nwould anyone care about the answer?]\n\n## Getting the data\n\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(tidyverse)\n\n# read the data here\n```\n:::\n\n\n## Cleaning decisions\n\n[Every cleaning choice is an assumption. Name the ones that could change the\nanswer.]\n\n## What the data shows\n\n\n::: {.cell}\n\n```{.r .cell-code}\n# the plot that carries the post\n```\n:::\n\n\n[Read the figure out loud for the reader.]\n\n## Caveats\n\n[What this cannot answer.]\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

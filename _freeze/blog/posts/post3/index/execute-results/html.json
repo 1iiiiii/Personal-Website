@@ -1,0 +1,15 @@
+{
+  "hash": "06752b7cb06b85474c5b44c8dc7021ad",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"[WRITE - headline that states the finding, not the topic]\"\ndescription: \"[WRITE - one or two sentences. Write it last, when you know what you found.]\"\ndate: 2026-01-01\ndraft: true   # remove this line when the post is ready to publish\ncategories: [labor market, CPS, ggplot2]\n---\n\n<!-- ASSIGNMENT 3: Data Visualization with the U.S. Labor Market (IPUMS CPS)\n\nIPUMS CPS microdata, a coherent economic story told through at least THREE visualisations.\nMUST use CPS sampling weights for any population statistic - results describe the population,\nnot the sample. Regression not required; careful descriptive work is the point.\nGraded on: 7 IPUMS CPS microdata  8 correct weights  9 three substantive visuals  10 they work together.\n\n-->\n\n[Open with the question. One paragraph: what did you want to know, and why\nwould anyone care about the answer?]\n\n## Getting the data\n\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(tidyverse)\n\n# read the data here\n```\n:::\n\n\n## Cleaning decisions\n\n[Every cleaning choice is an assumption. Name the ones that could change the\nanswer.]\n\n## What the data shows\n\n\n::: {.cell}\n\n```{.r .cell-code}\n# the plot that carries the post\n```\n:::\n\n\n[Read the figure out loud for the reader.]\n\n## Caveats\n\n[What this cannot answer.]\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

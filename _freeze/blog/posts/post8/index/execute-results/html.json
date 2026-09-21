@@ -1,0 +1,15 @@
+{
+  "hash": "e386f3f559d63b9f684b209f0977281c",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"[WRITE - headline that states the finding, not the topic]\"\ndescription: \"[WRITE - one or two sentences. Write it last, when you know what you found.]\"\ndate: 2026-01-01\ndraft: true   # remove this line when the post is ready to publish\ncategories: [simulation, inference]\n---\n\n<!-- ASSIGNMENT 8: Simulation, Bootstrap CIs, and Hypothesis Testing\n\nBuild a bootstrap CI by resampling and plot the bootstrap distribution. Then show by repeated\nsimulation that a 95% CI covers the true parameter ~95% of the time. Then simulate a test\nstatistic under the null and use it to explain rejection regions and p-values. Visualisation is\ncentral; interactivity encouraged.\nGraded on: 7 bootstrap distribution  8 95% coverage demonstrated  9 null distribution  10 rejection regions and p-values.\n\n-->\n\n[Open with the question. One paragraph: what did you want to know, and why\nwould anyone care about the answer?]\n\n## Getting the data\n\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(tidyverse)\n\n# read the data here\n```\n:::\n\n\n## Cleaning decisions\n\n[Every cleaning choice is an assumption. Name the ones that could change the\nanswer.]\n\n## What the data shows\n\n\n::: {.cell}\n\n```{.r .cell-code}\n# the plot that carries the post\n```\n:::\n\n\n[Read the figure out loud for the reader.]\n\n## Caveats\n\n[What this cannot answer.]\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

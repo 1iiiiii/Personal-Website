@@ -2,6 +2,7 @@
 title: "[WRITE - headline that states the finding, not the topic]"
 description: "[WRITE - one or two sentences. Write it last, when you know what you found.]"
 date: 2026-01-01
+draft: true   # remove this line when the post is ready to publish
 categories: [labor market, CPS, ggplot2]
 ---
 
