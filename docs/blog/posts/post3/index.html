@@ -1,2 +1,983 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"></html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2026-09-28">
+<meta name="description" content="Rebuilding BLS’s bridge between the household and payroll surveys from IPUMS CPS microdata shows that definitions explain most of the gap, and that the leftover moves when the household survey’s population estimates are wrong.">
+
+<title>Decomposition of Differences between CES and CPS Employment Data – Yi Li</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-f806d9ca3cded21450884136ceca1cc5.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-32cf1dc2a8c62b25767500678f5cbd7c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../../index.html">
+    <span class="navbar-title">Yi Li</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../blog/index.html"> 
+<span class="menu-text">Writing</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../resume.html"> 
+<span class="menu-text">CV</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul class="collapse">
+  <li><a href="#comparison-between-cps-and-ces" id="toc-comparison-between-cps-and-ces" class="nav-link active" data-scroll-target="#comparison-between-cps-and-ces">Comparison between CPS and CES</a></li>
+  <li><a href="#data-and-weights" id="toc-data-and-weights" class="nav-link" data-scroll-target="#data-and-weights">Data and weights</a></li>
+  <li><a href="#the-gap" id="toc-the-gap" class="nav-link" data-scroll-target="#the-gap">The gap</a></li>
+  <li><a href="#decomposition-by-year-ces-vs.-cps" id="toc-decomposition-by-year-ces-vs.-cps" class="nav-link" data-scroll-target="#decomposition-by-year-ces-vs.-cps">Decomposition by Year: CES vs.&nbsp;CPS</a></li>
+  <li><a href="#residual-analysis" id="toc-residual-analysis" class="nav-link" data-scroll-target="#residual-analysis">Residual Analysis</a></li>
+  <li><a href="#takeaway" id="toc-takeaway" class="nav-link" data-scroll-target="#takeaway">Takeaway</a></li>
+  <li><a href="#data-and-code" id="toc-data-and-code" class="nav-link" data-scroll-target="#data-and-code">Data and code</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">Decomposition of Differences between CES and CPS Employment Data</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+  <div class="quarto-categories">
+    <div class="quarto-category">labor market</div>
+    <div class="quarto-category">CPS</div>
+    <div class="quarto-category">IPUMS</div>
+    <div class="quarto-category">ggplot2</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    Rebuilding BLS’s bridge between the household and payroll surveys from IPUMS CPS microdata shows that definitions explain most of the gap, and that the leftover moves when the household survey’s population estimates are wrong.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">September 28, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>BLS publishes two employment numbers that usually differ from each other. The payroll survey counts jobs, while the household survey counts people who have a job. In 2025 the household survey found about 163.5 million employed people, while payrolls counted about 158.4 million jobs, which is a gap of 5 million. The post attempts to answer the question: how much of the gap is simply the two surveys counting different things, and how much is left over?</p>
+<section id="comparison-between-cps-and-ces" class="level2">
+<h2 data-anchor-id="comparison-between-cps-and-ces">Comparison between CPS and CES</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Household survey (CPS)</th>
+<th>Payroll survey (CES)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Counts</td>
+<td>people with a job</td>
+<td>jobs</td>
+</tr>
+<tr class="even">
+<td>Sample</td>
+<td>about 60,000 households</td>
+<td>about 119,000 businesses and agencies</td>
+</tr>
+<tr class="odd">
+<td>A person with multiple jobs</td>
+<td>counted once</td>
+<td>counted multiple times</td>
+</tr>
+<tr class="even">
+<td>Self-employed, unpaid family, private-household workers</td>
+<td>counted</td>
+<td>not counted</td>
+</tr>
+<tr class="odd">
+<td>Farm workers</td>
+<td>counted</td>
+<td>not counted</td>
+</tr>
+<tr class="even">
+<td>On unpaid leave</td>
+<td>counted as employed</td>
+<td>not counted</td>
+</tr>
+</tbody>
+</table>
+<p>BLS publishes a recipe for translating one concept into the other. Starting from <span class="math inline">\text{Household Employment HE}</span>, I subtract the groups payrolls never see ( <span class="math inline">\text{Agriculture A}</span>, <span class="math inline">\text{the Unincorporated Self-Employed S}</span>,<span class="math inline">\text{Unpaid Family Workers UFW}</span> and <span class="math inline">\text{Private-Household Workers PHW}</span>) and add back the second jobs of <span class="math inline">\text{Multiple
+jobholders M}</span>. Whatever still separates the result from <span class="math inline">\text{Payroll Jobs NFP}</span> is <span class="math inline">\text{the Residual \epsilon</span>:</p>
+<p><span class="math display">
+\underbrace{HE - NFP}_{\text{gap}} \;=\; A + S + UFW + PHW - M + R
+</span></p>
+<p>The first five terms are simply definitional differences. Neither survey is wrong about them, and the two survey data are quite similar to each other after bridging. The residual is where at least one survey is off.</p>
+</section>
+<section id="data-and-weights" class="level2">
+<h2 data-anchor-id="data-and-weights">Data and weights</h2>
+<p>The household data are IPUMS CPS basic monthly microdata from January 2019 to August 2026, 91 months in all. October 2025 is missing because the household survey was not collected during the government shutdown. Payroll jobs are total nonfarm employment, not seasonally adjusted, in their current vintage.</p>
+<p>Every number here is a population total, so each respondent has to count for the number of people they represent. I use <code>COMPWT</code>, the composite weight BLS uses for its published estimates. With it, my January 2019 employment total is 154.964 million, exactly BLS’s published figure. The basic weight <code>WTFINL</code> gives 155.580 million, 616,000 too many, and an unweighted count of survey rows would not be a statement about the country at all.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>The weighted totals behind every figure</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>employment <span class="ot">&lt;-</span> cps <span class="sc">|&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(EMPSTAT <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">12</span>),</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>         AGE <span class="sc">&gt;=</span> <span class="dv">16</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ag =</span> IND <span class="sc">&gt;=</span> <span class="dv">170</span> <span class="sc">&amp;</span> IND <span class="sc">&lt;=</span> <span class="dv">290</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(YEAR, MONTH) <span class="sc">|&gt;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">employed                  =</span> <span class="fu">sum</span>(COMPWT) <span class="sc">/</span> <span class="fl">1e6</span>,</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">agriculture               =</span> <span class="fu">sum</span>(COMPWT[ag]) <span class="sc">/</span> <span class="fl">1e6</span>,</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">self_employed             =</span> <span class="fu">sum</span>(COMPWT[CLASSWKR <span class="sc">==</span> <span class="dv">13</span> <span class="sc">&amp;</span> <span class="sc">!</span>ag]) <span class="sc">/</span> <span class="fl">1e6</span>,</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">unpaid_family_workers     =</span> <span class="fu">sum</span>(COMPWT[CLASSWKR <span class="sc">==</span> <span class="dv">29</span> <span class="sc">&amp;</span> <span class="sc">!</span>ag]) <span class="sc">/</span> <span class="fl">1e6</span>,</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">private_household_workers =</span> <span class="fu">sum</span>(COMPWT[IND <span class="sc">==</span> <span class="dv">9290</span> <span class="sc">&amp;</span> <span class="sc">!</span>(CLASSWKR <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">13</span>, <span class="dv">29</span>))]) <span class="sc">/</span> <span class="fl">1e6</span>,</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">multiple_jobholders       =</span> <span class="fu">sum</span>(COMPWT[MULTJOB <span class="sc">==</span> <span class="dv">2</span> <span class="sc">&amp;</span> <span class="sc">!</span>ag <span class="sc">&amp;</span> <span class="sc">!</span>(CLASSWKR <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">13</span>, <span class="dv">29</span>))]) <span class="sc">/</span> <span class="fl">1e6</span>,</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">absent_ws                 =</span> <span class="fu">sum</span>(COMPWT[EMPSTAT <span class="sc">==</span> <span class="dv">12</span> <span class="sc">&amp;</span> <span class="sc">!</span>ag <span class="sc">&amp;</span> <span class="sc">!</span>(CLASSWKR <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">13</span>, <span class="dv">29</span>))]) <span class="sc">/</span> <span class="fl">1e6</span>,</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>This snippet of code shows how each category is handled to avoid problems with double-counting. Each person is subtracted at most once. A self-employed farmer counts only as agriculture, and a self-employed nanny only as self-employed.</p>
+</section>
+<section id="the-gap" class="level2">
+<h2 data-anchor-id="the-gap">The gap</h2>
+<p><img src="fig1_levels_gap.png" class="img-fluid"></p>
+<p>The household survey sits above payrolls in every month. The gap was about 7 million in 2019 and narrowed to between 2 and 4 million by late 2024. Both series are unadjusted, so the gap wobbles with the seasons. Notice that there is a huge spike between December 2024 and January 2025 (~+4 millions), and this gap is too large to simply be a seasonal change. This is why we need to decompose the data to see what drives the change.</p>
+</section>
+<section id="decomposition-by-year-ces-vs.-cps" class="level2">
+<h2 data-anchor-id="decomposition-by-year-ces-vs.-cps">Decomposition by Year: CES vs.&nbsp;CPS</h2>
+<p><img src="fig2_decomposition_by_year.png" class="img-fluid"></p>
+<p>Bars above zero widen the gap and bars below narrow it. The dots mark the net gap. The definitions account for most of the gap in every year, which confirms that definitional differences are what’s driving the discrepancies (4.4 of the 6.6 million in 2019, and 3.6 of the 5.1 million in 2025). The category self-employment is the largest driving force, usually around 9 million. Multiple jobholding pulls the other way, and it grew from 7.7 million in 2019 to 8.4 million in 2025, which is why the definitional part of the gap shrank over time.</p>
+<p>The grey residual is the more interesting part. It was 2.2 million in 2019, under 1 million from 2020 to 2023, negative in 2024, and 1.5 million in 2025. Each January the household survey switches to new Census population estimates and never revises earlier months. BLS reports that the January 2025 update added 2.0 million to employment, mostly because of higher estimates of immigration. The microdata show the same thing that household employment usually falls about 0.8 million from December to January, but in January 2025 it rose by 1.05 million, an excess of about 1.9 million.</p>
+</section>
+<section id="residual-analysis" class="level2">
+<h2 data-anchor-id="residual-analysis">Residual Analysis</h2>
+<p><img src="fig3_residual_monthly.png" class="img-fluid"></p>
+<p>The update can also move in the other direction. In January 2026, lower estimated net migration and a Census methodology change cut household employment by 1.4 million, according to BLS. The decomposition I have indicates a difference of about 1.2 million.</p>
+<p>The largest change in residual happens in Spring 2020, where there was a 5 million drop in residual. The number of wage and salary workers absent from work jumped from 3.5 million in February to 9.6 million in April. Unpaid absentees count as employed in the household survey but not on payrolls, so if they were driving the residual it should have risen. Instead it fell from +3.0 to −2.2 million. This suggests that there is something else that’s driving the discrepancy. One possibility could be the fact that payrolls count anyone paid for any part of the pay period that includes the 12th, so workers laid off mid-period still appear as jobs. Another is that in-person household interviews were suspended that spring, so the household survey was measuring less precisely just when the labor market moved fastest.</p>
+</section>
+<section id="takeaway" class="level2">
+<h2 data-anchor-id="takeaway">Takeaway</h2>
+<p>To conclude, most of the gap between the two jobs numbers is definitional. Self-employment and farm work are driving the difference larger, while multiple jobs are shrinking the difference. The residual is small in ordinary years, but the anomalous movements in residuals always come with a reason . Sometimes the problem is the household survey’s population base, as in 2024, and sometimes it looks like the payroll survey’s pay-period definition, as in spring 2020. The residual could give us a better idea about what drives the differences so that we could know which survey better reflects the underlying trend during that specific point of time.</p>
+</section>
+<section id="data-and-code" class="level2">
+<h2 data-anchor-id="data-and-code">Data and code</h2>
+<ul>
+<li><strong>Household survey:</strong> IPUMS CPS basic monthly samples, extract <code>cps_00003</code>. Sarah Flood, Miriam King, Renae Rodgers, Steven Ruggles, J. Robert Warren, Daniel Backman, Etienne Breton, Grace Cooper, Julia A. Rivera Drew, Stephanie Richards, David Van Riper, and Kari C.W. Williams. <em>IPUMS CPS: Version 13.0</em> [dataset]. Minneapolis, MN: IPUMS, 2025. <a href="https://doi.org/10.18128/D030.V13.0" class="uri">https://doi.org/10.18128/D030.V13.0</a></li>
+<li><strong>Payroll survey:</strong> BLS Current Employment Statistics, total nonfarm, not seasonally adjusted, via FRED (<code>PAYNSA</code>), accessed 28 September 2026.</li>
+<li><strong>Bridge method:</strong> BLS, <a href="https://www.bls.gov/web/empsit/ces_cps_trends.htm">Employment from the CPS adjusted to the CES concept</a>.</li>
+<li><strong>Population controls:</strong> BLS, <a href="https://www.bls.gov/cps/methods/population-controls/population-control-adjustments-2025.pdf">January 2025 adjustments</a> and <a href="https://www.bls.gov/cps/methods/population-controls/experimental-series-accounting-for-january-2026-population-control-effects.htm">January 2026 adjustments</a>.</li>
+<li><strong>Code:</strong> <a href="https://github.com/1iiiiii/Data-Visualization-in-R">github.com/1iiiiii/Data-Visualization-in-R</a>.</li>
+</ul>
+
+
+<!-- -->
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/1iiiiii\.github\.io\/Personal-Website\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Decomposition of Differences between CES and CPS Employment Data"</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="an">description:</span><span class="co"> "Rebuilding BLS's bridge between the household and payroll surveys from IPUMS CPS microdata shows that definitions explain most of the gap, and that the leftover moves when the household survey's population estimates are wrong."</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> 2026-09-28</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="an">categories:</span><span class="co"> [labor market, CPS, IPUMS, ggplot2]</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>BLS publishes two employment numbers that usually differ from each other. The payroll survey counts</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>jobs, while the household survey counts people who have a job. In 2025 the household</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>survey found about 163.5 million employed people, while payrolls counted about</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>158.4 million jobs, which is a gap of 5 million. The post attempts to answer the question: how much of the gap is simply</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>the two surveys counting different things, and how much is left over?</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="fu">## Comparison between CPS and CES</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="pp">|</span> Household survey (CPS) <span class="pp">|</span> Payroll survey (CES) <span class="pp">|</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Counts <span class="pp">|</span> people with a job <span class="pp">|</span> jobs <span class="pp">|</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Sample <span class="pp">|</span> about 60,000 households <span class="pp">|</span> about 119,000 businesses and agencies <span class="pp">|</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> A person with multiple jobs <span class="pp">|</span> counted once <span class="pp">|</span> counted multiple times <span class="pp">|</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Self-employed, unpaid family, private-household workers <span class="pp">|</span> counted <span class="pp">|</span> not counted <span class="pp">|</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Farm workers <span class="pp">|</span> counted <span class="pp">|</span> not counted <span class="pp">|</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> On unpaid leave <span class="pp">|</span> counted as employed <span class="pp">|</span> not counted <span class="pp">|</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>BLS publishes a recipe for translating one concept into the other. Starting from</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>$\text{Household Employment HE}$, I subtract the groups payrolls never see (</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>$\text{Agriculture A}$, $\text{the Unincorporated Self-Employed S}$,$\text{Unpaid Family Workers UFW}$ and $\text{Private-Household Workers PHW}$) and add back the second jobs of $\text{Multiple</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>jobholders M}$. Whatever still separates the result from $\text{Payroll Jobs NFP}$ is $\text{the Residual \epsilon$:</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>\underbrace{HE - NFP}_{\text{gap}} \;=\; A + S + UFW + PHW - M + R</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>The first five terms are simply definitional differences. Neither survey is wrong about them, and the two survey data are quite similar to each other after bridging. The</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>residual is where at least one survey is off.</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a><span class="fu">## Data and weights</span></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>The household data are IPUMS CPS basic monthly microdata from January 2019 to</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>August 2026, 91 months in all. October 2025 is missing because the household</span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>survey was not collected during the government shutdown. Payroll jobs are total</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>nonfarm employment, not seasonally adjusted, in their current vintage.</span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>Every number here is a population total, so each respondent has to count for the</span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>number of people they represent. I use <span class="in">`COMPWT`</span>, the composite weight BLS uses</span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>for its published estimates. With it, my January 2019 employment total is</span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>154.964 million, exactly BLS's published figure. The basic weight <span class="in">`WTFINL`</span></span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>gives 155.580 million, 616,000 too many, and an unweighted count of survey rows</span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>would not be a statement about the country at all.</span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-summary: "The weighted totals behind every figure"</span></span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a>employment <span class="ot">&lt;-</span> cps <span class="sc">|&gt;</span></span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(EMPSTAT <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">12</span>),</span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a>         AGE <span class="sc">&gt;=</span> <span class="dv">16</span>) <span class="sc">|&gt;</span></span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ag =</span> IND <span class="sc">&gt;=</span> <span class="dv">170</span> <span class="sc">&amp;</span> IND <span class="sc">&lt;=</span> <span class="dv">290</span>) <span class="sc">|&gt;</span></span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(YEAR, MONTH) <span class="sc">|&gt;</span></span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a>    <span class="at">employed                  =</span> <span class="fu">sum</span>(COMPWT) <span class="sc">/</span> <span class="fl">1e6</span>,</span>
+<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a>    <span class="at">agriculture               =</span> <span class="fu">sum</span>(COMPWT[ag]) <span class="sc">/</span> <span class="fl">1e6</span>,</span>
+<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a>    <span class="at">self_employed             =</span> <span class="fu">sum</span>(COMPWT[CLASSWKR <span class="sc">==</span> <span class="dv">13</span> <span class="sc">&amp;</span> <span class="sc">!</span>ag]) <span class="sc">/</span> <span class="fl">1e6</span>,</span>
+<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a>    <span class="at">unpaid_family_workers     =</span> <span class="fu">sum</span>(COMPWT[CLASSWKR <span class="sc">==</span> <span class="dv">29</span> <span class="sc">&amp;</span> <span class="sc">!</span>ag]) <span class="sc">/</span> <span class="fl">1e6</span>,</span>
+<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a>    <span class="at">private_household_workers =</span> <span class="fu">sum</span>(COMPWT[IND <span class="sc">==</span> <span class="dv">9290</span> <span class="sc">&amp;</span> <span class="sc">!</span>(CLASSWKR <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">13</span>, <span class="dv">29</span>))]) <span class="sc">/</span> <span class="fl">1e6</span>,</span>
+<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a>    <span class="at">multiple_jobholders       =</span> <span class="fu">sum</span>(COMPWT[MULTJOB <span class="sc">==</span> <span class="dv">2</span> <span class="sc">&amp;</span> <span class="sc">!</span>ag <span class="sc">&amp;</span> <span class="sc">!</span>(CLASSWKR <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">13</span>, <span class="dv">29</span>))]) <span class="sc">/</span> <span class="fl">1e6</span>,</span>
+<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a>    <span class="at">absent_ws                 =</span> <span class="fu">sum</span>(COMPWT[EMPSTAT <span class="sc">==</span> <span class="dv">12</span> <span class="sc">&amp;</span> <span class="sc">!</span>ag <span class="sc">&amp;</span> <span class="sc">!</span>(CLASSWKR <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">13</span>, <span class="dv">29</span>))]) <span class="sc">/</span> <span class="fl">1e6</span>,</span>
+<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
+<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a>This snippet of code shows how each category is handled to avoid problems with double-counting. Each person is subtracted at most once. A self-employed farmer counts only as</span>
+<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a>agriculture, and a self-employed nanny only as self-employed.</span>
+<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a><span class="fu">## The gap</span></span>
+<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a><span class="al">![](fig1_levels_gap.png)</span></span>
+<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a>The household survey sits above payrolls in every month. The gap was about 7</span>
+<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a>million in 2019 and narrowed to between 2 and 4 million by late 2024. Both</span>
+<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a>series are unadjusted, so the gap wobbles with the seasons. Notice that there is a huge spike between December 2024 and January 2025 (~+4 millions), and this gap is too large to simply be a seasonal change. This is why we need to decompose the data to see what drives the change. </span>
+<span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a><span class="fu">## Decomposition by Year: CES vs. CPS</span></span>
+<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a><span class="al">![](fig2_decomposition_by_year.png)</span></span>
+<span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a>Bars above zero widen the gap and bars below narrow it. The dots mark the net</span>
+<span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a>gap. The definitions account for most of the gap in every year, which confirms that definitional differences are what's driving the discrepancies (4.4 of the 6.6</span>
+<span id="cb2-91"><a href="#cb2-91" aria-hidden="true" tabindex="-1"></a>million in 2019, and 3.6 of the 5.1 million in 2025). The category self-employment is the</span>
+<span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a>largest driving force, usually around 9 million. Multiple jobholding pulls the other way, and it</span>
+<span id="cb2-93"><a href="#cb2-93" aria-hidden="true" tabindex="-1"></a>grew from 7.7 million in 2019 to 8.4 million in 2025, which is why the</span>
+<span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a>definitional part of the gap shrank over time.</span>
+<span id="cb2-95"><a href="#cb2-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-96"><a href="#cb2-96" aria-hidden="true" tabindex="-1"></a>The grey residual is the more interesting part. It was 2.2 million in 2019,</span>
+<span id="cb2-97"><a href="#cb2-97" aria-hidden="true" tabindex="-1"></a>under 1 million from 2020 to 2023, negative in 2024, and 1.5 million in 2025.</span>
+<span id="cb2-98"><a href="#cb2-98" aria-hidden="true" tabindex="-1"></a>Each January the household survey switches to new Census population estimates</span>
+<span id="cb2-99"><a href="#cb2-99" aria-hidden="true" tabindex="-1"></a>and never revises earlier months. BLS reports that the January 2025 update added</span>
+<span id="cb2-100"><a href="#cb2-100" aria-hidden="true" tabindex="-1"></a>2.0 million to employment, mostly because of higher estimates of immigration.</span>
+<span id="cb2-101"><a href="#cb2-101" aria-hidden="true" tabindex="-1"></a>The microdata show the same thing that household employment usually falls about 0.8</span>
+<span id="cb2-102"><a href="#cb2-102" aria-hidden="true" tabindex="-1"></a>million from December to January, but in January 2025 it rose by 1.05 million,</span>
+<span id="cb2-103"><a href="#cb2-103" aria-hidden="true" tabindex="-1"></a>an excess of about 1.9 million.</span>
+<span id="cb2-104"><a href="#cb2-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-105"><a href="#cb2-105" aria-hidden="true" tabindex="-1"></a><span class="fu">## Residual Analysis</span></span>
+<span id="cb2-106"><a href="#cb2-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-107"><a href="#cb2-107" aria-hidden="true" tabindex="-1"></a><span class="al">![](fig3_residual_monthly.png)</span></span>
+<span id="cb2-108"><a href="#cb2-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-109"><a href="#cb2-109" aria-hidden="true" tabindex="-1"></a>The update can also move in the other direction. In January 2026, lower estimated net</span>
+<span id="cb2-110"><a href="#cb2-110" aria-hidden="true" tabindex="-1"></a>migration and a Census methodology change cut household employment by 1.4</span>
+<span id="cb2-111"><a href="#cb2-111" aria-hidden="true" tabindex="-1"></a>million, according to BLS. The decomposition I have indicates a difference of about</span>
+<span id="cb2-112"><a href="#cb2-112" aria-hidden="true" tabindex="-1"></a>1.2 million.</span>
+<span id="cb2-113"><a href="#cb2-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-114"><a href="#cb2-114" aria-hidden="true" tabindex="-1"></a>The largest change in residual happens in Spring 2020, where there was a 5 million drop in residual. The number of wage and salary workers absent from</span>
+<span id="cb2-115"><a href="#cb2-115" aria-hidden="true" tabindex="-1"></a>work jumped from 3.5 million in February to 9.6 million in April. Unpaid</span>
+<span id="cb2-116"><a href="#cb2-116" aria-hidden="true" tabindex="-1"></a>absentees count as employed in the household survey but not on payrolls, so if</span>
+<span id="cb2-117"><a href="#cb2-117" aria-hidden="true" tabindex="-1"></a>they were driving the residual it should have risen. Instead it fell from +3.0</span>
+<span id="cb2-118"><a href="#cb2-118" aria-hidden="true" tabindex="-1"></a>to −2.2 million. This suggests that there is something else that's driving the discrepancy. One possibility could be the fact that payrolls count anyone paid for any part of the pay period that</span>
+<span id="cb2-119"><a href="#cb2-119" aria-hidden="true" tabindex="-1"></a>includes the 12th, so workers laid off mid-period still appear as jobs. Another is that</span>
+<span id="cb2-120"><a href="#cb2-120" aria-hidden="true" tabindex="-1"></a>in-person household interviews were suspended that spring, so the household</span>
+<span id="cb2-121"><a href="#cb2-121" aria-hidden="true" tabindex="-1"></a>survey was measuring less precisely just when the labor market moved fastest.</span>
+<span id="cb2-122"><a href="#cb2-122" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-123"><a href="#cb2-123" aria-hidden="true" tabindex="-1"></a><span class="fu">## Takeaway</span></span>
+<span id="cb2-124"><a href="#cb2-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-125"><a href="#cb2-125" aria-hidden="true" tabindex="-1"></a>To conclude, most of the gap between the two jobs numbers is definitional. Self-employment</span>
+<span id="cb2-126"><a href="#cb2-126" aria-hidden="true" tabindex="-1"></a>and farm work are driving the difference larger, while multiple jobs are shrinking the difference. The residual is small in</span>
+<span id="cb2-127"><a href="#cb2-127" aria-hidden="true" tabindex="-1"></a>ordinary years, but the anomalous movements in residuals always come with a reason . Sometimes</span>
+<span id="cb2-128"><a href="#cb2-128" aria-hidden="true" tabindex="-1"></a>the problem is the household survey's population base, as in 2024, and sometimes it</span>
+<span id="cb2-129"><a href="#cb2-129" aria-hidden="true" tabindex="-1"></a>looks like the payroll survey's pay-period definition, as in spring 2020. The residual could give us a better idea about what drives the differences so that we could know which survey better reflects the underlying trend during that specific point of time. </span>
+<span id="cb2-130"><a href="#cb2-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-131"><a href="#cb2-131" aria-hidden="true" tabindex="-1"></a><span class="fu">## Data and code</span></span>
+<span id="cb2-132"><a href="#cb2-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-133"><a href="#cb2-133" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Household survey:** IPUMS CPS basic monthly samples, extract <span class="in">`cps_00003`</span>.</span>
+<span id="cb2-134"><a href="#cb2-134" aria-hidden="true" tabindex="-1"></a>  Sarah Flood, Miriam King, Renae Rodgers, Steven Ruggles, J. Robert Warren,</span>
+<span id="cb2-135"><a href="#cb2-135" aria-hidden="true" tabindex="-1"></a>  Daniel Backman, Etienne Breton, Grace Cooper, Julia A. Rivera Drew, Stephanie</span>
+<span id="cb2-136"><a href="#cb2-136" aria-hidden="true" tabindex="-1"></a>  Richards, David Van Riper, and Kari C.W. Williams. *IPUMS CPS: Version 13.0*</span>
+<span id="cb2-137"><a href="#cb2-137" aria-hidden="true" tabindex="-1"></a>  <span class="co">[</span><span class="ot">dataset</span><span class="co">]</span>. Minneapolis, MN: IPUMS, 2025. <span class="ot">&lt;https://doi.org/10.18128/D030.V13.0&gt;</span></span>
+<span id="cb2-138"><a href="#cb2-138" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Payroll survey:** BLS Current Employment Statistics, total nonfarm, not</span>
+<span id="cb2-139"><a href="#cb2-139" aria-hidden="true" tabindex="-1"></a>  seasonally adjusted, via FRED (<span class="in">`PAYNSA`</span>), accessed 28 September 2026.</span>
+<span id="cb2-140"><a href="#cb2-140" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Bridge method:** BLS, <span class="co">[</span><span class="ot">Employment from the CPS adjusted to the CES concept</span><span class="co">](https://www.bls.gov/web/empsit/ces_cps_trends.htm)</span>.</span>
+<span id="cb2-141"><a href="#cb2-141" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Population controls:** BLS, <span class="co">[</span><span class="ot">January 2025 adjustments</span><span class="co">](https://www.bls.gov/cps/methods/population-controls/population-control-adjustments-2025.pdf)</span></span>
+<span id="cb2-142"><a href="#cb2-142" aria-hidden="true" tabindex="-1"></a>  and <span class="co">[</span><span class="ot">January 2026 adjustments</span><span class="co">](https://www.bls.gov/cps/methods/population-controls/experimental-series-accounting-for-january-2026-population-control-effects.htm)</span>.</span>
+<span id="cb2-143"><a href="#cb2-143" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Code:** <span class="co">[</span><span class="ot">github.com/1iiiiii/Data-Visualization-in-R</span><span class="co">](https://github.com/1iiiiii/Data-Visualization-in-R)</span>.</span>
+</code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p><img src="../../../images/UniversityofPennsylvania_FullLogo_RGB.png" class="img-fluid" width="112"></p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>© 2026 Yi Li · Built with <a href="https://quarto.org">Quarto</a></p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

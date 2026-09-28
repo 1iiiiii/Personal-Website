@@ -1,0 +1,147 @@
+---
+title: "[WRITE - headline that states the finding, not the topic]"
+description: "[WRITE - one or two sentences. Write it last.]"
+date: 2026-09-28
+categories: [labor market, CPS, IPUMS, ggplot2]
+---
+
+<!-- ASSIGNMENT 3: IPUMS CPS microdata, weighted population statistics, at least
+THREE visualisations that tell one economic story. Graded on: 7 IPUMS CPS
+microdata  8 correct weights  9 three substantive visuals  10 they work together.
+Plus the common six: question, clear explanation, interpretation + takeaway,
+data sources + labelled figures, repo organisation + README, reproducibility.
+Target 400-800 words of prose. -->
+
+This post is an extension of the one about the nonfarm payroll. BLS publishes two employment numbers: the
+household survey counts jobs based on headcounts, while the payroll survey counts the number of jobs (and could artificially inflate the number). The two measures disagree by millions. The goal of the post is to separate the part of the gap that is simply due to definitions from the residuals and show when and why the residual moves.
+
+## Comparison between CPS vs. CES
+
+| | Household survey (CPS) | Payroll survey (CES) |
+|---|---|---|
+| Unit | people | jobs |
+| Object | about 60,000 households | businesses and government agencies |
+| Self-employed, unpaid family, private-household workers | counted | not counted |
+| Farm workers | counted | not counted |
+| On unpaid leave | counted as employed | not counted |
+| A person with two jobs | counted once | counted multiple times |
+
+This comparison table shows the difference between the measurement of CES and CPS data. All data points can be relatively easily bridged except the last one. CES only cares about the total number of jobs and does not make a distinction when the same person has multiple jobs at the same time. Thus, precisely bridging CES and CPS would be troublesome. However, since the majority of the multiple jobholders (90.5%) have exactly two jobs, it wouldn't be a stretch to assume 2 as the average. 
+
+$$
+\text{CPS Adjusted} = \text{Household Employment} -
+                      \text{Agriculture} -
+                      \text{Unpaid Absent}
+$$
+BLS has a technical note on bridging CES and CPS employment data, and the equation is shown above. 
+(bls.gov/web/empsit/ces_cps_trends.htm).--cite this
+
+## Data and weights
+
+[WRITE - IPUMS CPS basic monthly microdata, January 2019 to August 2026,
+91 months. No October 2025: the household survey was not collected during
+the government shutdown. 
+Payrolls: CES total nonfarm, not seasonally
+adjusted (FRED PAYNSA), current vintage as of 28 September 2026.]
+
+[WRITE - weights, in two or three sentences. Every number in this post is a
+population total, so each respondent counts for the number of people they
+represent. With COMPWT, the composite weight BLS uses for its published
+estimates, January 2019 employment comes out at 154.964 million, which is
+BLS's published figure (LNU02000000) exactly. The basic weight WTFINL gives
+155.580 million, 616,000 too many.]
+
+```{r}
+#| eval: false
+#| code-fold: true
+#| code-summary: "The weighted totals behind every figure"
+employment <- cps |>
+  filter(EMPSTAT %in% c(10, 12),
+         AGE >= 16) |>
+  mutate(ag = IND >= 170 & IND <= 290) |>
+  group_by(YEAR, MONTH) |>
+  summarise(
+    employed                  = sum(COMPWT) / 1e6,
+    agriculture               = sum(COMPWT[ag]) / 1e6,
+    self_employed             = sum(COMPWT[CLASSWKR == 13 & !ag]) / 1e6,
+    unpaid_family_workers     = sum(COMPWT[CLASSWKR == 29 & !ag]) / 1e6,
+    private_household_workers = sum(COMPWT[IND == 9290 & !(CLASSWKR %in% c(13, 29))]) / 1e6,
+    multiple_jobholders       = sum(COMPWT[MULTJOB == 2 & !ag & !(CLASSWKR %in% c(13, 29))]) / 1e6,
+    absent_ws                 = sum(COMPWT[EMPSTAT == 12 & !ag & !(CLASSWKR %in% c(13, 29))]) / 1e6,
+    .groups = "drop"
+  )
+```
+
+## The gap
+
+![](fig1_levels_gap.png)
+
+[WRITE - read the figure. The gap was about 7 million in 2019 and narrowed
+to 2-4 million by late 2024. Both series are unadjusted, so the gap has a
+seasonal wobble. Point at the single-month jump from about 2 to about 6
+million between December 2024 and January 2025; it gets explained below.]
+
+## What the definitions explain
+
+![](fig2_decomposition_by_year.png)
+
+[WRITE - read the figure. Bars above zero widen the gap, bars below narrow
+it; the dots are the net gap. Self-employment is the largest piece; multiple
+jobholders pull the other way. Unpaid family workers are about 0.04 million,
+so they share a slice with private-household workers.]
+
+[WRITE - the residual across years: about 2.2 million in 2019, under 1
+million in 2020-23, negative in 2024, about 1.5 million in 2025. Then the
+mechanism: each January the household survey switches to new population
+estimates and never revises earlier months. January 2025's update added 2.0
+million to employment, mostly from higher immigration estimates (BLS). Your
+own check: household employment normally falls about 0.83 million from
+December to January (2020-24 average), but rose 1.05 million in January
+2025, an excess of about 1.9 million. So during 2024 the household survey
+was undercounting; the residual being negative is consistent with that.]
+
+## When the residual moves
+
+![](fig3_residual_monthly.png)
+
+[WRITE - the April 2020 result. Absent wage and salary workers jumped from
+3.5 million (February) to 9.6 million (April). If unpaid leave drove the
+residual it should have risen; it fell from +3.0 to -2.2 million. So in
+spring 2020 something else dominated. Candidates, stated as untested: the
+payroll survey counts anyone paid for any part of the pay period including
+the 12th, so fast layoffs still show up as jobs; and household interviewing
+was disrupted, with response rates falling.]
+
+[WRITE - January 2026, if you include it: household employment fell 2.05
+million December to January, against a normal 0.83, suggesting an update
+of roughly -1.2 million. CHECK BLS's 2026 population-control note first.]
+
+## Takeaway
+
+[WRITE - what the reader should now know: most of the gap is definitions;
+the residual is small in normal years, and when it moves there is usually a
+nameable measurement reason, which alternates between the two surveys.
+Which number to trust depends on the month.]
+
+## Caveats
+
+[WRITE - unpaid leave cannot be measured in the monthly files (it is only
+asked in the March supplement), so it stays in the residual. Multiple
+jobholders are counted as one extra job each; 90.5% hold exactly two, so
+this slightly understates payroll jobs. Annual 2026 covers only
+January-August, so its seasonal pattern does not cancel. Payroll numbers
+from April 2025 on will be re-benchmarked next February.]
+
+## Data and code
+
+- **Household survey:** IPUMS CPS basic monthly samples, extract `cps_00003`.
+  Sarah Flood, Miriam King, Renae Rodgers, Steven Ruggles, J. Robert Warren,
+  Daniel Backman, Etienne Breton, Grace Cooper, Julia A. Rivera Drew, Stephanie
+  Richards, David Van Riper, and Kari C.W. Williams. *IPUMS CPS: Version 13.0*
+  [dataset]. Minneapolis, MN: IPUMS, 2025. <https://doi.org/10.18128/D030.V13.0>
+- **Payroll survey:** BLS Current Employment Statistics, total nonfarm, not
+  seasonally adjusted, via FRED (`PAYNSA`), accessed 28 September 2026.
+- **Bridge method:** BLS, [Employment from the CPS adjusted to the CES concept](https://www.bls.gov/web/empsit/ces_cps_trends.htm).
+- **Population controls:** BLS, [Population control adjustments, January 2025](https://www.bls.gov/cps/methods/population-controls/population-control-adjustments-2025.pdf).
+- **Code:** [github.com/1iiiiii/Data-Visualization-in-R](https://github.com/1iiiiii/Data-Visualization-in-R).
+  The raw IPUMS extract is not redistributed; the README explains how to request it.

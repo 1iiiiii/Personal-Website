@@ -10,7 +10,312 @@
 <atom:link href="https://1iiiiii.github.io/Personal-Website/blog/index.xml" rel="self" type="application/rss+xml"/>
 <description>Weekly notes on economic data — acquisition, cleaning, analysis.</description>
 <generator>quarto-1.9.38</generator>
-<lastBuildDate>Mon, 21 Sep 2026 04:00:00 GMT</lastBuildDate>
+<lastBuildDate>Mon, 28 Sep 2026 04:00:00 GMT</lastBuildDate>
+<item>
+  <title>Decomposition of Differences between CES and CPS Employment Data</title>
+  <link>https://1iiiiii.github.io/Personal-Website/blog/posts/post3/</link>
+  <description><![CDATA[ 
+
+
+
+
+<p>BLS publishes two employment numbers that usually differ from each other. The payroll survey counts jobs, while the household survey counts people who have a job. In 2025 the household survey found about 163.5 million employed people, while payrolls counted about 158.4 million jobs, which is a gap of 5 million. The post attempts to answer the question: how much of the gap is simply the two surveys counting different things, and how much is left over?</p>
+<section id="comparison-between-cps-and-ces" class="level2">
+<h2 data-anchor-id="comparison-between-cps-and-ces">Comparison between CPS and CES</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Household survey (CPS)</th>
+<th>Payroll survey (CES)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Counts</td>
+<td>people with a job</td>
+<td>jobs</td>
+</tr>
+<tr class="even">
+<td>Sample</td>
+<td>about 60,000 households</td>
+<td>about 119,000 businesses and agencies</td>
+</tr>
+<tr class="odd">
+<td>A person with multiple jobs</td>
+<td>counted once</td>
+<td>counted multiple times</td>
+</tr>
+<tr class="even">
+<td>Self-employed, unpaid family, private-household workers</td>
+<td>counted</td>
+<td>not counted</td>
+</tr>
+<tr class="odd">
+<td>Farm workers</td>
+<td>counted</td>
+<td>not counted</td>
+</tr>
+<tr class="even">
+<td>On unpaid leave</td>
+<td>counted as employed</td>
+<td>not counted</td>
+</tr>
+</tbody>
+</table>
+<p>BLS publishes a recipe for translating one concept into the other. Starting from <img src="https://latex.codecogs.com/png.latex?%5Ctext%7BHousehold%20Employment%20HE%7D">, I subtract the groups payrolls never see ( <img src="https://latex.codecogs.com/png.latex?%5Ctext%7BAgriculture%20A%7D">, <img src="https://latex.codecogs.com/png.latex?%5Ctext%7Bthe%20Unincorporated%20Self-Employed%20S%7D">,<img src="https://latex.codecogs.com/png.latex?%5Ctext%7BUnpaid%20Family%20Workers%20UFW%7D"> and <img src="https://latex.codecogs.com/png.latex?%5Ctext%7BPrivate-Household%20Workers%20PHW%7D">) and add back the second jobs of <img src="https://latex.codecogs.com/png.latex?%5Ctext%7BMultiple%0Ajobholders%20M%7D">. Whatever still separates the result from <img src="https://latex.codecogs.com/png.latex?%5Ctext%7BPayroll%20Jobs%20NFP%7D"> is <img src="https://latex.codecogs.com/png.latex?%5Ctext%7Bthe%20Residual%20%5Cepsilon">:</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cunderbrace%7BHE%20-%20NFP%7D_%7B%5Ctext%7Bgap%7D%7D%20%5C;=%5C;%20A%20+%20S%20+%20UFW%20+%20PHW%20-%20M%20+%20R%0A"></p>
+<p>The first five terms are simply definitional differences. Neither survey is wrong about them, and the two survey data are quite similar to each other after bridging. The residual is where at least one survey is off.</p>
+</section>
+<section id="data-and-weights" class="level2">
+<h2 data-anchor-id="data-and-weights">Data and weights</h2>
+<p>The household data are IPUMS CPS basic monthly microdata from January 2019 to August 2026, 91 months in all. October 2025 is missing because the household survey was not collected during the government shutdown. Payroll jobs are total nonfarm employment, not seasonally adjusted, in their current vintage.</p>
+<p>Every number here is a population total, so each respondent has to count for the number of people they represent. I use <code>COMPWT</code>, the composite weight BLS uses for its published estimates. With it, my January 2019 employment total is 154.964 million, exactly BLS’s published figure. The basic weight <code>WTFINL</code> gives 155.580 million, 616,000 too many, and an unweighted count of survey rows would not be a statement about the country at all.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>The weighted totals behind every figure</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1">employment <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> cps <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span></span>
+<span id="cb1-2">  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">filter</span>(EMPSTAT <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">%in%</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">c</span>(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">10</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">12</span>),</span>
+<span id="cb1-3">         AGE <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;=</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">16</span>) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span></span>
+<span id="cb1-4">  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">mutate</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">ag =</span> IND <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;=</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">170</span> <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&amp;</span> IND <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&lt;=</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">290</span>) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span></span>
+<span id="cb1-5">  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">group_by</span>(YEAR, MONTH) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span></span>
+<span id="cb1-6">  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">summarise</span>(</span>
+<span id="cb1-7">    <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">employed                  =</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">sum</span>(COMPWT) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1e6</span>,</span>
+<span id="cb1-8">    <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">agriculture               =</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">sum</span>(COMPWT[ag]) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1e6</span>,</span>
+<span id="cb1-9">    <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">self_employed             =</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">sum</span>(COMPWT[CLASSWKR <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">==</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">13</span> <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&amp;</span> <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">!</span>ag]) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1e6</span>,</span>
+<span id="cb1-10">    <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">unpaid_family_workers     =</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">sum</span>(COMPWT[CLASSWKR <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">==</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">29</span> <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&amp;</span> <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">!</span>ag]) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1e6</span>,</span>
+<span id="cb1-11">    <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">private_household_workers =</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">sum</span>(COMPWT[IND <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">==</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">9290</span> <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&amp;</span> <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">!</span>(CLASSWKR <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">%in%</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">c</span>(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">13</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">29</span>))]) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1e6</span>,</span>
+<span id="cb1-12">    <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">multiple_jobholders       =</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">sum</span>(COMPWT[MULTJOB <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">==</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span> <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&amp;</span> <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">!</span>ag <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&amp;</span> <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">!</span>(CLASSWKR <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">%in%</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">c</span>(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">13</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">29</span>))]) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1e6</span>,</span>
+<span id="cb1-13">    <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">absent_ws                 =</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">sum</span>(COMPWT[EMPSTAT <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">==</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">12</span> <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&amp;</span> <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">!</span>ag <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&amp;</span> <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">!</span>(CLASSWKR <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">%in%</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">c</span>(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">13</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">29</span>))]) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1e6</span>,</span>
+<span id="cb1-14">    <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">.groups =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"drop"</span></span>
+<span id="cb1-15">  )</span></code></pre></div></div>
+</details>
+</div>
+<p>This snippet of code shows how each category is handled to avoid problems with double-counting. Each person is subtracted at most once. A self-employed farmer counts only as agriculture, and a self-employed nanny only as self-employed.</p>
+</section>
+<section id="the-gap" class="level2">
+<h2 data-anchor-id="the-gap">The gap</h2>
+<p><img src="https://1iiiiii.github.io/Personal-Website/blog/posts/post3/fig1_levels_gap.png" class="img-fluid"></p>
+<p>The household survey sits above payrolls in every month. The gap was about 7 million in 2019 and narrowed to between 2 and 4 million by late 2024. Both series are unadjusted, so the gap wobbles with the seasons. Notice that there is a huge spike between December 2024 and January 2025 (~+4 millions), and this gap is too large to simply be a seasonal change. This is why we need to decompose the data to see what drives the change.</p>
+</section>
+<section id="decomposition-by-year-ces-vs.-cps" class="level2">
+<h2 data-anchor-id="decomposition-by-year-ces-vs.-cps">Decomposition by Year: CES vs.&nbsp;CPS</h2>
+<p><img src="https://1iiiiii.github.io/Personal-Website/blog/posts/post3/fig2_decomposition_by_year.png" class="img-fluid"></p>
+<p>Bars above zero widen the gap and bars below narrow it. The dots mark the net gap. The definitions account for most of the gap in every year, which confirms that definitional differences are what’s driving the discrepancies (4.4 of the 6.6 million in 2019, and 3.6 of the 5.1 million in 2025). The category self-employment is the largest driving force, usually around 9 million. Multiple jobholding pulls the other way, and it grew from 7.7 million in 2019 to 8.4 million in 2025, which is why the definitional part of the gap shrank over time.</p>
+<p>The grey residual is the more interesting part. It was 2.2 million in 2019, under 1 million from 2020 to 2023, negative in 2024, and 1.5 million in 2025. Each January the household survey switches to new Census population estimates and never revises earlier months. BLS reports that the January 2025 update added 2.0 million to employment, mostly because of higher estimates of immigration. The microdata show the same thing that household employment usually falls about 0.8 million from December to January, but in January 2025 it rose by 1.05 million, an excess of about 1.9 million.</p>
+</section>
+<section id="residual-analysis" class="level2">
+<h2 data-anchor-id="residual-analysis">Residual Analysis</h2>
+<p><img src="https://1iiiiii.github.io/Personal-Website/blog/posts/post3/fig3_residual_monthly.png" class="img-fluid"></p>
+<p>The update can also move in the other direction. In January 2026, lower estimated net migration and a Census methodology change cut household employment by 1.4 million, according to BLS. The decomposition I have indicates a difference of about 1.2 million.</p>
+<p>The largest change in residual happens in Spring 2020, where there was a 5 million drop in residual. The number of wage and salary workers absent from work jumped from 3.5 million in February to 9.6 million in April. Unpaid absentees count as employed in the household survey but not on payrolls, so if they were driving the residual it should have risen. Instead it fell from +3.0 to −2.2 million. This suggests that there is something else that’s driving the discrepancy. One possibility could be the fact that payrolls count anyone paid for any part of the pay period that includes the 12th, so workers laid off mid-period still appear as jobs. Another is that in-person household interviews were suspended that spring, so the household survey was measuring less precisely just when the labor market moved fastest.</p>
+</section>
+<section id="takeaway" class="level2">
+<h2 data-anchor-id="takeaway">Takeaway</h2>
+<p>To conclude, most of the gap between the two jobs numbers is definitional. Self-employment and farm work are driving the difference larger, while multiple jobs are shrinking the difference. The residual is small in ordinary years, but the anomalous movements in residuals always come with a reason . Sometimes the problem is the household survey’s population base, as in 2024, and sometimes it looks like the payroll survey’s pay-period definition, as in spring 2020. The residual could give us a better idea about what drives the differences so that we could know which survey better reflects the underlying trend during that specific point of time.</p>
+</section>
+<section id="data-and-code" class="level2">
+<h2 data-anchor-id="data-and-code">Data and code</h2>
+<ul>
+<li><strong>Household survey:</strong> IPUMS CPS basic monthly samples, extract <code>cps_00003</code>. Sarah Flood, Miriam King, Renae Rodgers, Steven Ruggles, J. Robert Warren, Daniel Backman, Etienne Breton, Grace Cooper, Julia A. Rivera Drew, Stephanie Richards, David Van Riper, and Kari C.W. Williams. <em>IPUMS CPS: Version 13.0</em> [dataset]. Minneapolis, MN: IPUMS, 2025. <a href="https://doi.org/10.18128/D030.V13.0" class="uri">https://doi.org/10.18128/D030.V13.0</a></li>
+<li><strong>Payroll survey:</strong> BLS Current Employment Statistics, total nonfarm, not seasonally adjusted, via FRED (<code>PAYNSA</code>), accessed 28 September 2026.</li>
+<li><strong>Bridge method:</strong> BLS, <a href="https://www.bls.gov/web/empsit/ces_cps_trends.htm">Employment from the CPS adjusted to the CES concept</a>.</li>
+<li><strong>Population controls:</strong> BLS, <a href="https://www.bls.gov/cps/methods/population-controls/population-control-adjustments-2025.pdf">January 2025 adjustments</a> and <a href="https://www.bls.gov/cps/methods/population-controls/experimental-series-accounting-for-january-2026-population-control-effects.htm">January 2026 adjustments</a>.</li>
+<li><strong>Code:</strong> <a href="https://github.com/1iiiiii/Data-Visualization-in-R">github.com/1iiiiii/Data-Visualization-in-R</a>.</li>
+</ul>
+
+
+<!-- -->
+
+</section>
+
+ ]]></description>
+  <category>labor market</category>
+  <category>CPS</category>
+  <category>IPUMS</category>
+  <category>ggplot2</category>
+  <guid>https://1iiiiii.github.io/Personal-Website/blog/posts/post3/</guid>
+  <pubDate>Mon, 28 Sep 2026 04:00:00 GMT</pubDate>
+</item>
 <item>
   <title>How Feasible is Sweetgreen’s Expansion Goal?</title>
   <link>https://1iiiiii.github.io/Personal-Website/blog/posts/post2/</link>
@@ -536,16 +841,6 @@ Figure&nbsp;3: Cumulative revision by mechanism
   <category>spatial</category>
   <category>sf</category>
   <guid>https://1iiiiii.github.io/Personal-Website/blog/posts/post5/</guid>
-  <pubDate>Thu, 01 Jan 2026 05:00:00 GMT</pubDate>
-</item>
-<item>
-  <title></title>
-  <link>https://1iiiiii.github.io/Personal-Website/blog/posts/post3/</link>
-  <description><![CDATA[ undefined ]]></description>
-  <category>labor market</category>
-  <category>CPS</category>
-  <category>ggplot2</category>
-  <guid>https://1iiiiii.github.io/Personal-Website/blog/posts/post3/</guid>
   <pubDate>Thu, 01 Jan 2026 05:00:00 GMT</pubDate>
 </item>
 <item>

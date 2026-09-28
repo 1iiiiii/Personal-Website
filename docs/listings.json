@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/blog/posts/post3/index.html",
       "/blog/posts/post2/index.html",
       "/blog/posts/post1/index.html",
       "/blog/posts/post6/index.html",
@@ -11,13 +12,13 @@
       "/blog/posts/post11/index.html",
       "/blog/posts/post10/index.html",
       "/blog/posts/post5/index.html",
-      "/blog/posts/post3/index.html",
       "/blog/posts/post4/index.html"
     ]
   },
   {
     "listing": "/blog/index.html",
     "items": [
+      "/blog/posts/post3/index.html",
       "/blog/posts/post2/index.html",
       "/blog/posts/post1/index.html",
       "/blog/posts/post6/index.html",
@@ -27,7 +28,6 @@
       "/blog/posts/post11/index.html",
       "/blog/posts/post10/index.html",
       "/blog/posts/post5/index.html",
-      "/blog/posts/post3/index.html",
       "/blog/posts/post4/index.html"
     ]
   }
