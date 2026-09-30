@@ -47,26 +47,6 @@ The five bridge terms are definitional differences, and neither survey is wrong
 about them. The residual is what the definitions cannot explain, so it is where
 at least one survey is off.
 
-Rearranging the identity gives the residual directly. For each month $t$:
-
-$$
-R_t \;=\; \underbrace{HE_t - A_t - S_t - UFW_t - PHW_t + M_t}_{\text{household employment on the payroll concept}} \;-\; NFP_t
-$$
-
-Every term except $NFP_t$ is a monthly population total estimated from the CPS
-microdata with the weights described in the next section, and $NFP_t$ is the
-payroll count for the same month. A positive $R_t$ means the household survey,
-once put on the payroll survey's definition, still counts more workers than
-payrolls do; a negative $R_t$ means it counts fewer. For January 2019, in
-millions:
-
-$$
-R \;=\; \underbrace{154.96 - 2.41 - 8.66 - 0.04 - 0.80 + 7.37}_{150.42} \;-\; 147.88 \;=\; 2.54
-$$
-
-The annual figures in the decomposition chart below are averages of these
-monthly values.
-
 ## Data and weights
 
 The household data are IPUMS CPS basic monthly microdata from January 2019 to
