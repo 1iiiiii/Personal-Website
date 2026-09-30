@@ -342,8 +342,8 @@ font-style: inherit;">"drop"</span></span>
 <p>To answer it, I scrape the store locations of Sweetgreen and Chipotle, match every store to its metro area, and compare where each chain has chosen to open. Chipotle is the natural reference point. Like Sweetgreen it is fast-casual, with bowls assembled to order at a counter, but it is much further along: with about 4,155 U.S. stores, it shows what a fully built-out version of this format looks like. It plays two roles below. First it provides a naive upper bound for Sweetgreen, and then it serves as a control that separates what matters for Sweetgreen specifically from what matters for restaurants in general.</p>
 <section id="data-collection-and-cleaning" class="level2">
 <h2 data-anchor-id="data-collection-and-cleaning">Data Collection and Cleaning</h2>
-<p>Sweetgreen lists its entire store base on one server-rendered page, so a single request returns all 299 locations. Chipotle publishes a sitemap that encodes the state and city of each of its 4,155 stores, so two XML files cover all of them without fetching a single store page. No logins, paywalls or CAPTCHAs were involved.</p>
-<p>Matching stores to metro areas raised two problems, and each would have silently removed important markets.</p>
+<p>Sweetgreen lists its entire store base on one server-rendered page, so a single request returns all 299 locations. Chipotle publishes a sitemap that encodes the state and city of each of its 4,155 stores, so two XML files cover all of them without fetching a single store page.</p>
+<p>When I tried to match stores to metro areas, there were two problems, and each would have silently removed important markets.</p>
 <ol type="1">
 <li><p><strong>ZIP codes lost their leading zero.</strong> A store in Boston was rendered as <code>2109</code> instead of <code>02109</code>, and 43 of the 299 Sweetgreen ZIPs had the same problem. Left alone, a ZIP-based match would have dropped Boston along with much of the Northeast.</p></li>
 <li><p><strong>Some store cities are not Census places.</strong> New York City’s boroughs are not Census places, so the place file has no “Brooklyn” or “Bronx”, and New England towns are county subdivisions rather than places. I added a county-subdivision layer for the six New England states and handled the boroughs and consolidated city-counties separately.</p></li>
@@ -354,30 +354,30 @@ font-style: inherit;">"drop"</span></span>
 <h2 data-anchor-id="the-naive-build">The Naive Build</h2>
 <p><img src="https://1iiiiii.github.io/Personal-Website/blog/posts/post2/fig-penetration.png" class="img-fluid"></p>
 <p>The simplest way to size Sweetgreen’s opportunity is to assume it can eventually match Chipotle’s density everywhere. Chipotle runs 3,807 restaurants across U.S. metro areas, about 13.3 per million residents. Give Sweetgreen the same density over the same 286.5 million people and it “should” support about 3,800 restaurants, which is simply Chipotle’s own footprint.</p>
-<p>The figure shows why that is hard to believe: in every one of the 25 largest metros Sweetgreen sits far below Chipotle. The naive build also assumes that Sweetgreen wants the same kinds of places Chipotle does, and the rest of the post tests that assumption.</p>
+<p>The figure shows why this naive buildup is unrealistic. In every one of the 25 largest metros, Sweetgreen sits far below Chipotle. The naive build also assumes that Sweetgreen wants the same kinds of places Chipotle does, and the rest of the post tests that assumption.</p>
 </section>
-<section id="what-predicts-where-sweetgreen-opens" class="level2">
-<h2 data-anchor-id="what-predicts-where-sweetgreen-opens">What Predicts Where Sweetgreen Opens</h2>
+<section id="predicting-where-sweetgreen-would-open" class="level2">
+<h2 data-anchor-id="predicting-where-sweetgreen-would-open">Predicting where Sweetgreen would open</h2>
 <p>We cannot observe directly which metros could support a Sweetgreen, but we can observe how densely each chain has built in the metros it has already entered and ask what those metros have in common. For each chain separately, I regress log stores per million residents on log median household income, log population density and the share of adults with a bachelor’s degree, using only the metros that chain has entered (47 for Sweetgreen, 353 for Chipotle).</p>
 <p>Taking logs puts two chains of very different sizes on the same percentage scale. In levels, the education coefficients come out almost identical, 12.2 and 13.9 extra stores per million for Sweetgreen and Chipotle. But 12.2 on Sweetgreen’s average of 1.82 stores per million is enormous, while 13.9 on Chipotle’s 11.66 is modest. In logs, each coefficient reads as a percentage response. For income and population density it is an <em>elasticity</em>, the percent change in store density for a 1% change in the variable. For education, which is not logged, it is the percent change for a one-percentage-point rise in the bachelor’s share.</p>
 <section id="education-predicts-sweetgreen-not-chipotle" class="level3">
 <h3 data-anchor-id="education-predicts-sweetgreen-not-chipotle">Education predicts Sweetgreen, not Chipotle</h3>
 <p><img src="https://1iiiiii.github.io/Personal-Website/blog/posts/post2/fig-education-elasticity.png" class="img-fluid"></p>
 <p>Because the vertical axis is on a log scale, the figure can be read directly. The vertical gap between the two lines is the ratio of the two chains’ densities, and the difference in their slopes is the difference in how strongly each responds to education. Sweetgreen’s line sits far lower because it is a much smaller chain, and it is visibly steeper because it is far more sensitive to how educated a metro is.</p>
-<p>A one-percentage-point rise in the bachelor’s share is associated with about 6.6% more Sweetgreen restaurants per capita, but only about 1.0% more Chipotles, and the two coefficients are roughly four standard errors apart. This is where Chipotle earns its place as a control. Education is not simply where fast-casual restaurants go; it is where Sweetgreen goes. The fit tells the same story: metro characteristics explain 43% of the variation in Sweetgreen’s density but only 12% of Chipotle’s, because Chipotle is nearly everywhere, and knowing a metro is rich or educated barely helps to guess its Chipotle count.</p>
-<p>The same point can be made without a regression. In the median metro Sweetgreen operates in, 40.6% of adults hold a bachelor’s degree. For Chipotle the figure is 30.8%, almost exactly the 30.6% median across all U.S. metros. Chipotle sits on the national median; Sweetgreen sits ten points above it.</p>
+<p>A one-percentage-point rise in the bachelor’s share is associated with about 6.6% more Sweetgreen restaurants per capita, but only about 1.0% more Chipotles, and the two coefficients are roughly four standard errors apart. This is where Chipotle earns its place as a control. This tells us that education is not simply where fast-casual restaurants go, but it is where Sweetgreen goes. The fit also tells the same story in that metro characteristics explain 43% of the variation in Sweetgreen’s density but only 12% of Chipotle’s, because Chipotle is nearly everywhere, and knowing a metro is rich or educated barely helps to guess its Chipotle count.</p>
+<p>The same point can be made without a regression. In the median metro Sweetgreen operates in, 40.6% of adults hold a bachelor’s degree. For Chipotle the figure is 30.8%, almost exactly the 30.6% median across all U.S. metros.</p>
 </section>
 <section id="income-adds-nothing-once-education-is-known" class="level3">
 <h3 data-anchor-id="income-adds-nothing-once-education-is-known">Income adds nothing once education is known</h3>
 <p><img src="https://1iiiiii.github.io/Personal-Website/blog/posts/post2/fig-income-elasticity.png" class="img-fluid"></p>
-<p>This chart appears to contradict the regression. Both lines slope upward, as if richer metros attract more of both chains, yet in the regression income’s coefficient is indistinguishable from zero for both: −0.49 (standard error 0.60) for Sweetgreen and 0.18 (0.17) for Chipotle. The two are not in conflict. The lines here are fitted to income alone, while the regression asks what income adds <em>once you already know a metro’s graduate share</em>. Across the metros Sweetgreen has entered, income and education move together (correlation 0.55), so income on its own picks up education’s effect, and that effect disappears once education is held fixed.</p>
+<p>This chart appears to contradict the regression that we have above. Both lines slope upward, as if richer metros attract more of both chains, yet in the regression income’s coefficient is indistinguishable from zero for both. Sweetgreen has −0.49 (standard error 0.60) and Chipotle has 0.18 (0.17). It turns out that the two are not in conflict. The lines here are fitted to income alone, while the regression asks what income adds <em>once you already know a metro’s graduate share</em>. Across the metros Sweetgreen has entered, income and education move together (correlation 0.55), so income on its own picks up education’s effect, and that effect disappears once education is held fixed.</p>
 <p>Population density matters little either way. Chipotle’s density elasticity is statistically significant but small (0.06), and Sweetgreen’s is larger but imprecise (0.12, standard error 0.12). Sweetgreen’s footprint is an education story, and that is exactly why Chipotle’s national density cannot be applied to it. The 340 metros Sweetgreen has not entered have a median bachelor’s share of 29.5%, eleven points below the metros it serves.</p>
 </section>
 </section>
 <section id="a-ceiling-of-about-400-restaurants" class="level2">
 <h2 data-anchor-id="a-ceiling-of-about-400-restaurants">A Ceiling of About 400 Restaurants</h2>
 <p><img src="https://1iiiiii.github.io/Personal-Website/blog/posts/post2/fig-ceiling.png" class="img-fluid"></p>
-<p>Carrying the fitted relationship from the 47 metros Sweetgreen has entered to the 340 it has not, and adding up, gives a ceiling of about 399 restaurants: the 280 it runs in metro areas today plus roughly 120 more. The same exercise with the levels specification gives 406. Two functional forms that disagree about the mechanism agree about the answer to within 2%, which suggests the number comes from the data rather than from my modelling choices.</p>
+<p>Carrying the fitted relationship from the 47 metros Sweetgreen has entered to the 340 it has not, and adding up, gives a ceiling of about 399 restaurants. On top of the 280 it runs in metro areas today, there are roughly 120 more that Sweetgreen could open. The same exercise with the levels specification gives 406. Two functional forms that disagree about the mechanism agree about the answer to within 2%, which suggests the number comes from the data rather than from my modelling choices.</p>
 <p>Two adjustments sit behind the log estimate. Exponentiating a fitted log value recovers the <em>typical</em> metro rather than the <em>average</em> one, so predictions are scaled up by a smearing correction (Duan, 1983). Here that factor is 1.17, a 17% adjustment. Predictions are also capped at the highest density Sweetgreen has reached anywhere, but in the log model the cap never binds.</p>
 <p>The log specification is also what makes the model behave sensibly at all. The first version, fitted in levels, named San Juan, Puerto Rico, where neither chain has a single store, as Sweetgreen’s best expansion market. Its income coefficient came out negative, so a poorer metro read as a more promising one. A straight line has no idea that store density cannot be negative. Modelling log density makes that constraint structural, since <img src="https://latex.codecogs.com/png.latex?e"> raised to any power is positive. It is the same reason the discrete-choice demand models from Applied Micro I write market shares as <img src="https://latex.codecogs.com/png.latex?%5Cexp(%5Cdelta_j)/%5Csum_k%20%5Cexp(%5Cdelta_k)"> rather than as a linear index, even though these are locations chosen by a firm rather than purchases chosen by consumers.</p>
 </section>
@@ -798,80 +798,6 @@ Figure&nbsp;3: Cumulative revision by mechanism
   <category>nonfarm payroll</category>
   <guid>https://1iiiiii.github.io/Personal-Website/blog/posts/post1/</guid>
   <pubDate>Mon, 14 Sep 2026 04:00:00 GMT</pubDate>
-</item>
-<item>
-  <title></title>
-  <link>https://1iiiiii.github.io/Personal-Website/blog/posts/post6/</link>
-  <description><![CDATA[ undefined ]]></description>
-  <category>SQL</category>
-  <category>Python</category>
-  <category>mobility</category>
-  <guid>https://1iiiiii.github.io/Personal-Website/blog/posts/post6/</guid>
-  <pubDate>Thu, 01 Jan 2026 05:00:00 GMT</pubDate>
-</item>
-<item>
-  <title></title>
-  <link>https://1iiiiii.github.io/Personal-Website/blog/posts/post8/</link>
-  <description><![CDATA[ undefined ]]></description>
-  <category>simulation</category>
-  <category>inference</category>
-  <guid>https://1iiiiii.github.io/Personal-Website/blog/posts/post8/</guid>
-  <pubDate>Thu, 01 Jan 2026 05:00:00 GMT</pubDate>
-</item>
-<item>
-  <title></title>
-  <link>https://1iiiiii.github.io/Personal-Website/blog/posts/post9/</link>
-  <description><![CDATA[ undefined ]]></description>
-  <category>machine learning</category>
-  <category>finance</category>
-  <guid>https://1iiiiii.github.io/Personal-Website/blog/posts/post9/</guid>
-  <pubDate>Thu, 01 Jan 2026 05:00:00 GMT</pubDate>
-</item>
-<item>
-  <title></title>
-  <link>https://1iiiiii.github.io/Personal-Website/blog/posts/post7/</link>
-  <description><![CDATA[ undefined ]]></description>
-  <category>plotly</category>
-  <category>interactive</category>
-  <guid>https://1iiiiii.github.io/Personal-Website/blog/posts/post7/</guid>
-  <pubDate>Thu, 01 Jan 2026 05:00:00 GMT</pubDate>
-</item>
-<item>
-  <title></title>
-  <link>https://1iiiiii.github.io/Personal-Website/blog/posts/post11/</link>
-  <description><![CDATA[ undefined ]]></description>
-  <category>macro</category>
-  <category>Bayesian</category>
-  <category>VAR</category>
-  <guid>https://1iiiiii.github.io/Personal-Website/blog/posts/post11/</guid>
-  <pubDate>Thu, 01 Jan 2026 05:00:00 GMT</pubDate>
-</item>
-<item>
-  <title></title>
-  <link>https://1iiiiii.github.io/Personal-Website/blog/posts/post10/</link>
-  <description><![CDATA[ undefined ]]></description>
-  <category>machine learning</category>
-  <guid>https://1iiiiii.github.io/Personal-Website/blog/posts/post10/</guid>
-  <pubDate>Thu, 01 Jan 2026 05:00:00 GMT</pubDate>
-</item>
-<item>
-  <title></title>
-  <link>https://1iiiiii.github.io/Personal-Website/blog/posts/post5/</link>
-  <description><![CDATA[ undefined ]]></description>
-  <category>GIS</category>
-  <category>spatial</category>
-  <category>sf</category>
-  <guid>https://1iiiiii.github.io/Personal-Website/blog/posts/post5/</guid>
-  <pubDate>Thu, 01 Jan 2026 05:00:00 GMT</pubDate>
-</item>
-<item>
-  <title></title>
-  <link>https://1iiiiii.github.io/Personal-Website/blog/posts/post4/</link>
-  <description><![CDATA[ undefined ]]></description>
-  <category>R</category>
-  <category>ggplot2</category>
-  <guid>https://1iiiiii.github.io/Personal-Website/blog/posts/post4/</guid>
-  <pubDate>Thu, 01 Jan 2026 05:00:00 GMT</pubDate>
 </item>
 </channel>
 </rss>
