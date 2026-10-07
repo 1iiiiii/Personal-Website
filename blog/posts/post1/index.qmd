@@ -5,7 +5,9 @@ date: 2026-09-14
 categories: [labor market, nonfarm payroll]
 ---
 
-Nonfarm payrolls may be the most closely watched indicator of the U.S. labor market. However, the sophisticated statistical methodology the measure makes it rather hard to interpret beyond the headline. This post attempts to provide an overview, as well as to shed light on some technical details about the indicator, especially regarding the revisions and seasonal adjustment.
+Nonfarm payrolls measures the number of jobs that are added in the labor market every month. It may be the most closely watched indicator of the U.S. labor market because of its timeliness and wide coverage of industries. The Federal Reserve closely monitors this indicator to keep track of whether one of its dual mandate (i.e. maximum employment) is achieved. The trend shown by nonfarm payrolls would affect the Fed's decision on monetary policy, which in turn affects the economy as a whole and the financial market.
+
+However, the sophisticated statistical methodology of the measure makes it rather hard to interpret beyond the headline. This post attempts to provide an overview, as well as to shed light on some technical details, about the indicator, especially regarding the revisions and seasonal adjustment.
 
 # I. What the number is
 
@@ -28,7 +30,7 @@ Nonfarm payrolls may be the most closely watched indicator of the U.S. labor mar
   - And agriculture is small. Farm employment runs at roughly 0.9–1.2% of total employment,[^5] so a sample large enough to measure it reliably would cost far more than the resulting estimate is worth.
   - None of this means farm employment goes unmeasured. The U.S. Department of Agriculture surveys agricultural labor twice a year.
 - **Active-duty military.** Payrolls are built to track employment that moves with the business cycle. Military headcount moves with national defense requirements instead, so including it would add variation unrelated to what the series is for.
-- **Sole proprietors and private household employees.** CES is an *establishment* survey. The self-employed have no employer filing a payroll on their behalf, and a private home is not a business establishment. Both groups are captured instead by the household survey (CPS) — part of why payroll employment and household employment can move in opposite directions in the same month.
+- **Sole proprietors and private household employees.** CES is an *establishment* survey. The self-employed have no employer filing a payroll on their behalf, and a private home is not a business establishment. Both groups are captured instead by the household survey (CPS), which is part of why payroll employment and household employment can move in opposite directions in the same month.
 
 [^4]: BLS, *Why doesn't CES collect agricultural employment?* <https://www.bls.gov/web/empsit/cesfaq.htm>
 
@@ -38,7 +40,7 @@ Nonfarm payrolls may be the most closely watched indicator of the U.S. labor mar
 
 ## Sources of data
 
-Two BLS programs measure the same thing at different speeds, and the relationship between them explains most of what follows.
+There are two BLS programs that measure the same thing at different frequency, and the relationship between them explains most of what follows.
 
 The **Quarterly Census of Employment and Wages (QCEW)** is assembled from the unemployment insurance tax reports that essentially every employer is required to file with its state. It is close to a census: in 2025 it covered 12.1 million establishments and 155.7 million employees.[^6] About 97% of nonfarm employment within the scope of the establishment survey is covered by UI, and therefore visible to BLS through QCEW records.[^7] The price of that completeness is speed. QCEW is quarterly, and each quarter is published within six months of the quarter's end.[^8]
 
@@ -89,9 +91,11 @@ The sample from the CES has one defect that no amount of additional response wil
 
 ## The birth-death model
 
-- **Imputation.** BLS "excludes employment losses due to business deaths from sample-based estimation in order to offset the missing employment gains from business births." In practice, "not reflecting sample units going out of business and imputing to them the same trend as the other firms in the sample."[^10] BLS says this step "accounts for most of the birth and death employment."
+There are two parts to the birth-death model.
 
-- **An ARIMA model on the residual only**, estimating "the residual birth-death employment not accounted for by the imputation," fitted on the trailing five years.[^11]
+- **First is imputation.** BLS "excludes employment losses due to business deaths from sample-based estimation in order to offset the missing employment gains from business births." In practice, "not reflecting sample units going out of business and imputing to them the same trend as the other firms in the sample."[^10] BLS says this step "accounts for most of the birth and death employment."
+
+- **Second is an ARIMA model on the residual only**, estimating "the residual birth-death employment not accounted for by the imputation," fitted on the trailing five years.[^11]
 
 [^10]: BLS, *CES Net Birth-Death Model*. <https://www.bls.gov/web/empsit/cesbd.htm>
 
@@ -157,7 +161,7 @@ Source: author's calculations from ALFRED vintages of `PAYEMS` and `PAYNSA`. Tho
 
 # III. How the number changes
 
-Three structurally different operations all get called a revision, and they have different causes, sizes and meanings.
+There are three structurally different operations that all get called a revision, yet they have different causes, sizes and meanings. The mix of terms makes the revisions very obscure, but this is easier to hold onto once we sort them by the data sources behind them. This post uses the terms in the first column throughout. The naming is based on my interpretation of each data. The BLS names are the official ones, but they are harder to keep straight.
 
 ```{r}
 #| label: tbl-vocab
@@ -167,29 +171,25 @@ Three structurally different operations all get called a revision, and they have
 library(knitr)
 data.frame(
   Colloquial = c("initial print", "first monthly revision", "second monthly revision",
-                 "the big revision", "annual benchmark revision"),
+                 "preliminary benchmark estimate", "annual benchmark revision"),
   BLS = c("first preliminary estimate", "second preliminary estimate", "final estimate / third closing",
           "preliminary benchmark estimate", "final benchmark"),
-  Driver = c("—", "late survey responses", "late survey responses",
+  Driver = c("—", "late CES survey responses", "late CES survey responses",
              "QCEW, March anchor only", "QCEW + rescaling + birth-death")
-) |> kable(col.names = c("What we'll hear", "What BLS calls it", "What drives the change"), align = "c")
+) |> kable(col.names = c("My rendition of the terms", "What BLS calls it", "What drives the change"), align = "c")
 ```
 
 ::: fig-source
 Source: BLS, *CES Frequently Asked Questions*.
 :::
 
-The terminology seems very obscure. The terms are easier to hold onto once we sort them by the data sources behind them.
-
 The first three rows all rest on the CES sample. Each is built from whatever survey responses have arrived by the time of publication, which is exactly what "preliminary" means here. That is, the data are open to change as the rest of the sample reports. The last two rows rest on QCEW instead. That is why they arrive once a year rather than once a month, and why they reset the *level* of employment rather than nudging a single month's change.
 
 Two of the official labels can seem misleading, as there are two "finals". The "final estimate" is final only in that no further *monthly* revision is coming, but the benchmark still is. And the benchmark figure that makes the news is almost always the *preliminary* benchmark, which is itself revised by the "final benchmark" the following February.
 
-This post uses the terms in the first column throughout. The naming is based on my interpretation of each data. The BLS names are the official ones, but they are harder to keep straight.
-
 ## The monthly cycle
 
-CES "revises its initial monthly estimates twice, in the immediately succeeding 2 months, to incorporate additional sample receipts from respondents in the survey."[^15] For example, the June NFP data has its initial print in early July. In early August, not only does BLS release the initial print of the July NFP data, but it also release the first monthly revision of the June data, as well as the second monthly revision of the May data. In early September, when the August NFP is released, June receives its second monthly revision.
+CES "revises its initial monthly estimates twice, in the immediately succeeding 2 months, to incorporate additional sample receipts from respondents in the survey."[^15] For example, the June NFP data has its initial print in early July. In early August, not only does BLS release the initial print of the July NFP data, but it also releases the first monthly revision of the June data, as well as the second monthly revision of the May data. In early September, when the August NFP is released, June receives its second monthly revision.
 
 [^15]: BLS, *CES Frequently Asked Questions*. <https://www.bls.gov/web/empsit/cesfaq.htm>
 
@@ -201,7 +201,7 @@ Source: BLS, Current Employment Statistics revision table.
 
 ## The annual benchmark
 
-The final benchmark is published with the January preliminary estimates in early February, and affects **21 months** of previously published data, anchored to **March of the previous year**.[^16]
+The final benchmark is published with the initial print of January NFP in early February of the following year, and it affects **21 months** of previously published data, anchored to **March of the previous year**.[^16]
 
 [^16]: BLS, *CES Frequently Asked Questions*. <https://www.bls.gov/web/empsit/cesfaq.htm>
 

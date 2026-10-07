@@ -1,6 +1,6 @@
 ---
-title: "Expectation of real interest rates and inflation expectations are driving up the bond yields and mortgage rates"
-description: "risk of federal deficit and AI-related debt financing are not the main drivers"
+title: "What's driving the ever-increasing mortgage rates?"
+description: ""
 date: 2026-10-05
 categories: [interest rates, mortgages, FRED, Python, matplotlib]
 ---
@@ -9,25 +9,25 @@ The 30-Year Fixed Mortgage Rate is the most common type of U.S. home loan. As it
 it takes borrowers 30 years to pay back the entire loan, and the interest rate is fixed at the
 then-current mortgage rate when the contract is signed. The mortgage rate has risen from 
 2.74% in January 2021 to 6.86% in September 2026. By the time this blog post is written, the national
-average is approximately 7.40% to 7.43%.[^pmms] 
+average is approximately 7.40% to 7.43%. 
 
 The causes of the high level of
 mortgage rate are intricate, as they involve several layers of transmission, each layer
-represents stakeholders that are pertinent to the rates. The chain starts with the
+represents stakeholders that are pertinent to the rates. Starting with the 
 Federal Funds Rate. The Fed raises this rate in order to curb inflation, and the housing
-market is the main channel of monetary policy. The Fed cares about indirectly managing mortgages
-through raising the federal funds rate. 
-This ultra short-term
+market is the main channel of monetary policy. This ultra short-term
 rate then directly affects the yields on 10-year Treasury, which is the benchmark of mortgage rates. 
 Higher mortgage rates means home purchases are less affordable, and this matters
 to all potential homebuyers.
 According to Atlanta Fed, the median monthly
 payment of home purchase takes about 27.8% of a median household income in January 2021. Now it takes
-more than 45%, effectively deterring many buyers.[^hoam] 
+more than 45%, effectively deterring many buyers. 
 
-The blog post tries to address two questions: how much of the
+[WRITE, paragraph 2: why it matters, concretely: what it does to a monthly payment on a typical
+loan; why the Fed watches it (housing is the main channel of monetary policy); why investors who
+hold mortgage credit price it as a spread over Treasuries. Then the question: how much of the
 rise is the Treasury yield, how much is the spread, and within the Treasury yield, is it expected
-real rates, expected inflation, or risk premia?
+real rates, expected inflation, or risk premia?]
 
 ## Two decompositions
 
@@ -37,7 +37,8 @@ between the 30-year mortgage rate and the 10-year Treasury consists of two sprea
 (i) secondary spread: prepayment risk, credit risk, and liquidity, 
 (ii) primary-secondary spread: service fee, net guarantee fee, etc.
 This post will treat the two spreads as a whole and the equation is simply 
-$\text{mortgage rate} = \text{10-year Treasury yield} + \text{mortgage–Treasury spread}$. This is not only for simplicity, but more importantly, as we will
+$\text{mortgage rate} = \text{10-year Treasury yield} + text{
+mortgage–Treasury spread}$. This is not only for simplicity, but more importantly, as we will
 discuss later in the post, the spread is not the main driver of the higher rates in the current period. Our focus is
 on the decomposition of the 10-year Treasury yield. The Cleveland Fed's term-structure model breaks the 10-year 
 Treasury yield into four components: expected path of real short rates, expected inflation, real risk premium,
@@ -49,27 +50,22 @@ $$
 + \underbrace{\big(\rho^{real}_t + \rho^{\pi}_t\big)}_{\text{risk premia}}
 + \varepsilon_t + s_t
 $$
-
-where:
-
-- $\bar r^{e}_t$: expected real interest rate (the average real short-term rate expected over the next ten years)
+where
+- $\bar r^{e}_t$: expected real interest rate
 - $\pi^{e}_t$: expected inflation rate
 - $\rho^{real}_t$: real risk premium
 - $\rho^{\pi}_t$: inflation risk premium
-- $\varepsilon_t$: Cleveland Fed's model residual (the gap between the actual 10-year yield and the model's fitted yield)
+- $varepsilon_t$: Cleveland Fed's model residual
 - $s_t$: mortgage-Treasury spread 
 
-Three data choices follow. All series are converted to monthly averages, so that weekly, daily
-and monthly data line up on the same dates. January 2021 is the base month for every "change
-since" calculation, because that is when the mortgage rate bottomed; a trough base maximizes the
-measured change by construction. The model residual is kept as its own piece, so that the six
-pieces add up exactly to the change in the mortgage rate.
+Then the data choices: monthly averages of all series, January 2021 as the base (the mortgage
+trough, which maximizes the measured change by construction), the model residual kept as its
+own piece so the pieces add up exactly.]
 
 
 ## The spread's history
 
 ![](fig1_levels.png)
-
 Figure 1 gives a simple decomposition of the 30-year mortgage rate. The spread's long-run norm is
 1.69 pp on average from 2010 to 19, and it peaked at 2.97 pp in June 2023. It is now printing at 1.87 pp,
 which is just slightly above the long-run average pre-pandemic and post-GFC.
@@ -77,7 +73,6 @@ which is just slightly above the long-run average pre-pandemic and post-GFC.
 ## Decomposition and share of contribution
 
 ![](fig2_contributions.png)
-
 Figure 2 shows the complete decomposition of the mortgage rate. The blue bar indicates expected real
 short rates, which is the market's expectation of future path of monetary policy. It has been the main
 driver of mortgage rates and 10-year Treasury for the majority of the sample period. We could see that even at 
@@ -105,27 +100,20 @@ of mortgage-Treasury spread shrinks to 5%. What's more pertinent to the scope of
 is the year-to-date contribution. Since the beginning of 2026 until now, expected real short
 rates and expected inflation together accounts for 97% of the increase in mortgage rates. 
 
-To put those numbers into context, several forces have been pushing on different pieces of the
-decomposition. Fiscal concerns, such as the rising debt-to-GDP ratio and higher interest payments,
-would show up as a higher real risk premium, but that piece explains only part of the story.
-Higher energy prices would show up in the inflation risk premium, which is almost negligible at 1%.
-Debt issuance related to AI investment is not necessarily reflected in the model. Resilient economic
-growth feeds through to expected inflation.
+To put those data into context
+fiscal concern - debt-to-GDP ratio, higher interest payment -> higher real risk premium, but only explains part of the story
+higher energy prices - inflation risk premium, almost negligible at 1%
+AI-related debt issuing - not necessarily reflected in the model
+resilient economic growth - expected inflation
 
 ## Cleveland Fed's model vs. NY Fed's model
 
-The Cleveland Fed's model is only one way of decomposing the rates, and it would be
-conducive to check it against other models, such as New York Fed's ACM model along with 
-Treaury Inflations-Protected Securities (TIPS). THe table below shows that both models
-agree that expected policy path, not the term premium, is the
-main driver, and in 2026 both say all of it. TIPS data also supports the same framing.
-Over Jan 2021 and Sep 2026, the TIPS real yield rose 3.64 pp and the breakeven 0.27 pp,
-suggesting that the market believes the rise was almost all real. 
-However, the models disagree on the exact contribution of term premium. 
-From January 2021 to September 2026, while the Cleveland Fed's model indicates that term premium
-contributes 0.23pp, the NY Fed's model claims it contributes 1.31 pp.
-It is noteworthy that Cleveland's expected inflation rose more than breakevens. Its model had
-10-year expected inflation at 1.38% in January 2021 against a 2.08% breakeven.
+[WRITE: the Cleveland split is one model's answer. Compare with the NY Fed's ACM model and with
+TIPS. Three points: (1) both models say the expected policy path, not the term premium, is the
+main driver, and in 2026 both say all of it; (2) it is a real-rate story, TIPS says almost
+entirely real; (3) the models disagree on the term premium, 0.23 vs 1.31 pp, so state it as a
+range. One sentence on why Cleveland's expected inflation rose more than breakevens: its model had
+10-year expected inflation at 1.38% in January 2021 against a 2.08% breakeven.]
 
 | | Jan 2021 → Oct 2023 | Jan 2021 → Sep 2026 | Jan → Sep 2026 |
 |---|---:|---:|---:|
@@ -143,31 +131,19 @@ It is noteworthy that Cleveland's expected inflation rose more than breakevens. 
 
 ![](fig3_spread_drivers.png)
 
-Panel 1 shows that the spread spikes line up with the volatility spikes in 2008–09, spring 2020, 
-and 2022–23. The mechanism is the prepayment option. A homeowner can refinance whenever rates fall, 
-so the investor holding the mortgage is short that option.
-When rate volatility rises, the option is worth more and investors demand a wider spread to hold mortgages. 
-Volatility went from about 50 bp in 2021 to about 145 bp in early 2023, and the spread from 1.4 pp to 2.97 pp.
-In Panel 2, the Fed's balance sheet shows up in the spread too. The cleanest episode is 2009
-wheb holdings go from zero to 1.1 trillion in about a year and the spread falls from 2.9 pp to 1.3 pp, 
-even though volatility was still high. 
-Since 2024, the Fed is still shrinking its holdings, yet the spread has come back to 1.87 pp, 
-near its 2010–19 average. Volatility fell from ~140 bp to ~70 bp over the same period. 
-So the recent normalization tracks volatility, not the Fed's balance sheet, which suggests the prepayment-option channel is the stronger of the two.
+[WRITE: read Figure 3. The spread rose with rate volatility (prepayment option) and as the Fed
+stopped buying and then let MBS run off; it fell back as volatility fell even though the Fed is
+still shrinking its holdings. Say plainly that this is co-movement, not a causal estimate.]
 
 ## Caveats
 
 - The components for the decomposition are model estimates (Haubrich–Pennacchi–Ritchken), and a different model splits
   them differently (see @tbl-models) and we could potentially arrive at different conclusions. But in this case, different
   models at least agree with each other about the main driver.
-- The model does not fit the 10-year yield exactly. The residual averages −0.33 pp over the sample
-  and reaches 1.23 pp in absolute value, but it moved only 0.17 pp between January 2021 and September
-  2026, so it does not change the ranking of the pieces.
-- The base month is the trough of the mortgage rate, which maximizes the measured change by
-  construction. A later base, such as the first Fed cut in September 2024, would give smaller
-  numbers but the same ordering.
-- The spread is the Freddie Mac survey rate minus the 10-year constant-maturity yield. It is not an
-  MBS option-adjusted spread, so it mixes the secondary-market spread with lender margins and fees.
+- the residual: mean −0.33 pp over the sample, up to 1.23 pp in absolute value; it moved 0.17 pp
+  over the window;
+- the base is the trough, which maximizes the measured change;
+- the spread is PMMS minus the 10-year constant-maturity yield, not an MBS option-adjusted spread;
 
 ## Takeaway
 
@@ -176,18 +152,15 @@ the spread. Within the Treasury yield, the expected path of real policy rates ac
 (56% of the mortgage move) and expected inflation for 1.19. 
 
 
-Risk premia are small under the Cleveland model and about a third of the Treasury move under the
-NY Fed's ACM model. The spread problem of 2023 has largely gone, but the rate problem has not.
+risk premia are small under the
+Cleveland model and a third of the move under ACM. The spread problem of 2023 has largely gone;
+the rate problem has not.]
 
 ## Data and code
 
-- **Mortgage rate:** Freddie Mac Primary Mortgage Market Survey, 30-year fixed, via FRED (`MORTGAGE30US`), weekly. All FRED series were downloaded with `fredapi` on 4 October 2026.
+- **Mortgage rate:** Freddie Mac Primary Mortgage Market Survey, 30-year fixed, via FRED (`MORTGAGE30US`), weekly
 - **Treasury yields:** Federal Reserve Board H.15, via FRED: 10-year constant maturity (`DGS10`), 10-year TIPS (`DFII10`), 10-year breakeven (`T10YIE`), daily.
 - **Fed MBS holdings:** Federal Reserve Board H.4.1, via FRED (`WSHOMCB`), weekly.
 - **Yield decomposition:** Federal Reserve Bank of Cleveland, [Inflation Expectations](https://www.clevelandfed.org/indicators-and-data/inflation-expectations), via FRED: `EXPINF10YR`, `REAINTRATREARAT10Y`, `TENEXPCHAREARISPRE`, `TENEXPCHAINFRISPRE`, monthly.
-- **Term premium cross-check:** Federal Reserve Bank of New York, [Treasury Term Premia](https://www.newyorkfed.org/research/data_indicators/term-premia-tabs) (Adrian, Crump and Moench), daily file, downloaded 3 October 2026.
-- **Affordability:** Federal Reserve Bank of Atlanta, [Home Ownership Affordability Monitor](https://www.atlantafed.org/research-and-data/data/home-ownership-affordability-monitor).
-- **Code:** [github.com/1iiiiii/Mortgage-Rate-Decomposition](https://github.com/1iiiiii/Mortgage-Rate-Decomposition). Four numbered notebooks download the data, build the monthly series and contributions, and save the figures and every number quoted above to `results/`.
-
-[^pmms]: Freddie Mac's Primary Mortgage Market Survey, which is the series used throughout this post, averaged 7.28% for the week of 1 October 2026 (7.03% the week before). [Freddie Mac, 1 October 2026](https://www.globenewswire.com/news-release/2026/10/01/3373202/0/en/mortgage-rates-average-7-28.html).
-[^hoam]: Federal Reserve Bank of Atlanta, [Home Ownership Affordability Monitor](https://www.atlantafed.org/research-and-data/data/home-ownership-affordability-monitor): the share of median household income needed to cover the payment on a median-priced home, with 30% as the affordability threshold.
+- **Term premium cross-check:** Federal Reserve Bank of New York, [Treasury Term Premia](https://www.newyorkfed.org/research/data_indicators/term-premia-tabs) (Adrian, Crump and Moench), daily file.
+- **Code:** [github.com/1iiiiii/Mortgage-Rate-Decomposition](https://github.com/1iiiiii/Mortgage-Rate-Decomposition). 

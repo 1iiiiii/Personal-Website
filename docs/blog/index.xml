@@ -10,7 +10,266 @@
 <atom:link href="https://1iiiiii.github.io/Personal-Website/blog/index.xml" rel="self" type="application/rss+xml"/>
 <description>Weekly notes on economic data — acquisition, cleaning, analysis.</description>
 <generator>quarto-1.9.38</generator>
-<lastBuildDate>Mon, 28 Sep 2026 04:00:00 GMT</lastBuildDate>
+<lastBuildDate>Mon, 05 Oct 2026 04:00:00 GMT</lastBuildDate>
+<item>
+  <title>Expectation of real interest rates and inflation expectations are driving up the bond yields and mortgage rates</title>
+  <link>https://1iiiiii.github.io/Personal-Website/blog/posts/post4/</link>
+  <description><![CDATA[ 
+
+
+
+
+<p>The 30-Year Fixed Mortgage Rate is the most common type of U.S. home loan. As its name suggests, it takes borrowers 30 years to pay back the entire loan, and the interest rate is fixed at the then-current mortgage rate when the contract is signed. The mortgage rate has risen from 2.74% in January 2021 to 6.86% in September 2026. By the time this blog post is written, the national average is approximately 7.40% to 7.43%.<sup>1</sup></p>
+<p>The causes of the high level of mortgage rate are intricate, as they involve several layers of transmission, each layer represents stakeholders that are pertinent to the rates. The chain starts with the Federal Funds Rate. The Fed raises this rate in order to curb inflation, and the housing market is the main channel of monetary policy. The Fed cares about indirectly managing mortgages through raising the federal funds rate. This ultra short-term rate then directly affects the yields on 10-year Treasury, which is the benchmark of mortgage rates. Higher mortgage rates means home purchases are less affordable, and this matters to all potential homebuyers. According to Atlanta Fed, the median monthly payment of home purchase takes about 27.8% of a median household income in January 2021. Now it takes more than 45%, effectively deterring many buyers.<sup>2</sup></p>
+<p>The blog post tries to address two questions: how much of the rise is the Treasury yield, how much is the spread, and within the Treasury yield, is it expected real rates, expected inflation, or risk premia?</p>
+<section id="two-decompositions" class="level2">
+<h2 data-anchor-id="two-decompositions">Two decompositions</h2>
+<p>The benchmark for mortgage rate is the 10-year Treasury yield. That is, mortgage rate tends to closely follow the 10-year Treasury (as opposed to the Federal Funds rate). The difference between the 30-year mortgage rate and the 10-year Treasury consists of two spreads: (i) secondary spread: prepayment risk, credit risk, and liquidity, (ii) primary-secondary spread: service fee, net guarantee fee, etc. This post will treat the two spreads as a whole and the equation is simply <img src="https://latex.codecogs.com/png.latex?%5Ctext%7Bmortgage%20rate%7D%20=%20%5Ctext%7B10-year%20Treasury%20yield%7D%20+%20%5Ctext%7Bmortgage%E2%80%93Treasury%20spread%7D">. This is not only for simplicity, but more importantly, as we will discuss later in the post, the spread is not the main driver of the higher rates in the current period. Our focus is on the decomposition of the 10-year Treasury yield. The Cleveland Fed’s term-structure model breaks the 10-year Treasury yield into four components: expected path of real short rates, expected inflation, real risk premium, and inflation risk premium. The equation below gives a clearer representation of everything put together:</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cunderbrace%7Bi%5E%7Bmort%7D_t%7D_%7B%5Ctext%7Bmortgage%20rate%7D%7D%0A=%20%5Cunderbrace%7B%5Cbig(%5Cbar%20r%5E%7Be%7D_t%20+%20%5Cpi%5E%7Be%7D_t%5Cbig)%7D_%7B%5Ctext%7Bexpected%20policy%20path%7D%7D%0A+%20%5Cunderbrace%7B%5Cbig(%5Crho%5E%7Breal%7D_t%20+%20%5Crho%5E%7B%5Cpi%7D_t%5Cbig)%7D_%7B%5Ctext%7Brisk%20premia%7D%7D%0A+%20%5Cvarepsilon_t%20+%20s_t%0A"></p>
+<p>where:</p>
+<ul>
+<li><img src="https://latex.codecogs.com/png.latex?%5Cbar%20r%5E%7Be%7D_t">: expected real interest rate (the average real short-term rate expected over the next ten years)</li>
+<li><img src="https://latex.codecogs.com/png.latex?%5Cpi%5E%7Be%7D_t">: expected inflation rate</li>
+<li><img src="https://latex.codecogs.com/png.latex?%5Crho%5E%7Breal%7D_t">: real risk premium</li>
+<li><img src="https://latex.codecogs.com/png.latex?%5Crho%5E%7B%5Cpi%7D_t">: inflation risk premium</li>
+<li><img src="https://latex.codecogs.com/png.latex?%5Cvarepsilon_t">: Cleveland Fed’s model residual (the gap between the actual 10-year yield and the model’s fitted yield)</li>
+<li><img src="https://latex.codecogs.com/png.latex?s_t">: mortgage-Treasury spread</li>
+</ul>
+<p>Three data choices follow. All series are converted to monthly averages, so that weekly, daily and monthly data line up on the same dates. January 2021 is the base month for every “change since” calculation, because that is when the mortgage rate bottomed; a trough base maximizes the measured change by construction. The model residual is kept as its own piece, so that the six pieces add up exactly to the change in the mortgage rate.</p>
+</section>
+<section id="the-spreads-history" class="level2">
+<h2 data-anchor-id="the-spreads-history">The spread’s history</h2>
+<p><img src="https://1iiiiii.github.io/Personal-Website/blog/posts/post4/fig1_levels.png" class="img-fluid"></p>
+<p>Figure 1 gives a simple decomposition of the 30-year mortgage rate. The spread’s long-run norm is 1.69 pp on average from 2010 to 19, and it peaked at 2.97 pp in June 2023. It is now printing at 1.87 pp, which is just slightly above the long-run average pre-pandemic and post-GFC.</p>
+</section>
+<section id="decomposition-and-share-of-contribution" class="level2">
+<h2 data-anchor-id="decomposition-and-share-of-contribution">Decomposition and share of contribution</h2>
+<p><img src="https://1iiiiii.github.io/Personal-Website/blog/posts/post4/fig2_contributions.png" class="img-fluid"></p>
+<p>Figure 2 shows the complete decomposition of the mortgage rate. The blue bar indicates expected real short rates, which is the market’s expectation of future path of monetary policy. It has been the main driver of mortgage rates and 10-year Treasury for the majority of the sample period. We could see that even at the October 2023 peak, the spread was only a quarter of the story, and inflation expectation and expected real rates are predominantly leading.</p>
+<div id="tbl-contrib" class="quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-contrib-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Contributions to the change in the 30-year mortgage rate, percentage points and share of the total change. Shares can be negative or exceed 100 when pieces offset. Source: FRED (Freddie Mac PMMS, Federal Reserve Board H.15, Federal Reserve Bank of Cleveland); author’s calculations.
+</figcaption>
+<div aria-describedby="tbl-contrib-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th style="text-align: right;">Jan 2021 → Oct 2023 (pp)</th>
+<th style="text-align: right;">%</th>
+<th style="text-align: right;">Jan 2021 → Sep 2026 (pp)</th>
+<th style="text-align: right;">%</th>
+<th style="text-align: right;">Jan → Sep 2026 (pp)</th>
+<th style="text-align: right;">%</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Expected real short rates</td>
+<td style="text-align: right;">2.03</td>
+<td style="text-align: right;">41</td>
+<td style="text-align: right;">2.31</td>
+<td style="text-align: right;">56</td>
+<td style="text-align: right;">0.49</td>
+<td style="text-align: right;">65</td>
+</tr>
+<tr class="even">
+<td>Expected inflation</td>
+<td style="text-align: right;">0.98</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">1.19</td>
+<td style="text-align: right;">29</td>
+<td style="text-align: right;">0.24</td>
+<td style="text-align: right;">32</td>
+</tr>
+<tr class="odd">
+<td>Real risk premium</td>
+<td style="text-align: right;">0.29</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">0.17</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0.09</td>
+<td style="text-align: right;">11</td>
+</tr>
+<tr class="even">
+<td>Inflation risk premium</td>
+<td style="text-align: right;">0.07</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.07</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0.01</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td>Model residual</td>
+<td style="text-align: right;">0.35</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0.17</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">-0.05</td>
+<td style="text-align: right;">-7</td>
+</tr>
+<tr class="even">
+<td>Mortgage-Treasury spread</td>
+<td style="text-align: right;">1.17</td>
+<td style="text-align: right;">24</td>
+<td style="text-align: right;">0.22</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">-0.02</td>
+<td style="text-align: right;">-2</td>
+</tr>
+<tr class="odd">
+<td>Total: 30-year mortgage rate</td>
+<td style="text-align: right;">4.88</td>
+<td style="text-align: right;">100</td>
+<td style="text-align: right;">4.13</td>
+<td style="text-align: right;">100</td>
+<td style="text-align: right;">0.76</td>
+<td style="text-align: right;">100</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>To get a more concrete sense of what’s driving the changes in mortgage rates, we could look at the share of contribution by components in three different periods, shown in the table above. The period from January 2021 to October 2023 saw rates from trough to peak, the main driver being the market’s expectation of the short-term policy rate (41%). The spread comes next at 24%. But if we look at a longer window from January 2021 to September 2026, the contribution of mortgage-Treasury spread shrinks to 5%. What’s more pertinent to the scope of this blog post is the year-to-date contribution. Since the beginning of 2026 until now, expected real short rates and expected inflation together accounts for 97% of the increase in mortgage rates.</p>
+<p>To put those numbers into context, several forces have been pushing on different pieces of the decomposition. Fiscal concerns, such as the rising debt-to-GDP ratio and higher interest payments, would show up as a higher real risk premium, but that piece explains only part of the story. Higher energy prices would show up in the inflation risk premium, which is almost negligible at 1%. Debt issuance related to AI investment is not necessarily reflected in the model. Resilient economic growth feeds through to expected inflation.</p>
+</section>
+<section id="cleveland-feds-model-vs.-ny-feds-model" class="level2">
+<h2 data-anchor-id="cleveland-feds-model-vs.-ny-feds-model">Cleveland Fed’s model vs.&nbsp;NY Fed’s model</h2>
+<p>The Cleveland Fed’s model is only one way of decomposing the rates, and it would be conducive to check it against other models, such as New York Fed’s ACM model along with Treaury Inflations-Protected Securities (TIPS). THe table below shows that both models agree that expected policy path, not the term premium, is the main driver, and in 2026 both say all of it. TIPS data also supports the same framing. Over Jan 2021 and Sep 2026, the TIPS real yield rose 3.64 pp and the breakeven 0.27 pp, suggesting that the market believes the rise was almost all real. However, the models disagree on the exact contribution of term premium. From January 2021 to September 2026, while the Cleveland Fed’s model indicates that term premium contributes 0.23pp, the NY Fed’s model claims it contributes 1.31 pp. It is noteworthy that Cleveland’s expected inflation rose more than breakevens. Its model had 10-year expected inflation at 1.38% in January 2021 against a 2.08% breakeven.</p>
+<div id="tbl-models" class="quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-models-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2: Change in the 10-year Treasury yield and its parts under two models and in the TIPS market, percentage points. Source: FRED, Federal Reserve Bank of Cleveland, Federal Reserve Bank of New York (ACM); author’s calculations.
+</figcaption>
+<div aria-describedby="tbl-models-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 26%">
+<col style="width: 26%">
+<col style="width: 26%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th style="text-align: right;">Jan 2021 → Oct 2023</th>
+<th style="text-align: right;">Jan 2021 → Sep 2026</th>
+<th style="text-align: right;">Jan → Sep 2026</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Cleveland: expected nominal path (real path + expected inflation)</td>
+<td style="text-align: right;">3.01</td>
+<td style="text-align: right;">3.51</td>
+<td style="text-align: right;">0.73</td>
+</tr>
+<tr class="even">
+<td>Cleveland: premia (real + inflation risk premium)</td>
+<td style="text-align: right;">0.36</td>
+<td style="text-align: right;">0.23</td>
+<td style="text-align: right;">0.09</td>
+</tr>
+<tr class="odd">
+<td>ACM: expected nominal path</td>
+<td style="text-align: right;">2.87</td>
+<td style="text-align: right;">2.57</td>
+<td style="text-align: right;">0.72</td>
+</tr>
+<tr class="even">
+<td>ACM: term premium</td>
+<td style="text-align: right;">0.91</td>
+<td style="text-align: right;">1.31</td>
+<td style="text-align: right;">-0.02</td>
+</tr>
+<tr class="odd">
+<td>TIPS: real yield</td>
+<td style="text-align: right;">3.41</td>
+<td style="text-align: right;">3.64</td>
+<td style="text-align: right;">0.73</td>
+</tr>
+<tr class="even">
+<td>TIPS: breakeven inflation</td>
+<td style="text-align: right;">0.30</td>
+<td style="text-align: right;">0.27</td>
+<td style="text-align: right;">0.04</td>
+</tr>
+<tr class="odd">
+<td>10-year Treasury yield (actual)</td>
+<td style="text-align: right;">3.72</td>
+<td style="text-align: right;">3.91</td>
+<td style="text-align: right;">0.78</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+</section>
+<section id="what-moves-the-spread" class="level2">
+<h2 data-anchor-id="what-moves-the-spread">What moves the spread</h2>
+<p><img src="https://1iiiiii.github.io/Personal-Website/blog/posts/post4/fig3_spread_drivers.png" class="img-fluid"></p>
+<p>Panel 1 shows that the spread spikes line up with the volatility spikes in 2008–09, spring 2020, and 2022–23. The mechanism is the prepayment option. A homeowner can refinance whenever rates fall, so the investor holding the mortgage is short that option. When rate volatility rises, the option is worth more and investors demand a wider spread to hold mortgages. Volatility went from about 50 bp in 2021 to about 145 bp in early 2023, and the spread from 1.4 pp to 2.97 pp. In Panel 2, the Fed’s balance sheet shows up in the spread too. The cleanest episode is 2009 wheb holdings go from zero to 1.1 trillion in about a year and the spread falls from 2.9 pp to 1.3 pp, even though volatility was still high. Since 2024, the Fed is still shrinking its holdings, yet the spread has come back to 1.87 pp, near its 2010–19 average. Volatility fell from ~140 bp to ~70 bp over the same period. So the recent normalization tracks volatility, not the Fed’s balance sheet, which suggests the prepayment-option channel is the stronger of the two.</p>
+</section>
+<section id="caveats" class="level2">
+<h2 data-anchor-id="caveats">Caveats</h2>
+<ul>
+<li>The components for the decomposition are model estimates (Haubrich–Pennacchi–Ritchken), and a different model splits them differently (see Table&nbsp;2) and we could potentially arrive at different conclusions. But in this case, different models at least agree with each other about the main driver.</li>
+<li>The model does not fit the 10-year yield exactly. The residual averages −0.33 pp over the sample and reaches 1.23 pp in absolute value, but it moved only 0.17 pp between January 2021 and September 2026, so it does not change the ranking of the pieces.</li>
+<li>The base month is the trough of the mortgage rate, which maximizes the measured change by construction. A later base, such as the first Fed cut in September 2024, would give smaller numbers but the same ordering.</li>
+<li>The spread is the Freddie Mac survey rate minus the 10-year constant-maturity yield. It is not an MBS option-adjusted spread, so it mixes the secondary-market spread with lender margins and fees.</li>
+</ul>
+</section>
+<section id="takeaway" class="level2">
+<h2 data-anchor-id="takeaway">Takeaway</h2>
+<p>To conclude, of the 4.13 pp rise in mortgage rates since January 2021, 3.91 is the Treasury yield and 0.22 is the spread. Within the Treasury yield, the expected path of real policy rates accounts for 2.31 pp (56% of the mortgage move) and expected inflation for 1.19.</p>
+<p>Risk premia are small under the Cleveland model and about a third of the Treasury move under the NY Fed’s ACM model. The spread problem of 2023 has largely gone, but the rate problem has not.</p>
+</section>
+<section id="data-and-code" class="level2">
+<h2 data-anchor-id="data-and-code">Data and code</h2>
+<ul>
+<li><strong>Mortgage rate:</strong> Freddie Mac Primary Mortgage Market Survey, 30-year fixed, via FRED (<code>MORTGAGE30US</code>), weekly. All FRED series were downloaded with <code>fredapi</code> on 4 October 2026.</li>
+<li><strong>Treasury yields:</strong> Federal Reserve Board H.15, via FRED: 10-year constant maturity (<code>DGS10</code>), 10-year TIPS (<code>DFII10</code>), 10-year breakeven (<code>T10YIE</code>), daily.</li>
+<li><strong>Fed MBS holdings:</strong> Federal Reserve Board H.4.1, via FRED (<code>WSHOMCB</code>), weekly.</li>
+<li><strong>Yield decomposition:</strong> Federal Reserve Bank of Cleveland, <a href="https://www.clevelandfed.org/indicators-and-data/inflation-expectations">Inflation Expectations</a>, via FRED: <code>EXPINF10YR</code>, <code>REAINTRATREARAT10Y</code>, <code>TENEXPCHAREARISPRE</code>, <code>TENEXPCHAINFRISPRE</code>, monthly.</li>
+<li><strong>Term premium cross-check:</strong> Federal Reserve Bank of New York, <a href="https://www.newyorkfed.org/research/data_indicators/term-premia-tabs">Treasury Term Premia</a> (Adrian, Crump and Moench), daily file, downloaded 3 October 2026.</li>
+<li><strong>Affordability:</strong> Federal Reserve Bank of Atlanta, <a href="https://www.atlantafed.org/research-and-data/data/home-ownership-affordability-monitor">Home Ownership Affordability Monitor</a>.</li>
+<li><strong>Code:</strong> <a href="https://github.com/1iiiiii/Mortgage-Rate-Decomposition">github.com/1iiiiii/Mortgage-Rate-Decomposition</a>. Four numbered notebooks download the data, build the monthly series and contributions, and save the figures and every number quoted above to <code>results/</code>.</li>
+</ul>
+
+
+<!-- -->
+
+</section>
+
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>Freddie Mac’s Primary Mortgage Market Survey, which is the series used throughout this post, averaged 7.28% for the week of 1 October 2026 (7.03% the week before). <a href="https://www.globenewswire.com/news-release/2026/10/01/3373202/0/en/mortgage-rates-average-7-28.html">Freddie Mac, 1 October 2026</a>.↩︎</p></li>
+<li id="fn2"><p>Federal Reserve Bank of Atlanta, <a href="https://www.atlantafed.org/research-and-data/data/home-ownership-affordability-monitor">Home Ownership Affordability Monitor</a>: the share of median household income needed to cover the payment on a median-priced home, with 30% as the affordability threshold.↩︎</p></li>
+</ol>
+</section></div> ]]></description>
+  <category>interest rates</category>
+  <category>mortgages</category>
+  <category>FRED</category>
+  <category>Python</category>
+  <category>matplotlib</category>
+  <guid>https://1iiiiii.github.io/Personal-Website/blog/posts/post4/</guid>
+  <pubDate>Mon, 05 Oct 2026 04:00:00 GMT</pubDate>
+</item>
 <item>
   <title>Decomposition of Differences between CES and CPS Employment Data</title>
   <link>https://1iiiiii.github.io/Personal-Website/blog/posts/post3/</link>
@@ -434,7 +693,8 @@ font-style: inherit;">"drop"</span></span>
 
 
 
-<p>Nonfarm payrolls may be the most closely watched indicator of the U.S. labor market. However, the sophisticated statistical methodology the measure makes it rather hard to interpret beyond the headline. This post attempts to provide an overview, as well as to shed light on some technical details about the indicator, especially regarding the revisions and seasonal adjustment.</p>
+<p>Nonfarm payrolls measures the number of jobs that are added in the labor market every month. It may be the most closely watched indicator of the U.S. labor market because of its timeliness and wide coverage of industries. The Federal Reserve closely monitors this indicator to keep track of whether one of its dual mandate (i.e.&nbsp;maximum employment) is achieved. The trend shown by nonfarm payrolls would affect the Fed’s decision on monetary policy, which in turn affects the economy as a whole and the financial market.</p>
+<p>However, the sophisticated statistical methodology of the measure makes it rather hard to interpret beyond the headline. This post attempts to provide an overview, as well as to shed light on some technical details, about the indicator, especially regarding the revisions and seasonal adjustment.</p>
 <section id="i.-what-the-number-is" class="level1">
 <h1>I. What the number is</h1>
 <ul>
@@ -454,7 +714,7 @@ font-style: inherit;">"drop"</span></span>
 <li>None of this means farm employment goes unmeasured. The U.S. Department of Agriculture surveys agricultural labor twice a year.</li>
 </ul></li>
 <li><strong>Active-duty military.</strong> Payrolls are built to track employment that moves with the business cycle. Military headcount moves with national defense requirements instead, so including it would add variation unrelated to what the series is for.</li>
-<li><strong>Sole proprietors and private household employees.</strong> CES is an <em>establishment</em> survey. The self-employed have no employer filing a payroll on their behalf, and a private home is not a business establishment. Both groups are captured instead by the household survey (CPS) — part of why payroll employment and household employment can move in opposite directions in the same month.</li>
+<li><strong>Sole proprietors and private household employees.</strong> CES is an <em>establishment</em> survey. The self-employed have no employer filing a payroll on their behalf, and a private home is not a business establishment. Both groups are captured instead by the household survey (CPS), which is part of why payroll employment and household employment can move in opposite directions in the same month.</li>
 </ul>
 </section>
 </section>
@@ -462,7 +722,7 @@ font-style: inherit;">"drop"</span></span>
 <h1>II. How the number is obtained</h1>
 <section id="sources-of-data" class="level2">
 <h2 data-anchor-id="sources-of-data">Sources of data</h2>
-<p>Two BLS programs measure the same thing at different speeds, and the relationship between them explains most of what follows.</p>
+<p>There are two BLS programs that measure the same thing at different frequency, and the relationship between them explains most of what follows.</p>
 <p>The <strong>Quarterly Census of Employment and Wages (QCEW)</strong> is assembled from the unemployment insurance tax reports that essentially every employer is required to file with its state. It is close to a census: in 2025 it covered 12.1 million establishments and 155.7 million employees.<sup>6</sup> About 97% of nonfarm employment within the scope of the establishment survey is covered by UI, and therefore visible to BLS through QCEW records.<sup>7</sup> The price of that completeness is speed. QCEW is quarterly, and each quarter is published within six months of the quarter’s end.<sup>8</sup></p>
 <p>The BLS also runs the <strong>Current Employment Statistics (CES)</strong> survey, which is a monthly sample drawn from that same UI-derived universe, covering about 119,000 businesses and government agencies and approximately 622,000 individual worksites, roughly 26% of all nonfarm payroll jobs.<sup>9</sup> CES reports about three weeks after the reference period rather than six months after the quarter.</p>
 <p>Below is a comparison table of the two surveys.</p>
@@ -527,9 +787,10 @@ Table&nbsp;1: CES and QCEW compared
 </section>
 <section id="the-birth-death-model" class="level2">
 <h2 data-anchor-id="the-birth-death-model">The birth-death model</h2>
+<p>There are two parts to the birth-death model.</p>
 <ul>
-<li><p><strong>Imputation.</strong> BLS “excludes employment losses due to business deaths from sample-based estimation in order to offset the missing employment gains from business births.” In practice, “not reflecting sample units going out of business and imputing to them the same trend as the other firms in the sample.”<sup>10</sup> BLS says this step “accounts for most of the birth and death employment.”</p></li>
-<li><p><strong>An ARIMA model on the residual only</strong>, estimating “the residual birth-death employment not accounted for by the imputation,” fitted on the trailing five years.<sup>11</sup></p></li>
+<li><p><strong>First is imputation.</strong> BLS “excludes employment losses due to business deaths from sample-based estimation in order to offset the missing employment gains from business births.” In practice, “not reflecting sample units going out of business and imputing to them the same trend as the other firms in the sample.”<sup>10</sup> BLS says this step “accounts for most of the birth and death employment.”</p></li>
+<li><p><strong>Second is an ARIMA model on the residual only</strong>, estimating “the residual birth-death employment not accounted for by the imputation,” fitted on the trailing five years.<sup>11</sup></p></li>
 </ul>
 <section id="a-falling-response-rate" class="level3">
 <h3 data-anchor-id="a-falling-response-rate">A Falling Response Rate</h3>
@@ -641,7 +902,7 @@ Table&nbsp;1: CES and QCEW compared
 </section>
 <section id="iii.-how-the-number-changes" class="level1">
 <h1>III. How the number changes</h1>
-<p>Three structurally different operations all get called a revision, and they have different causes, sizes and meanings.</p>
+<p>There are three structurally different operations that all get called a revision, yet they have different causes, sizes and meanings. The mix of terms makes the revisions very obscure, but this is easier to hold onto once we sort them by the data sources behind them. This post uses the terms in the first column throughout. The naming is based on my interpretation of each data. The BLS names are the official ones, but they are harder to keep straight.</p>
 <div class="cell">
 <div id="tbl-vocab" class="cell quarto-float quarto-figure quarto-figure-center">
 <figure class="quarto-float quarto-float-tbl figure">
@@ -652,13 +913,13 @@ Table&nbsp;2: Vocabulary for payroll revisions
 <div class="cell-output-display">
 <table class="cell caption-top table table-sm table-striped small">
 <colgroup>
-<col style="width: 29%">
-<col style="width: 35%">
-<col style="width: 35%">
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
 </colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: center;">What we’ll hear</th>
+<th style="text-align: center;">My rendition of the terms</th>
 <th style="text-align: center;">What BLS calls it</th>
 <th style="text-align: center;">What drives the change</th>
 </tr>
@@ -672,15 +933,15 @@ Table&nbsp;2: Vocabulary for payroll revisions
 <tr class="even">
 <td style="text-align: center;">first monthly revision</td>
 <td style="text-align: center;">second preliminary estimate</td>
-<td style="text-align: center;">late survey responses</td>
+<td style="text-align: center;">late CES survey responses</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">second monthly revision</td>
 <td style="text-align: center;">final estimate / third closing</td>
-<td style="text-align: center;">late survey responses</td>
+<td style="text-align: center;">late CES survey responses</td>
 </tr>
 <tr class="even">
-<td style="text-align: center;">the big revision</td>
+<td style="text-align: center;">preliminary benchmark estimate</td>
 <td style="text-align: center;">preliminary benchmark estimate</td>
 <td style="text-align: center;">QCEW, March anchor only</td>
 </tr>
@@ -699,13 +960,11 @@ Table&nbsp;2: Vocabulary for payroll revisions
 <div class="fig-source">
 <p>Source: BLS, <em>CES Frequently Asked Questions</em>.</p>
 </div>
-<p>The terminology seems very obscure. The terms are easier to hold onto once we sort them by the data sources behind them.</p>
 <p>The first three rows all rest on the CES sample. Each is built from whatever survey responses have arrived by the time of publication, which is exactly what “preliminary” means here. That is, the data are open to change as the rest of the sample reports. The last two rows rest on QCEW instead. That is why they arrive once a year rather than once a month, and why they reset the <em>level</em> of employment rather than nudging a single month’s change.</p>
 <p>Two of the official labels can seem misleading, as there are two “finals”. The “final estimate” is final only in that no further <em>monthly</em> revision is coming, but the benchmark still is. And the benchmark figure that makes the news is almost always the <em>preliminary</em> benchmark, which is itself revised by the “final benchmark” the following February.</p>
-<p>This post uses the terms in the first column throughout. The naming is based on my interpretation of each data. The BLS names are the official ones, but they are harder to keep straight.</p>
 <section id="the-monthly-cycle" class="level2">
 <h2 data-anchor-id="the-monthly-cycle">The monthly cycle</h2>
-<p>CES “revises its initial monthly estimates twice, in the immediately succeeding 2 months, to incorporate additional sample receipts from respondents in the survey.”<sup>13</sup> For example, the June NFP data has its initial print in early July. In early August, not only does BLS release the initial print of the July NFP data, but it also release the first monthly revision of the June data, as well as the second monthly revision of the May data. In early September, when the August NFP is released, June receives its second monthly revision.</p>
+<p>CES “revises its initial monthly estimates twice, in the immediately succeeding 2 months, to incorporate additional sample receipts from respondents in the survey.”<sup>13</sup> For example, the June NFP data has its initial print in early July. In early August, not only does BLS release the initial print of the July NFP data, but it also releases the first monthly revision of the June data, as well as the second monthly revision of the May data. In early September, when the August NFP is released, June receives its second monthly revision.</p>
 <div id="fig-schedule" class="quarto-float quarto-figure quarto-figure-center">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-schedule-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -722,7 +981,7 @@ Figure&nbsp;1: Monthly release and revision schedule
 </section>
 <section id="the-annual-benchmark" class="level2">
 <h2 data-anchor-id="the-annual-benchmark">The annual benchmark</h2>
-<p>The final benchmark is published with the January preliminary estimates in early February, and affects <strong>21 months</strong> of previously published data, anchored to <strong>March of the previous year</strong>.<sup>14</sup></p>
+<p>The final benchmark is published with the initial print of January NFP in early February of the following year, and it affects <strong>21 months</strong> of previously published data, anchored to <strong>March of the previous year</strong>.<sup>14</sup></p>
 <div id="fig-benchmark" class="quarto-float quarto-figure quarto-figure-center">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-benchmark-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -798,6 +1057,71 @@ Figure&nbsp;3: Cumulative revision by mechanism
   <category>nonfarm payroll</category>
   <guid>https://1iiiiii.github.io/Personal-Website/blog/posts/post1/</guid>
   <pubDate>Mon, 14 Sep 2026 04:00:00 GMT</pubDate>
+</item>
+<item>
+  <title></title>
+  <link>https://1iiiiii.github.io/Personal-Website/blog/posts/post6/</link>
+  <description><![CDATA[ undefined ]]></description>
+  <category>SQL</category>
+  <category>Python</category>
+  <category>mobility</category>
+  <guid>https://1iiiiii.github.io/Personal-Website/blog/posts/post6/</guid>
+  <pubDate>Thu, 01 Jan 2026 05:00:00 GMT</pubDate>
+</item>
+<item>
+  <title></title>
+  <link>https://1iiiiii.github.io/Personal-Website/blog/posts/post8/</link>
+  <description><![CDATA[ undefined ]]></description>
+  <category>simulation</category>
+  <category>inference</category>
+  <guid>https://1iiiiii.github.io/Personal-Website/blog/posts/post8/</guid>
+  <pubDate>Thu, 01 Jan 2026 05:00:00 GMT</pubDate>
+</item>
+<item>
+  <title></title>
+  <link>https://1iiiiii.github.io/Personal-Website/blog/posts/post9/</link>
+  <description><![CDATA[ undefined ]]></description>
+  <category>machine learning</category>
+  <category>finance</category>
+  <guid>https://1iiiiii.github.io/Personal-Website/blog/posts/post9/</guid>
+  <pubDate>Thu, 01 Jan 2026 05:00:00 GMT</pubDate>
+</item>
+<item>
+  <title></title>
+  <link>https://1iiiiii.github.io/Personal-Website/blog/posts/post7/</link>
+  <description><![CDATA[ undefined ]]></description>
+  <category>plotly</category>
+  <category>interactive</category>
+  <guid>https://1iiiiii.github.io/Personal-Website/blog/posts/post7/</guid>
+  <pubDate>Thu, 01 Jan 2026 05:00:00 GMT</pubDate>
+</item>
+<item>
+  <title></title>
+  <link>https://1iiiiii.github.io/Personal-Website/blog/posts/post11/</link>
+  <description><![CDATA[ undefined ]]></description>
+  <category>macro</category>
+  <category>Bayesian</category>
+  <category>VAR</category>
+  <guid>https://1iiiiii.github.io/Personal-Website/blog/posts/post11/</guid>
+  <pubDate>Thu, 01 Jan 2026 05:00:00 GMT</pubDate>
+</item>
+<item>
+  <title></title>
+  <link>https://1iiiiii.github.io/Personal-Website/blog/posts/post10/</link>
+  <description><![CDATA[ undefined ]]></description>
+  <category>machine learning</category>
+  <guid>https://1iiiiii.github.io/Personal-Website/blog/posts/post10/</guid>
+  <pubDate>Thu, 01 Jan 2026 05:00:00 GMT</pubDate>
+</item>
+<item>
+  <title></title>
+  <link>https://1iiiiii.github.io/Personal-Website/blog/posts/post5/</link>
+  <description><![CDATA[ undefined ]]></description>
+  <category>GIS</category>
+  <category>spatial</category>
+  <category>sf</category>
+  <guid>https://1iiiiii.github.io/Personal-Website/blog/posts/post5/</guid>
+  <pubDate>Thu, 01 Jan 2026 05:00:00 GMT</pubDate>
 </item>
 </channel>
 </rss>
