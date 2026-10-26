@@ -1,47 +1,160 @@
 ---
-title: "[WRITE - headline that states the finding, not the topic]"
-description: "[WRITE - one or two sentences. Write it last, when you know what you found.]"
-date: 2026-01-01
-draft: true   # remove this line when the post is ready to publish
-categories: [plotly, interactive]
+title: "What are you holding when you hold gold?"
+date: 2026-10-26
+categories: [gold, real yields, dollar, oil, portfolio, Plotly, Python, interactive]
+resources:
+  - fig1_exposures.html
+  - fig2_bad_months.html
+  - fig3_decomposition.html
 ---
 
-<!-- ASSIGNMENT 7: Interactive Data Visualization with Plotly
+After its peak at \$5,318 per ounce in January, gold price has dipped to about \$4,000 right now, marking a 
+drawdown of about 25%. Because gold is 
+non-yielding (i.e. holding it does not generate any interest), the opportunity cost of holding
+gold is the interest a saver could earn by lending to the government. 
+Given recent increase in yield on 10-year Treasury Inflation-Protected Securities (10Y TIPS),
+which is a Treasury bond whose principal adjusts to inflation and rise in energy price,
+the drop in gold price seems reasonable. 
+Yet, when we zoom out a little, the price of gold has actually doubled since 2021,
+while the 10Y TIPS rate rose 3.6 percentage points.
+This seems to contradict the theory that there is an inverse
+relationship between gold and the real interest rate.
 
-An interactive Plotly visualisation answering a substantive question. Interactivity must add
-value beyond a static graph - exploring, selecting, identifying observations.
-Graded on: 7 interactive Plotly  8 it works  9 interactivity adds value  10 discussion of what it reveals.
+Other factors seem to dominate the movement, at least periodically. 
+Usually, there are three candidates other than real interest rate: dollar, stocks, and oil.
+I regress gold's weekly return on all four at once, so each number
+below is one factor's effect with the other three held fixed.
+This post tries to answer: which of these exposures does the price of gold carry and how big is
+each? Understanding the correlations and movements can be
+important to central banks, especially those in the emerging market, as they divert away
+from U.S. government bonds and dollars when Russian accounts were frozen. Knowing
+which risk gold actually carries is also
+pertinent to anyone who wishes to invest in assets with relatively stable long-term return,
+since gold is a precious physical good with inherent value and no credit risk. 
 
--->
+## Gold's exposure to dollar, real yield, stock, and oil
+The interactive figure below gives a rolling sensitivity analysis of gold against other factors, with
+a two-standard-error confidence band. Click the dropdown menu to select the factor/asset. 
 
-[Open with the question. One paragraph: what did you want to know, and why
-would anyone care about the answer?]
+- **Dollar**. Over the past twenty years, for every 1% increase in dollar index, gold price drops by
+1.6% on average. The exposure remains negative and has barely exceeded 0 even for the upper bound of the interval.
+There is a very clear and persistent negative link between dollar and gold.
+- **Real yield**.A one-point rise in the 10-year real yield lowers gold by 3.5% with the dollar held fixed. Real yields and the
+  dollar usually rise together, though. If we count the stronger dollar that comes with real yield, a one-point rise has gone
+  with a 6.3% fall in gold. The link between real yield and gold is rather unstable as the two-year estimate swings from -14 to +6.
+- **Stock**. Before 2022, a 1% fall in the S&P 500 came with a 0.2% rise in gold, making
+gold a weak hedge. Since 2022, the estimate is zero. This makes sense as commodities have historically
+exhibited low correlation with equities. 
+- **Oil**. The direct exposure of gold to oil is close to zero in every window. Yet, energy price shock
+affect gold price indirectly through real yields and dollar. Before 2026 oil did not move real yields, 
+but in 2026 an oil jump pushed real yields and the
+  dollar up, and gold fell about 1% for every 10% rise in Brent.
+- **Drift**. There is also the return none of the four factors explains, which
+is about 11% a year before 2022 and 21% since. Figure 3 will return to it.
 
-## Getting the data
+<iframe src="fig1_exposures.html" width="100%" height="560" style="border:none;" loading="lazy" title="Figure 1: gold's rolling exposures to four factors"></iframe>
 
-```{r}
-#| label: load
-library(tidyverse)
+*Figure 1. Two-year rolling regression of gold's weekly return on the four factors*
 
-# read the data here
-```
+## Is gold still a safe asset?
 
-## Cleaning decisions
+Figure 2 plots gold's monthly total returns against three types of portfolio. The rust dots are the 
+the worst 10% of months for a portfolio, and the blue dots are the rest of the months. When we hover over
+the dots, we can see the return for both in each month. The dropdown menu allows us to select each portfolio. 
+For the portfolio
+with 60% stock ETF and 40% Treasuries, the average return in the worse 10% of the month is -4.4%. In those months gold 
+averaged -0.9% and rose 48% of the time, below its usual 55%. 
+If we switch the dropdown to pure S&P500 ETF, before 2022 gold rose in 76% of the worst equity months, 
+and since 2022 in only 2 of 8 (too few sample to draw any conclusion yet).
+Finally, for the pure bond portfolio, gold fell 2.9% on average in the worse Treasury months.
+The rate exposure from Figure 1 is showing up exactly when bonds lose money.
 
-[Every cleaning choice is an assumption. Name the ones that could change the
-answer.]
+<iframe src="fig2_bad_months.html" width="100%" height="580" style="border:none;" loading="lazy" title="Figure 2: monthly gold returns against a 60/40 portfolio, stocks, or bonds"></iframe>
 
-## What the data shows
+*Figure 2. Monthly total returns from month-end prices, February 2003 to October 2026*
 
-```{r}
-#| label: fig-main
-#| fig-cap: "What the reader should take from this figure. Source: [dataset]."
+## Where the returns actually came from
 
-# the plot that carries the post
-```
+Figure 3 decomposes the contribution of each of the factors to gold's yearly return. 
+The colored pieces are what the four exposures account
+for, and grey is the unexplained factor. We could hover over the bars to see
+the detailed decomposition. Clicking a legend
+entry can remove a component and allows us to see what remains.
 
-[Read the figure out loud for the reader.]
+In the past five years, the unexplained
+factor accounts for a significant proportion of gold's return. In 2024 and 2025,
+the grey bar is about twice the size of any year before 2022.In 2022, real yields and dollar both rose, and they together contributed to -17
+log points to gold's return. However, gold price ended flat because the 
+the drift added +13 points, offsetting the downward pressure from higher
+yields and stronger dollar. 
+
+More strikingly, in 2024, gold rose 27% against the backdrop of stronger dollar, and +44
+log points was due to the unexplained factor. 2025 continued the trend, with 
+the drift contributing 55 points. 
+
+<iframe src="fig3_decomposition.html" width="100%" height="560" style="border:none;" loading="lazy" title="Figure 3: contributions to gold's yearly return"></iframe>
+
+*Figure 3. Each factor's contribution is its full-sample coefficient x the factor's cumulative move that
+year, in log points so the pieces add up to the year's return*
+
+## What might the drift be?
+
+There are many candidate explanations for the drift, and the post is only
+making a tentative approach to explain two of the candidates. First, 
+central banks bought more than 1,000 tonnes of gold
+a year in 2022-24, over twice their 2010-21 average of 473.[^wgc24] Central bank 
+is a buyer who ignores TIPS yields and the dollar, so Central Bank purchase raises 
+gold’s average return without changing how gold reacts to those factors. The increase
+in purchase from central banks was probably due to security reasons, as the G7 froze 
+Russia's account and imposed a series of sanctions after the outbreak of war. This is why
+it was mainly central banks from emerging markets that were making the purchases.
+
+Second, 
+gold ETFs took in 801 tonnes[^wgc25] in 2025 when central banks buying
+slowed to 863 tonnes. This signifies that investors flow started to support gold as well. 
+As such, the main driver of the drift was central bank purchase from 2022-2024, and 
+2025 was a combined force from both investors and central banks. 
+
+[^wgc24]: World Gold Council, *Gold Demand Trends: Full Year 2024*, central banks section: 2024 was the third consecutive
+year above 1,000 tonnes, against an annual average of 473 tonnes in 2010-2021.
+<https://www.gold.org/goldhub/research/gold-demand-trends/gold-demand-trends-full-year-2024/19411>
+
+[^wgc25]: World Gold Council, *Gold Demand Trends: Full Year 2025*, central banks section (net purchases 863 tonnes; 2024
+revised to 1,092 tonnes) <https://gold.org/goldhub/research/gold-demand-trends/gold-demand-trends-full-year-2025/central-banks>;
+ETF inflows of 801 tonnes as reported in "Gold demand tops 5,000 tonnes for the first time", *Graphic Online*, 1 February 2026.
 
 ## Caveats
 
-[What this cannot answer.]
+- Gold and the four factors react to the same news, so this post only analyzes the comovement/correlation and not
+  causation
+- The post-2022 samples are relatively short. There are 251 weeks for the regressions, and only 8 to 13 bad months in each part of the
+  hedge test.
+
+## Takeaway
+
+Holding gold is first a bet against the dollar (1.6% per 1%, steady for twenty years) and second a bet against real
+yields (6.3% per point, half of it through the dollar). Oil enters only through those two, and there is
+not direct link between oil and gold. Gold has not been be a reliable insurance for a
+60/40 portfolio because it rose in 48% of the worst months and falls when bonds fall. And since 2024 these exposures explain
+none of its rise in gold. The 120% came from a drift that prices alone cannot explain, and that turned negative in 2026.
+What changed after 2022 is not how gold reacts to the dollar or real yields, which is about the same before and
+after, but the drift, which doubled, and the weak stock hedge, which disappeared.
+
+## Data and code
+
+- Gold: COMEX gold futures, front-month continuous contract (`GC=F`), daily close in US dollars per troy ounce; Yahoo Finance via `yfinance`
+- Stocks: SPDR S&P 500 ETF (`SPY`), dividend-adjusted; Yahoo Finance via `yfinance`
+- Bonds: iShares 7–10 Year Treasury ETF (`IEF`), dividend-adjusted; Yahoo Finance via `yfinance`
+- Real yield: 10-year Treasury inflation-indexed constant-maturity yield (`DFII10`, Federal Reserve Board H.15); FRED
+- Dollar: nominal broad trade-weighted dollar index (`DTWEXBGS`, Federal Reserve Board); FRED
+- Oil: Brent crude spot (`DCOILBRENTEU`, U.S. Energy Information Administration); FRED
+
+Daily data from 2 January 2003 to 22 October 2026, accessed 24–25 October 2026. The four-factor regressions start in
+January 2006, when the dollar index begins.
+
+Method: the regressions use weekly (Friday-to-Friday) changes with Newey–West standard errors; Figure 1 uses a two-year
+(104-week) rolling window. Figure 2 uses monthly total returns from month-end prices; the 60/40 portfolio is 60% SPY and
+40% IEF, rebalanced monthly, and the worst months are those at or below each portfolio's 10th-percentile return.
+Figure 3 multiplies each factor's full-sample coefficient by the factor's cumulative move in each year.
+
+Code, data and every number quoted above: [github.com/1iiiiii/Gold-vs.-Real-Yield](https://github.com/1iiiiii/Gold-vs.-Real-Yield).

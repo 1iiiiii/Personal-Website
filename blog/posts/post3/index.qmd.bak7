@@ -1,0 +1,211 @@
+---
+title: "Decomposition of Differences between CES and CPS Employment Data"
+description: "Rebuilding BLS's bridge between the household and payroll surveys from IPUMS CPS microdata shows that definitions explain most of the gap, and that the leftover moves when the household survey's population estimates are wrong."
+date: 2026-09-28
+categories: [labor market, CPS, IPUMS, ggplot2]
+---
+
+The Bureau of Labor Statistics (BLS) publishes two monthly measures of U.S.
+employment. The payroll survey, also known as the Current Employment Statistics (CES), asks
+businesses how many jobs they have and produces the nonfarm payroll number from
+[my first post](../post1/index.qmd). The household survey, also known as the Current Population
+Survey (CPS), asks households whether their members are working.
+
+A problem that the payroll number is facing is that it has become harder to read. The CES response rate hovered
+around 60% in the decade before the pandemic and has since fallen below 45%,[^sf]
+which makes its early estimates less reliable. As such, analysts, markets and the Fed
+increasingly check it against the household survey. But the two don't usually agree. In
+2025 the household survey found about 163.5 million employed people, while
+payrolls counted about 158.4 million jobs, which is a gap of 5.1 million. Before one
+survey can check the other, we need to know what that gap is made of. This post
+asks how much of it is simply the two surveys counting different things, and how
+much is left over, or the residual.
+
+## Comparison between CPS and CES
+
+| | Household survey (CPS) | Payroll survey (CES) |
+|---|---|---|
+| Counts | people with a job | jobs |
+| Sample | about 60,000 households | about 119,000 businesses and agencies |
+| A person with multiple jobs | counted once | counted multiple times |
+| Self-employed, unpaid family, private-household workers | counted | not counted |
+| Farm workers | counted | not counted |
+| On unpaid leave | counted as employed | not counted |
+
+A few of these groups need a word of explanation. The *unincorporated
+self-employed* work for themselves in a business that is not a corporation,
+such as a freelance designer or a plumber running a sole proprietorship.
+*Unpaid family workers* work without pay in a business
+run by a relative. *Private-household workers* are employed directly by a
+household, such as nannies and housekeepers. And because the payroll survey
+counts jobs rather than people, someone with two jobs could appear twice there but
+only once in the household survey.
+
+BLS publishes a recipe, which I will call the *bridge*, for translating one concept into the other. Starting from
+household employment ($HE$), I subtract the groups that are excluded from the payroll measure:
+agriculture ($A$), the unincorporated self-employed ($S$), unpaid family workers
+($UFW$) and private-household workers ($PHW$). Then I add back the second jobs of
+multiple jobholders ($M$). Whatever still separates the result from payroll jobs
+($NFP$) is the residual ($R$):
+
+$$
+\underbrace{HE - NFP}_{\text{gap}} \;=\; A + S + UFW + PHW - M + R
+$$
+
+The five bridge terms are definitional differences.
+The residual is what the definitions cannot explain, so it is where
+at least one survey is off.
+
+Rearranging the identity gives the residual directly. For each month $t$:
+
+$$
+R_t \;=\; \underbrace{HE_t - A_t - S_t - UFW_t - PHW_t + M_t}_{\text{household employment on the payroll concept}} \;-\; NFP_t
+$$
+
+Every term except $NFP_t$ is a monthly population total estimated from the CPS
+microdata with the weights described in the next section, and $NFP_t$ is the
+payroll count for the same month. A positive $R_t$ means the household survey,
+once put on the payroll survey's definition, still counts more workers than
+payrolls do; a negative $R_t$ means it counts fewer. 
+
+The annual figures in the decomposition chart below are averages of these
+monthly values.
+
+## Data and weights
+
+The household data are IPUMS CPS basic monthly microdata from January 2019 to
+August 2026, 91 months in all. IPUMS
+distributes the CPS as one record per person surveyed, with the
+answers they gave, rather than the totals BLS publishes. That lets me build each
+category in the bridge myself. October 2025 is missing because the household
+survey was not collected during the government shutdown. Payroll jobs are total
+nonfarm employment, not seasonally adjusted, in their current vintage. *Not
+seasonally adjusted* means the regular swings within each year, such as holiday
+hiring, are left in. I use the unadjusted series because the CPS microdata are
+unadjusted, and both sides of the comparison have to be on the same basis.
+*Current vintage* means the latest revised version of each month.
+
+Every number here is a population total, so each respondent has to count for the
+number of people they represent. That number is the respondent's *weight*. A
+respondent with a weight of 2,000 stands in for 2,000 people. I use `COMPWT`, the composite weight BLS uses
+for its published estimates. With it, my January 2019 employment total is
+154.964 million, exactly BLS's published figure. The basic weight `WTFINL`
+gives 155.580 million, with an excess of 616,000, and an unweighted count of survey rows
+would not accurately reflect the country as a whole.
+
+
+## The gap
+
+![](fig1_levels_gap.png)
+
+The top panel plots each survey's total every month, before any bridging. The
+bottom panel plots the difference between them, which
+is the gap this post decomposes.
+
+The household survey sits above payrolls in every month. The gap was about 7
+million in 2019 and narrowed to between 2 and 4 million by late 2024. Both
+series are unadjusted, so the gap wobbles with the seasons. But the jump between
+December 2024 and January 2025, about 4 million, is too large to be
+seasonal. To see what drives a move like that, the gap has to be decomposed.
+
+## Decomposition by Year: CES vs. CPS
+
+![](fig2_decomposition_by_year.png)
+
+Each bar is the number of people in one bridge category, averaged over the
+year. The baseline is a gap of zero, which is what we would see if the two
+surveys counted exactly the same thing. The bars above zero are groups the
+household survey counts and payrolls don't, so relative to that baseline they
+put the household count above payrolls. The red bar below zero is second jobs,
+which payrolls count and the household survey doesn't, so it pulls the household
+count back toward payrolls. The grey bar is the residual. All the bars add up to
+the black dot, which is the actual gap. Years marked with an asterisk are
+incomplete. 2025 is missing October, and 2026 runs only to August.
+
+Definitional differences account for most of the gap in every year: 4.4 of the
+6.6 million in 2019, and 3.6 of the 5.1 million in 2025. Self-employment is the
+largest single component, usually around 9 million. Second jobs grew from 7.7
+million in 2019 to 8.4 million in 2025. Relative to 2019, that offsets 0.7
+million more of the household survey's extra workers, which accounts for most of
+the 0.8 million fall in the definitional part of the gap.
+
+The grey residual is the more interesting part. It was 2.2 million in 2019,
+under 1 million from 2020 to 2023, negative in 2024, and back to 1.5 million in
+2025. That swing follows from how the household survey is built. Its weights
+are scaled so that the sample adds up to the Census Bureau's estimate of the
+U.S. population, so if that estimate rises, every weighted count rises with it,
+including employment. Each January the household survey
+switches to new Census population estimates and never revises earlier months.
+BLS reports that the January 2025 update added 2.0 million to employment
+relative to the old population estimates, mostly because of higher estimates of
+immigration. The microdata from CPS show the same thing as well.
+Household employment usually falls about 0.8 million from December to January,
+but in January 2025 it rose by 1.05 million, about 1.9 million more than a
+typical January.
+
+The update can also move in the other direction. In January 2026, lower
+estimated net migration and a Census methodology change cut household employment
+by 1.4 million, according to BLS. My decomposition shows a shortfall of about 1.2
+million against a typical January.
+
+## Residual Analysis
+
+![](fig3_residual_monthly.png)
+
+The solid line is the residual for each month: household employment after the
+bridge, minus payroll jobs. Above zero, the household survey still counts more
+workers than payrolls do; below zero, it counts fewer. The dotted vertical lines
+mark the January 2025 and January 2026 population updates, and the break in late
+2025 is the missing October. The dashed line is a possible explanation that the
+bridge leaves out: wage and salary workers who have a job but were absent from
+work during the survey week. If absences were driving the residual, the two
+lines would move together.
+
+The monthly residual, plotted here next to the number of wage and salary workers
+absent from work, shows both population updates as jumps at the dotted lines.
+Its largest move, though, is not in a January. Between February and April 2020
+the residual fell by about 5 million, from +3.0 to −2.2 million, while absent
+wage and salary workers jumped from 3.5 million to 9.6 million. Unpaid
+absentees count as employed in the household survey but not on payrolls, so if
+they were driving the residual it should have risen. Instead it fell, so
+something else was at work. One possibility is the payroll survey's reference
+period. Payrolls count anyone paid for any part of the pay period that includes
+the 12th day of each month, so workers laid off after the 12th still appear as jobs. Another is that
+in-person household interviews were suspended that spring, so the household
+survey was measuring less precisely just when the labor market moved fastest.
+
+## Takeaway
+
+Most of the gap between the two jobs numbers is definitional. Self-employment
+and farm work are counted only by the household survey, and second jobs only by
+payrolls, so relative to identical definitions the first two put the household
+count above payrolls and the third pulls it back. Once those are
+removed, the two surveys agree to within about a million in most years, so the
+household survey can serve as a check on payrolls, but only after bridging and
+only once the residual's large moves are explained.
+
+Those moves have identifiable causes. In 2024 the residual went negative,
+meaning the household survey sat too low relative to payrolls, and the January
+2025 population update then raised household employment by about 1.9 million
+more than a typical January. So at least part of the household survey's weakness in 2024 came
+from its population base, not from the labor market. In spring 2020 the residual
+also went negative, but there the likelier causes are the payroll survey's
+pay-period definition and disrupted household interviews. The practical rule is
+to compare the two surveys only after bridging, and to treat a January jump in
+household employment as a population revision until shown otherwise.
+
+## Data and code
+
+- **Household survey:** IPUMS CPS basic monthly samples, extract `cps_00003`.
+  Sarah Flood, Miriam King, Renae Rodgers, Steven Ruggles, J. Robert Warren,
+  Daniel Backman, Etienne Breton, Grace Cooper, Julia A. Rivera Drew, Stephanie
+  Richards, David Van Riper, and Kari C.W. Williams. *IPUMS CPS: Version 13.0*
+  [dataset]. Minneapolis, MN: IPUMS, 2025. <https://doi.org/10.18128/D030.V13.0>
+- **Payroll survey:** BLS Current Employment Statistics, total nonfarm, not
+  seasonally adjusted, via FRED (`PAYNSA`), accessed 28 September 2026.
+- **Bridge method:** BLS, [Employment from the CPS adjusted to the CES concept](https://www.bls.gov/web/empsit/ces_cps_trends.htm).
+- **Population controls:** BLS, [January 2025 adjustments](https://www.bls.gov/cps/methods/population-controls/population-control-adjustments-2025.pdf)
+  and [January 2026 adjustments](https://www.bls.gov/cps/methods/population-controls/experimental-series-accounting-for-january-2026-population-control-effects.htm).
+- **Code:** [github.com/1iiiiii/Data-Visualization-in-R](https://github.com/1iiiiii/Data-Visualization-in-R).
+
+[^sf]: Federal Reserve Bank of San Francisco, *Do Low Survey Response Rates Threaten Data Dependence?*, Economic Letter, March 2025. <https://www.frbsf.org/research-and-insights/publications/economic-letter/2025/03/do-low-survey-response-rates-threaten-data-dependence/>

@@ -10,7 +10,500 @@
 <atom:link href="https://1iiiiii.github.io/Personal-Website/blog/index.xml" rel="self" type="application/rss+xml"/>
 <description>Weekly notes on economic data — acquisition, cleaning, analysis.</description>
 <generator>quarto-1.9.38</generator>
-<lastBuildDate>Sun, 18 Oct 2026 04:00:00 GMT</lastBuildDate>
+<lastBuildDate>Mon, 26 Oct 2026 04:00:00 GMT</lastBuildDate>
+<item>
+  <title>What are you holding when you hold gold?</title>
+  <link>https://1iiiiii.github.io/Personal-Website/blog/posts/post7/</link>
+  <description><![CDATA[ 
+
+
+
+
+<p>After its peak at $5,318 per ounce in January, gold price has dipped to about $4,000 right now, marking a drawdown of about 25%. Because gold is non-yielding (i.e.&nbsp;holding it does not generate any interest), the opportunity cost of holding gold is the interest a saver could earn by lending to the government. Given recent increase in yield on 10-year Treasury Inflation-Protected Securities (10Y TIPS), which is a Treasury bond whose principal adjusts to inflation and rise in energy price, the drop in gold price seems reasonable. Yet, when we zoom out a little, the price of gold has actually doubled since 2021, while the 10Y TIPS rate rose 3.6 percentage points. This seems to contradict the theory that there is an inverse relationship between gold and the real interest rate.</p>
+<p>Other factors seem to dominate the movement, at least periodically. Usually, there are three candidates other than real interest rate: dollar, stocks, and oil. I regress gold’s weekly return on all four at once, so each number below is one factor’s effect with the other three held fixed. This post tries to answer: which of these exposures does the price of gold carry, how big is each, and does that change after 2022? Understanding the correlations and movements can be important to central banks, especially those in the emerging market, as they divert away from U.S. government bonds and dollars when Russian accounts were frozen. Knowing which risk gold actually carries is also pertinent to anyone who wishes to invest in assets with relatively stable long-term return, since gold is a precious physical good with inherent value and no credit risk.</p>
+<section id="golds-exposure-to-dollar-real-yield-stock-and-oil" class="level2">
+<h2 data-anchor-id="golds-exposure-to-dollar-real-yield-stock-and-oil">Gold’s exposure to dollar, real yield, stock, and oil</h2>
+<p>The interactive figure below gives a rolling sensitivity analysis of gold against other factors, with a two-standard-error confidence band. Click the dropdown menu to select the factor/asset.</p>
+<ul>
+<li><strong>Dollar</strong>. Over the past twenty years, for every 1% increase in dollar index, gold price drops by 1.6% on average. The exposure remains negative and has barely exceeded 0 even for the upper bound of the interval. There is a very clear and persistent negative link between dollar and gold.</li>
+<li><strong>Real yield</strong>.A one-point rise in the 10-year real yield lowers gold by 3.5% with the dollar held fixed. Real yields and the dollar usually rise together, though. If we count the stronger dollar that comes with real yield, a one-point rise has gone with a 6.3% fall in gold. The link between real yield and gold is rather unstable as the two-year estimate swings from -14 to +6.</li>
+<li><strong>Stock</strong>. Before 2022, a 1% fall in the S&amp;P 500 came with a 0.2% rise in gold, making gold a weak hedge. Since 2022, the estimate is zero. This makes sense as commodities have historically exhibited low correlation with equities.</li>
+<li><strong>Oil</strong>. The direct exposure of gold to oil is close to zero in every window. Yet, energy price shock affect gold price indirectly through real yields and dollar. Before 2026 oil did not move real yields, but in 2026 an oil jump pushed real yields and the dollar up, and gold fell about 1% for every 10% rise in Brent.</li>
+<li><strong>Drift</strong>. There is also the return none of the four factors explains, which is about 11% a year before 2022 and 21% since. Figure 3 will return to it.</li>
+</ul>
+<iframe src="fig1_exposures.html" width="100%" height="560" style="border:none;" loading="lazy" title="Figure 1: gold's rolling exposures to four factors">
+</iframe>
+<p><em>Figure 1. Two-year rolling regression of gold’s weekly return on the four factors</em></p>
+</section>
+<section id="is-gold-still-a-safe-asset" class="level2">
+<h2 data-anchor-id="is-gold-still-a-safe-asset">Is gold still a safe asset?</h2>
+<p>Figure 2 plots gold’s monthly total returns against three types of portfolio. The rust dots are the the worst 10% of months for a portfolio, and the blue dots are the rest of the months. When we hover over the dots, we can see the return for both in each month. The dropdown menu allows us to select each portfolio. For the portfolio with 60% stock ETF and 40% Treasuries, the average return in the worse 10% of the month is -4.4%. In those months gold averaged -0.9% and rose 48% of the time, below its usual 55%. If we switch the dropdown to pure S&amp;P500 ETF, before 2022 gold rose in 76% of the worst equity months, and since 2022 in only 2 of 8 (too few sample to draw any conclusion yet). Finally, for the pure bond portfolio, gold fell 2.9% on average in the worse Treasury months. The rate exposure from Figure 1 is showing up exactly when bonds lose money.</p>
+<iframe src="fig2_bad_months.html" width="100%" height="580" style="border:none;" loading="lazy" title="Figure 2: monthly gold returns against a 60/40 portfolio, stocks, or bonds">
+</iframe>
+<p><em>Figure 2. Monthly total returns from month-end prices, February 2003 to October 2026</em></p>
+</section>
+<section id="where-the-returns-actually-came-from" class="level2">
+<h2 data-anchor-id="where-the-returns-actually-came-from">Where the returns actually came from</h2>
+<p>Figure 3 decomposes the contribution of each of the factors to gold’s yearly return. The colored pieces are what the four exposures account for, and grey is the unexplained factor. We could hover over the bars to see the detailed decomposition. Clicking a legend entry can remove a component and allows us to see what remains.</p>
+<p>In the past five years, the unexplained factor accounts for a significant proportion of gold’s return. In 2024 and 2025, the grey bar is about twice the size of any year before 2022.In 2022, real yields and dollar both rose, and they together contributed to -17 log points to gold’s return. However, gold price ended flat because the the drift added +13 points, offsetting the downward pressure from higher yields and stronger dollar.</p>
+<p>More strikingly, in 2024, gold rose 27% against the backdrop of stronger dollar, and +44 log points was due to the unexplained factor. 2025 continued the trend, with the drift contributing 55 points.</p>
+<iframe src="fig3_decomposition.html" width="100%" height="560" style="border:none;" loading="lazy" title="Figure 3: contributions to gold's yearly return">
+</iframe>
+<p><em>Figure 3. Each factor’s contribution is its full-sample coefficient x the factor’s cumulative move that year, in log points so the pieces add up to the year’s return</em></p>
+</section>
+<section id="what-might-the-drift-be" class="level2">
+<h2 data-anchor-id="what-might-the-drift-be">What might the drift be?</h2>
+<p>Prices cannot say what the drift is, but there are two candidates. Central banks bought more than 1,000 tonnes of gold a year in 2022-24, over twice their 2010-21 average of 473;<sup>1</sup> a buyer who ignores TIPS yields and the dollar shows up here as pure drift. But their buying slowed to 863 tonnes in 2025, the year the drift peaked, while gold ETFs took in 801 tonnes.<sup>2</sup> So central banks fit 2022-24, and investors fit 2025 better. Both remain hypotheses.</p>
+</section>
+<section id="takeaway" class="level2">
+<h2 data-anchor-id="takeaway">Takeaway</h2>
+<p>Holding gold is first a bet against the dollar (1.6% per 1%, steady for twenty years) and second a bet against real yields (6.3% per point, half of it through the dollar). Oil enters only through those two, and there is not direct link between oil and gold. Gold cannot be insurance for a 60/40 portfolio because it rose in 48% of the worst months and falls when bonds fall. And since 2024 these exposures explain none of its rise in gold. The 120% came from a drift that prices alone cannot explain, and that turned negative in 2026.</p>
+</section>
+<section id="data-and-code" class="level2">
+<h2 data-anchor-id="data-and-code">Data and code</h2>
+<p>Gold: COMEX gold futures, front-month continuous contract (<code>GC=F</code>), daily close in US dollars per troy ounce; stocks: SPDR S&amp;P 500 ETF (<code>SPY</code>); bonds: iShares 7–10 Year Treasury ETF (<code>IEF</code>), both dividend-adjusted — all from Yahoo Finance via <code>yfinance</code>. Real yield: 10-year Treasury inflation-indexed constant-maturity yield (<code>DFII10</code>, Federal Reserve Board H.15); dollar: nominal broad trade-weighted dollar index (<code>DTWEXBGS</code>, Federal Reserve Board); oil: Brent crude spot (<code>DCOILBRENTEU</code>, EIA) — all from FRED. Daily data from 2 January 2003 (the dollar index from 2 January 2006, where the four-factor regressions start) to 22 October 2026; accessed 24–25 October 2026. Regressions use weekly (Friday-to-Friday) changes with Newey–West standard errors; the hedge test uses monthly total returns from month-end prices; the 60/40 portfolio is 60% SPY and 40% IEF, rebalanced monthly.</p>
+<p>Code, data and every number quoted above: <a href="https://github.com/1iiiiii/Gold-vs.-Real-Yield">github.com/1iiiiii/Gold-vs.-Real-Yield</a>.</p>
+
+
+<!-- -->
+
+</section>
+
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>World Gold Council, <em>Gold Demand Trends: Full Year 2024</em>, central banks section: 2024 was the third consecutive year above 1,000 tonnes, against an annual average of 473 tonnes in 2010-2021. <a href="https://www.gold.org/goldhub/research/gold-demand-trends/gold-demand-trends-full-year-2024/19411" class="uri">https://www.gold.org/goldhub/research/gold-demand-trends/gold-demand-trends-full-year-2024/19411</a>↩︎</p></li>
+<li id="fn2"><p>World Gold Council, <em>Gold Demand Trends: Full Year 2025</em>, central banks section (net purchases 863 tonnes; 2024 revised to 1,092 tonnes) <a href="https://gold.org/goldhub/research/gold-demand-trends/gold-demand-trends-full-year-2025/central-banks" class="uri">https://gold.org/goldhub/research/gold-demand-trends/gold-demand-trends-full-year-2025/central-banks</a>; ETF inflows of 801 tonnes as reported in “Gold demand tops 5,000 tonnes for the first time”, <em>Graphic Online</em>, 1 February 2026.↩︎</p></li>
+</ol>
+</section></div> ]]></description>
+  <category>gold</category>
+  <category>real yields</category>
+  <category>dollar</category>
+  <category>oil</category>
+  <category>portfolio</category>
+  <category>Plotly</category>
+  <category>Python</category>
+  <category>interactive</category>
+  <guid>https://1iiiiii.github.io/Personal-Website/blog/posts/post7/</guid>
+  <pubDate>Mon, 26 Oct 2026 04:00:00 GMT</pubDate>
+</item>
+<item>
+  <title>Matching parents and children with SQL</title>
+  <link>https://1iiiiii.github.io/Personal-Website/blog/posts/post6/</link>
+  <description><![CDATA[ 
+
+
+
+
+<p>If your parents earned twice what a neighbor’s parents earned, how much more will you earn compared to the neighbor’s children? This questions is the motivation for the Great Gatsby curve and the “American Dream” debate. Policy economists comparing countries and people arguing about whether the US is a land of opportunity both reach for the same number (the intergenerational elasticity (IGE)) to answer it.</p>
+<p>Most of the debate is about how big that number is. This post asks a prior question: how much of a parent’s income advantage reaches the children, and does the answer depend on when income is measured? It does. Measuring a parent’s income in a single year, or a child’s income too early in their career, makes the US look more mobile than it is. In the data used here, a single year of the father’s income hides about 40% of the persistence. This post walks through the whole pipeline, from raw survey file to estimation using SQL inside Python, so a reader with basic Python and SQL can redo it.</p>
+<section id="what-the-intergenerational-elasticity-measures" class="level2">
+<h2 data-anchor-id="what-the-intergenerational-elasticity-measures">What the intergenerational elasticity measures</h2>
+<p>Intergenerational elasticity (IGE) measures the link between parents’ income and their children’s income after they leave the family. The equation is:</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cln%20y_%7B%5Ctext%7Bchild%7D%7D%20=%20%5Calpha%20+%20%5Cbeta%5C,%20%5Cln%20y_%7B%5Ctext%7Bparent%7D%7D%20+%20%5Cvarepsilon%0A"> It is a log-log regression of child income on parent income, where β is the IGE. A β of 0.4 means that if one father earned 10% more than another, his children earn 4% more than the other’s children on average. A β of 0 means there is no relationship, and a β of 1 would mean a caste system where there is no mobility whatsoever.</p>
+</section>
+<section id="introduction-of-the-data-source" class="level2">
+<h2 data-anchor-id="introduction-of-the-data-source">Introduction of the data source</h2>
+<p>The Panel Study of Income Dynamics (PSID) began in 1968 has interviewed the same people, their children, and their grandchildren. It interviewed them every year until 1997 and every two years since, most recently in 2023. Because children are followed when they leave home, the same file contains a father’s income in 1985 and his daughter’s income in 2015. That is what makes a parent–child match possible.</p>
+<p>We rely on two unique identifiers for the match.</p>
+<ul>
+<li><strong>Every person’s permanent ID.</strong> This is the interview number of the family they were first observed in 1968 (for the original families) plus a person number within it. It never changes.</li>
+<li><strong>Interview number each family gets every year.</strong> Income is recorded once per family per year under that number, and each member’s record carries the same number. So a person’s record says “in 1990 I was in family 517”, and the family record says “family 517 earned $38,400 in 1989”.</li>
+</ul>
+<p>The raw data downloaded from the Data Center gives one wide spreadsheet , and the first job is to turn it into three tables. A table with individuals, a table with one row per person-year and a table with one row per family-year can be joined on (year, interview number). A wide file cannot be joined this way, because each year’s values sit in a different column. All incomes are converted to 2023 dollars with the Consumer Price Index (CPI), so a dollar in 1975 and a dollar in 2015 buy the same amount.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Table</th>
+<th>One row per</th>
+<th>Rows</th>
+<th>Key</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>individuals</code></td>
+<td>person</td>
+<td>85,536</td>
+<td>permanent ID (<code>id_1968</code>, <code>person_num</code>)</td>
+</tr>
+<tr class="even">
+<td><code>persons</code></td>
+<td>person × survey year</td>
+<td>910,869</td>
+<td>permanent ID + <code>year</code>; <code>interview</code>, <code>age</code> and relationship to head</td>
+</tr>
+<tr class="odd">
+<td><code>families</code></td>
+<td>family × survey year</td>
+<td>320,456</td>
+<td><code>year</code>, <code>fam_interview</code>; total family income (adjusted based on 2023 CPI)</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="step-1-filter-the-children" class="level2">
+<h2 data-anchor-id="step-1-filter-the-children">Step 1: Filter the children</h2>
+<p>A child observation is a person-year in which the person becomes the head of their own household or is the spouse of the head, aged 25–45. The relationship filter is needed and we can’t rely on age alone. For example, a 32-year-old still living with their parents carries the parents’ income on their record.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb1-1"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">SELECT</span> id_1968, person_num, <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">year</span>, age, interview</span>
+<span id="cb1-2"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">FROM</span> persons</span>
+<span id="cb1-3"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">WHERE</span> rel_head <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">IN</span> (<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">10</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">20</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">22</span>)   <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-- head or spouse; the codes changed in 1983</span></span>
+<span id="cb1-4">  <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">AND</span> age <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">BETWEEN</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">25</span> <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">AND</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">45</span>;</span></code></pre></div></div>
+<p>SELECT picks columns, FROM chooses the table, and WHERE filters those rows we need. Note that there is code change in 1983, so 1 and 2 are before 1983 and 10, 20, and 22 are after. Refer to the codebook for more information. We should get 259,398 persons-years from 34,533 people.</p>
+</section>
+<section id="step-2-attach-each-person-year-to-its-familys-income" class="level2">
+<h2 data-anchor-id="step-2-attach-each-person-year-to-its-familys-income">Step 2: Attach each person-year to its family’s income</h2>
+<p>The JOIN clause lines up rows of two tables that share a key. The key here is (year, interview number). We should check the row count before and after JOIN. Same count means nothing was duplicated and every person-year found its family.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb2-1"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">SELECT</span> p.id_1968, p.person_num, p.<span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">year</span>, p.age, f.fam_income_real</span>
+<span id="cb2-2"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">FROM</span> persons <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">AS</span> p</span>
+<span id="cb2-3"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">JOIN</span> families <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">AS</span> f</span>
+<span id="cb2-4">  <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">ON</span> p.<span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">year</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> f.<span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">year</span> <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">AND</span> p.interview <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> f.fam_interview</span>
+<span id="cb2-5"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">WHERE</span> p.rel_head <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">IN</span> (<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">10</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">20</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">22</span>)</span>
+<span id="cb2-6">  <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">AND</span> p.age <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">BETWEEN</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">25</span> <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">AND</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">45</span>;</span></code></pre></div></div>
+<p>We use INNER JOIN here because we want to drop a person-year with no family record. That is, the family is not interviewed during that year.</p>
+</section>
+<section id="step-3-join-on-identifiers-to-find-each-childs-father" class="level2">
+<h2 data-anchor-id="step-3-join-on-identifiers-to-find-each-childs-father">Step 3: JOIN on identifiers to find each child’s father</h2>
+<p>The <code>individuals</code> table has the child’s own ID in two columns and the father’s ID in two other columns. Joining the table to itself, the child’s father columns against the father’s own ID columns, is the parent–child match.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb3-1"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">SELECT</span> c.id_1968, c.person_num,</span>
+<span id="cb3-2">       dad.id_1968, dad.person_num</span>
+<span id="cb3-3"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">FROM</span> individuals <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">AS</span> c</span>
+<span id="cb3-4"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">LEFT</span> <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">JOIN</span> individuals <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">AS</span> dad</span>
+<span id="cb3-5">  <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">ON</span> c.father_id_1968 <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> dad.id_1968</span>
+<span id="cb3-6"> <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">AND</span> c.father_person_num <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> dad.person_num;</span></code></pre></div></div>
+<p>A LEFT JOIN here keeps every child and fills the father columns with NULL when no match exists, so the NULLs can be counted. Of 34,533 people in the child sample, 24,690 have no father in the data. Among the 24,690 NULLs, 15,316 was because their parents were never surveyed, and 9,374 was because the father’s ID points to someone not in the extract. The matched children we get are those whose fathers were PSID members.</p>
+<p>We then join the father’s ID to his rows in <code>persons</code>, and those to <code>families</code>, keeping the years when the child was 13–17. The reason we use a window between 13-17 is that it measures the family’s resources while the child was growing up. About 70% of the children in the final sample were born by 1980, so they turned 17 before the survey became every two years.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb4-1"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">SELECT</span> c.id_1968, c.person_num,</span>
+<span id="cb4-2">       fp.<span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">year</span>, fp.<span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">year</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span> b.birth_year <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">AS</span> child_age,</span>
+<span id="cb4-3">       f.fam_income_real</span>
+<span id="cb4-4"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">FROM</span> individuals <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">AS</span> c</span>
+<span id="cb4-5"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">JOIN</span> birth    <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">AS</span> b  <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">ON</span> b.id_1968 <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> c.id_1968 <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">AND</span> b.person_num <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> c.person_num</span>
+<span id="cb4-6"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">JOIN</span> persons  <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">AS</span> fp <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">ON</span> fp.id_1968 <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> c.father_id_1968</span>
+<span id="cb4-7">                   <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">AND</span> fp.person_num <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> c.father_person_num</span>
+<span id="cb4-8"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">JOIN</span> families <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">AS</span> f  <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">ON</span> f.<span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">year</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> fp.<span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">year</span> <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">AND</span> f.fam_interview <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> fp.interview</span>
+<span id="cb4-9"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">WHERE</span> fp.<span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">year</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span> b.birth_year <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">BETWEEN</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">13</span> <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">AND</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">17</span>;</span></code></pre></div></div>
+<p>Here <code>birth</code> is a small helper table with each person’s birth year, computed from their age in each survey year.</p>
+</section>
+<section id="step-4-comparing-one-year-of-income-with-several-years" class="level2">
+<h2 data-anchor-id="step-4-comparing-one-year-of-income-with-several-years">Step 4: Comparing one year of income with several years</h2>
+<p>After JOINing, we then aggregate the data to get the income information we want. GROUP BY collapses many rows per child into one, and we are grouping by two identifiers, and the two together identify one person. AVG takes the mean and COUNT gives the number of rows. We build two parent income measures. The first is the single year when the child was closest to 15, and the second is the average over the observed years at ages 13–17. We require at least two observed years, so both measures use the same 3,951 children. That way, any gap between the two estimates comes from how income is measured, not from comparing different families.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb5-1"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">SELECT</span> id_1968, person_num,</span>
+<span id="cb5-2">       <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">AVG</span>(fam_income_real) <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">AS</span> parent_inc_avg,</span>
+<span id="cb5-3">       <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">COUNT</span>(<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span>)             <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">AS</span> parent_years</span>
+<span id="cb5-4"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">FROM</span> father_income</span>
+<span id="cb5-5"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">GROUP</span> <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">BY</span> id_1968, person_num;</span></code></pre></div></div>
+</section>
+<section id="result-1-one-year-of-parent-income-understates-the-ige" class="level2">
+<h2 data-anchor-id="result-1-one-year-of-parent-income-understates-the-ige">Result 1: One year of parent income understates the IGE</h2>
+<p><img src="https://1iiiiii.github.io/Personal-Website/blog/posts/post6/fig1_ige_single_vs_multi.png" class="img-fluid"></p>
+<p>Each dot is the average child income among about 200 children whose fathers had similar incomes, and the lines are regression fits. Both axes are on a log scale, so each line’s slope is β. Gold uses the father’s income in the single year the child was about 15, and blue uses the same fathers’ average over the child’s ages 13 to 17.</p>
+<p>Averaging raises the IGE from 0.25 to 0.43 for the same children, so the single-year measure understates it by about 40%. A single year’s income is long-run income plus that year’s luck, such as a bonus or a layoff, and the luck flattens the line toward zero. Averaging cancels much of it (Solon 1992).</p>
+</section>
+<section id="result-2-age-when-the-childrens-income-is-measured" class="level2">
+<h2 data-anchor-id="result-2-age-when-the-childrens-income-is-measured">Result 2: Age when the children’s income is measured</h2>
+<p><img src="https://1iiiiii.github.io/Personal-Website/blog/posts/post6/fig2_ige_by_child_age.png" class="img-fluid"></p>
+<p>Each point is the same regression, with parent income averaged over the child’s ages 13 to 17 but the child’s income measured in a single year at the age on the horizontal axis. The band is the 95% confidence interval, and the dashed line is the estimate from Result 1, which averages the child’s income over ages 30 to 40.</p>
+<p>The IGE rises from 0.25 at age 25 to 0.52 at 40, then falls to 0.45 at 45. At 25, many children of high-income parents are still in school or early in steep careers, so their income that year understates their lifetime income more than it does for other children (Haider and Solon 2006). Fewer children are observed at older ages (3,753 at 25, 1,881 at 45), so part of the pattern may reflect who is in each group.</p>
+</section>
+<section id="takeaway" class="level2">
+<h2 data-anchor-id="takeaway">Takeaway</h2>
+<p>In the PSID, a father’s income averaged over his child’s teenage years gives an IGE of 0.43. A father who earned 10% more than another has children who earn about 4.3% more in their 30s. The two results show two different problems, and both push the estimate down. A single year of the father’s income mixes long-run income with temporary luck, which averaging fixes (0.25 rather than 0.43). A child’s income at 25 understates their lifetime income, which measuring near mid-career fixes (0.25 at 25 rather than 0.52 at 40). A multi-year average is the better measure of long-run economic status because the temporary ups and downs cancel while the persistent level stays. Finally, to answer the opening question. If your parents earned twice as much as your neighbor’s, you would expect to earn about 35% more than the neighbor’s children (2<sup>0.43</sup> ≈ 1.35), not the 19% (2<sup>0.25</sup> ≈ 1.19) that a single-year measure suggests.</p>
+</section>
+<section id="data-and-code" class="level2">
+<h2 data-anchor-id="data-and-code">Data and code</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Source</th>
+<th>What</th>
+<th>Access</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Panel Study of Income Dynamics (PSID), public-use data, 1968–2023</td>
+<td>Individual file: permanent person ID, sex, father’s and mother’s IDs, and per wave age, interview number, relationship to head, sequence number. Family files: family interview number and total family money income</td>
+<td>PSID Data Center custom extract</td>
+</tr>
+<tr class="even">
+<td>U.S. Bureau of Labor Statistics, CPI-U all items (CPIAUCSL), via FRED</td>
+<td>Annual-average CPI used to express all incomes in 2023 dollars (PSID income in survey year <em>t</em> refers to calendar year <em>t</em> − 1)</td>
+<td>FRED CSV endpoint, accessed 23 October 2026</td>
+</tr>
+</tbody>
+</table>
+<p>Code, the SQL, and every number in this post: <a href="https://github.com/1iiiiii/Intergenerational-Mobility">github.com/1iiiiii/Intergenerational-Mobility</a>.</p>
+</section>
+<section id="references" class="level2">
+<h2 data-anchor-id="references">References</h2>
+<ul>
+<li>Haider, S. and G. Solon (2006). “Life-Cycle Variation in the Association between Current and Lifetime Earnings.” <em>American Economic Review</em> 96(4): 1308–1320.</li>
+<li>Solon, G. (1992). “Intergenerational Income Mobility in the United States.” <em>American Economic Review</em> 82(3): 393–408.</li>
+</ul>
+
+
+<!-- -->
+
+</section>
+
+ ]]></description>
+  <category>SQL</category>
+  <category>Python</category>
+  <category>PSID</category>
+  <category>intergenerational mobility</category>
+  <guid>https://1iiiiii.github.io/Personal-Website/blog/posts/post6/</guid>
+  <pubDate>Fri, 23 Oct 2026 04:00:00 GMT</pubDate>
+</item>
 <item>
   <title>Home prices outran incomes in most of the country since the pandemic</title>
   <link>https://1iiiiii.github.io/Personal-Website/blog/posts/post5/</link>
@@ -419,236 +912,39 @@ Table&nbsp;2: Change in the 10-year Treasury yield and its parts under two model
 </tr>
 </tbody>
 </table>
-<p>BLS publishes a recipe for translating one concept into the other. Starting from household employment (<img src="https://latex.codecogs.com/png.latex?HE">), I subtract the groups that are excluded from the payroll measure: agriculture (<img src="https://latex.codecogs.com/png.latex?A">), the unincorporated self-employed (<img src="https://latex.codecogs.com/png.latex?S">), unpaid family workers (<img src="https://latex.codecogs.com/png.latex?UFW">) and private-household workers (<img src="https://latex.codecogs.com/png.latex?PHW">). Then I add back the second jobs of multiple jobholders (<img src="https://latex.codecogs.com/png.latex?M">). Whatever still separates the result from payroll jobs (<img src="https://latex.codecogs.com/png.latex?NFP">) is the residual (<img src="https://latex.codecogs.com/png.latex?R">):</p>
+<p>The <em>unincorporated self-employed</em> run their own business that is not a corporation, such as a freelance designer. <em>Unpaid family workers</em> work without pay in a relative’s business, and <em>private-household workers</em>, such as nannies, are employed directly by a household.</p>
+<p>BLS publishes a recipe, which I will call the <em>bridge</em>, for translating one concept into the other. Starting from household employment (<img src="https://latex.codecogs.com/png.latex?HE">), I subtract the groups payrolls exclude: agriculture (<img src="https://latex.codecogs.com/png.latex?A">), the unincorporated self-employed (<img src="https://latex.codecogs.com/png.latex?S">), unpaid family workers (<img src="https://latex.codecogs.com/png.latex?UFW">) and private-household workers (<img src="https://latex.codecogs.com/png.latex?PHW">). Then I add back the second jobs of multiple jobholders (<img src="https://latex.codecogs.com/png.latex?M">). Whatever still separates the result from payroll jobs (<img src="https://latex.codecogs.com/png.latex?NFP">) is the residual (<img src="https://latex.codecogs.com/png.latex?R">):</p>
 <p><img src="https://latex.codecogs.com/png.latex?%0A%5Cunderbrace%7BHE%20-%20NFP%7D_%7B%5Ctext%7Bgap%7D%7D%20%5C;=%5C;%20A%20+%20S%20+%20UFW%20+%20PHW%20-%20M%20+%20R%0A"></p>
-<p>The five bridge terms are definitional differences, and neither survey is wrong about them. The residual is what the definitions cannot explain, so it is where at least one survey is off.</p>
-<p>Rearranging the identity gives the residual directly. For each month <img src="https://latex.codecogs.com/png.latex?t">:</p>
-<p><img src="https://latex.codecogs.com/png.latex?%0AR_t%20%5C;=%5C;%20%5Cunderbrace%7BHE_t%20-%20A_t%20-%20S_t%20-%20UFW_t%20-%20PHW_t%20+%20M_t%7D_%7B%5Ctext%7Bhousehold%20employment%20on%20the%20payroll%20concept%7D%7D%20%5C;-%5C;%20NFP_t%0A"></p>
-<p>Every term except <img src="https://latex.codecogs.com/png.latex?NFP_t"> is a monthly population total estimated from the CPS microdata with the weights described in the next section, and <img src="https://latex.codecogs.com/png.latex?NFP_t"> is the payroll count for the same month. A positive <img src="https://latex.codecogs.com/png.latex?R_t"> means the household survey, once put on the payroll survey’s definition, still counts more workers than payrolls do; a negative <img src="https://latex.codecogs.com/png.latex?R_t"> means it counts fewer. For January 2019, in millions:</p>
-<p><img src="https://latex.codecogs.com/png.latex?%0AR%20%5C;=%5C;%20%5Cunderbrace%7B154.96%20-%202.41%20-%208.66%20-%200.04%20-%200.80%20+%207.37%7D_%7B150.42%7D%20%5C;-%5C;%20147.88%20%5C;=%5C;%202.54%0A"></p>
-<p>The annual figures in the decomposition chart below are averages of these monthly values.</p>
+<p>The five bridge terms are definitional differences, each estimated from the CPS microdata. The residual is what the definitions cannot explain, so it is where at least one survey is off.</p>
 </section>
 <section id="data-and-weights" class="level2">
 <h2 data-anchor-id="data-and-weights">Data and weights</h2>
-<p>The household data are IPUMS CPS basic monthly microdata from January 2019 to August 2026, 91 months in all. October 2025 is missing because the household survey was not collected during the government shutdown. Payroll jobs are total nonfarm employment, not seasonally adjusted, in their current vintage.</p>
-<p>Every number here is a population total, so each respondent has to count for the number of people they represent. I use <code>COMPWT</code>, the composite weight BLS uses for its published estimates. With it, my January 2019 employment total is 154.964 million, exactly BLS’s published figure. The basic weight <code>WTFINL</code> gives 155.580 million, with an excess of 616,000, and an unweighted count of survey rows would not accurately reflect the country as a whole.</p>
-<div class="cell">
-<details class="code-fold">
-<summary>The weighted totals behind every figure</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1">employment <span class="ot" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">&lt;-</span> cps <span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">|&gt;</span></span>
-<span id="cb1-2">  <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">filter</span>(EMPSTAT <span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">%in%</span> <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">c</span>(<span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">10</span>, <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">12</span>),</span>
-<span id="cb1-3">         AGE <span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">&gt;=</span> <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">16</span>) <span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">|&gt;</span></span>
-<span id="cb1-4">  <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">mutate</span>(<span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">ag =</span> IND <span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">&gt;=</span> <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">170</span> <span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">&amp;</span> IND <span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">&lt;=</span> <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">290</span>) <span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">|&gt;</span></span>
-<span id="cb1-5">  <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">group_by</span>(YEAR, MONTH) <span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">|&gt;</span></span>
-<span id="cb1-6">  <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">summarise</span>(</span>
-<span id="cb1-7">    <span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">employed                  =</span> <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">sum</span>(COMPWT) <span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">/</span> <span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">1e6</span>,</span>
-<span id="cb1-8">    <span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">agriculture               =</span> <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">sum</span>(COMPWT[ag]) <span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">/</span> <span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">1e6</span>,</span>
-<span id="cb1-9">    <span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">self_employed             =</span> <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">sum</span>(COMPWT[CLASSWKR <span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">==</span> <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">13</span> <span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">&amp;</span> <span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">!</span>ag]) <span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">/</span> <span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">1e6</span>,</span>
-<span id="cb1-10">    <span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">unpaid_family_workers     =</span> <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">sum</span>(COMPWT[CLASSWKR <span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">==</span> <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">29</span> <span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">&amp;</span> <span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">!</span>ag]) <span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">/</span> <span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">1e6</span>,</span>
-<span id="cb1-11">    <span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">private_household_workers =</span> <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">sum</span>(COMPWT[IND <span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">==</span> <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">9290</span> <span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">&amp;</span> <span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">!</span>(CLASSWKR <span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">%in%</span> <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">c</span>(<span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">13</span>, <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">29</span>))]) <span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">/</span> <span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">1e6</span>,</span>
-<span id="cb1-12">    <span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">multiple_jobholders       =</span> <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">sum</span>(COMPWT[MULTJOB <span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">==</span> <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">2</span> <span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">&amp;</span> <span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">!</span>ag <span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">&amp;</span> <span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">!</span>(CLASSWKR <span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">%in%</span> <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">c</span>(<span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">13</span>, <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">29</span>))]) <span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">/</span> <span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">1e6</span>,</span>
-<span id="cb1-13">    <span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">absent_ws                 =</span> <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">sum</span>(COMPWT[EMPSTAT <span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">==</span> <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">12</span> <span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">&amp;</span> <span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">!</span>ag <span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">&amp;</span> <span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">!</span>(CLASSWKR <span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">%in%</span> <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">c</span>(<span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">13</span>, <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">29</span>))]) <span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">/</span> <span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">1e6</span>,</span>
-<span id="cb1-14">    <span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">.groups =</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"drop"</span></span>
-<span id="cb1-15">  )</span></code></pre></div></div>
-</details>
-</div>
-<p>The conditions in this code keep the categories from overlapping, so each person is subtracted at most once. A self-employed farmer counts only as agriculture, and a self-employed nanny only as self-employed.</p>
+<p>The household data are IPUMS CPS basic monthly microdata from January 2019 to August 2026. October 2025 is missing because the survey was not collected during the government shutdown. IPUMS distributes the CPS as one record per person surveyed rather than as the totals BLS publishes, which lets me build each bridge category myself. Payroll jobs are total nonfarm employment in their latest revised version. Both series are <em>not seasonally adjusted</em>, meaning the regular swings within each year, such as holiday hiring, are left in. That is because the CPS microdata are unadjusted, and both sides have to be on the same basis.</p>
+<p>Each respondent carries a <em>weight</em>, the number of people they stand in for: a weight of 2,000 means 2,000 people. I use <code>COMPWT</code>, the composite weight BLS uses for its published estimates. It reproduces BLS’s January 2019 employment total of 154.964 million exactly, while the basic weight <code>WTFINL</code> overshoots it by 616,000.</p>
 </section>
 <section id="the-gap" class="level2">
 <h2 data-anchor-id="the-gap">The gap</h2>
 <p><img src="https://1iiiiii.github.io/Personal-Website/blog/posts/post3/fig1_levels_gap.png" class="img-fluid"></p>
-<p>The household survey sits above payrolls in every month. The gap was about 7 million in 2019 and narrowed to between 2 and 4 million by late 2024. Both series are unadjusted, so the gap wobbles with the seasons. But the jump between December 2024 and January 2025, about 4 million, is far too large to be seasonal. To see what drives a move like that, the gap has to be decomposed.</p>
+<p>The top panel plots each survey’s monthly total before any bridging, and the bottom panel plots the gap between them. The household survey sits above payrolls in every month. The gap was about 7 million in 2019 and narrowed to between 2 and 4 million by late 2024. Both series are unadjusted, so the gap wobbles with the seasons, but the jump of about 4 million between December 2024 and January 2025 is too large to be seasonal. To see what drives a move like that, the gap has to be decomposed.</p>
 </section>
 <section id="decomposition-by-year-ces-vs.-cps" class="level2">
 <h2 data-anchor-id="decomposition-by-year-ces-vs.-cps">Decomposition by Year: CES vs.&nbsp;CPS</h2>
 <p><img src="https://1iiiiii.github.io/Personal-Website/blog/posts/post3/fig2_decomposition_by_year.png" class="img-fluid"></p>
-<p>Bars above zero means that the categories widen the gap and bars below narrow it. The dots mark the net gap. Based on the chart, it is obvious to see that definitional differences account for most of the gap in every year: 4.4 of the 6.6 million in 2019, and 3.6 of the 5.1 million in 2025. Self-employment is the largest single component, usually around 9 million. Multiple jobholding narrows the gap, and it grew from 7.7 million in 2019 to 8.4 million in 2025, which is the main reason the definitional part of the gap shrank over time.</p>
-<p>The grey residual is the more interesting part. It was 2.2 million in 2019, under 1 million from 2020 to 2023, negative in 2024, and back to 1.5 million in 2025. That swing follows from how the household survey is built. Each January it switches to new Census population estimates and never revises earlier months. BLS reports that the January 2025 update added 2.0 million to employment, mostly because of higher estimates of immigration. The microdata from CPS show the same thing as well. Household employment usually falls about 0.8 million from December to January, but in January 2025 it rose by 1.05 million, an excess of about 1.9 million.</p>
+<p>Each bar is the number of people in one bridge category, averaged over the year. They are measured against a baseline of zero gap, which is what we would see if the two surveys counted exactly the same thing. Bars above zero are groups only the household survey counts. The red bar is second jobs, which only payrolls count, so it pulls the household count back. The grey bar is the residual, and all the bars add up to the black dot. Years with an asterisk are incomplete, since 2025 lacks October due to government shutdown, and 2026 ends in August.</p>
+<p>Definitional differences account for most of the gap in every year: 4.4 of the 6.6 million in 2019, and 3.6 of the 5.1 million in 2025. Self-employment is the largest single component, usually around 9 million. Second jobs grew from 7.7 million in 2019 to 8.4 million in 2025. Relative to 2019, that offsets 0.7 million more of the household survey’s extra workers, which accounts for most of the 0.8 million fall in the definitional part of the gap.</p>
+<p>The grey residual is the more interesting part. It was 2.2 million in 2019, under 1 million from 2020 to 2023, negative in 2024, and back to 1.5 million in 2025. That swing follows from how the household survey is built. Its weights are scaled so the sample adds up to the Census Bureau’s estimate of the U.S. population, so a higher estimate raises every weighted count. Each January the survey switches to new population estimates and never revises earlier months. BLS reports that the January 2025 update added 2.0 million to employment relative to the old estimates, mostly because of higher estimated immigration. My microdata show the same in that household employment usually falls about 0.8 million from December to January, but in January 2025 it rose by 1.05 million, about 1.9 million more than a typical January.</p>
 <p>The update can also move in the other direction. In January 2026, lower estimated net migration and a Census methodology change cut household employment by 1.4 million, according to BLS. My decomposition shows a shortfall of about 1.2 million against a typical January.</p>
 </section>
 <section id="residual-analysis" class="level2">
 <h2 data-anchor-id="residual-analysis">Residual Analysis</h2>
 <p><img src="https://1iiiiii.github.io/Personal-Website/blog/posts/post3/fig3_residual_monthly.png" class="img-fluid"></p>
-<p>The monthly residual, plotted here next to the number of wage and salary workers absent from work, shows both population updates as jumps at the dotted lines. Its largest move, though, is not in a January. Between February and April 2020 the residual fell by about 5 million, from +3.0 to −2.2 million, while absent wage and salary workers jumped from 3.5 million to 9.6 million. Unpaid absentees count as employed in the household survey but not on payrolls, so if they were driving the residual it should have risen. Instead it fell, so something else was at work. One possibility is the payroll survey’s reference period. Payrolls count anyone paid for any part of the pay period that includes the 12th day of each month, so workers laid off after the 12th still appear as jobs. Another is that in-person household interviews were suspended that spring, so the household survey was measuring less precisely just when the labor market moved fastest.</p>
+<p>The solid line is the monthly residual. Above zero, the bridged household count exceeds payrolls, and below zero, it falls short. Both population updates show up as jumps at the dotted lines, and the break in late 2025 is the missing October. The dashed line is a possible explanation the bridge leaves out. Wage and salary workers who have a job but were absent from work in the survey week.</p>
+<p>The residual’s largest move, though, is not in a January. Between February and April 2020 it fell by about 5 million, while absent wage and salary workers jumped from 3.5 million to 9.6 million. Unpaid absentees count as employed in the household survey but not on payrolls, so if they were driving the residual it should have risen. Instead it fell. One possibility is the payroll survey’s reference period. Payrolls count anyone paid for any part of the pay period that includes the 12th of the month, so workers laid off after the 12th still appear as jobs. Another is that in-person household interviews were suspended that spring, so the household survey was measuring less precisely just when the labor market moved fastest.</p>
 </section>
 <section id="takeaway" class="level2">
 <h2 data-anchor-id="takeaway">Takeaway</h2>
-<p>Most of the gap between the two jobs numbers is definitional. Self-employment and farm work widen it, and multiple jobholding narrows it. Once those are removed, the two surveys agree to within about a million in most years, so the household survey can serve as a check on payrolls, but only after bridging and only once the residual’s large moves are explained.</p>
-<p>Those moves have identifiable causes. In 2024 the residual went negative, meaning the household survey sat too low relative to payrolls, and the January 2025 population update then added about 1.9 million to household employment in a single month. So at least part of the household survey’s weakness in 2024 came from its population base, not from the labor market. In spring 2020 the residual also went negative, but there the likelier causes are the payroll survey’s pay-period definition and disrupted household interviews. The practical rule is to compare the two surveys only after bridging, and to treat a January jump in household employment as a population revision until shown otherwise.</p>
+<p>Most of the gap between the two jobs numbers is definitional. After removing self-employment and farm work (which only the household survey counts) and adding back second jobs (which only payrolls count), the two surveys agree to within about a million in most years. The household survey can therefore check payrolls, but only after bridging and only once the residual’s large moves are explained.</p>
+<p>Those moves have identifiable causes. In 2024 the residual went negative, meaning the household survey sat too low relative to payrolls, and the January 2025 population update then raised household employment by about 1.9 million more than a typical January. So at least part of the household survey’s weakness in 2024 came from its population base, not from the labor market. In spring 2020 the residual also went negative, but there the likelier causes are the payroll survey’s pay-period definition and disrupted household interviews. The practical rule is to compare the two surveys only after bridging, and to treat a January jump in household employment as a population revision until shown otherwise.</p>
 </section>
 <section id="data-and-code" class="level2">
 <h2 data-anchor-id="data-and-code">Data and code</h2>
@@ -687,63 +983,42 @@ font-style: inherit;">"drop"</span></span>
 
 
 
-<p>Sweetgreen is an American fast-casual restaurant chain that specializes in healthy, made-to-order salads, grain bowls and protein plates. On 19 September 2026 its website listed 299 U.S. locations, 292 open and 7 coming soon. In 2022 its CEO said the company intended to reach 1,000 restaurants by the end of the decade.<sup>1</sup> By 2026 the trade press was describing that path as “now seriously in question,”<sup>2</sup> but 1,000 remains the company’s own statement of how much room it has to grow.</p>
+<p>Sweetgreen is an American fast-casual restaurant chain that specializes in healthy, made-to-order salads, grain bowls and protein plates. On 19 September 2026 its website listed 299 U.S. locations, 292 open and 7 coming soon. In 2022, its CEO said the company intended to reach 1,000 restaurants by the end of the decade.<sup>1</sup></p>
 <p>For a restaurant chain, revenue growth comes mostly from opening new stores, so a fundamental equity analyst covering Sweetgreen needs to know whether the store count built into the forecast is realistic. This post asks whether the 1,000 target needs adjusting and, setting the 2030 deadline aside, where the remaining ~700 restaurants could plausibly go.</p>
-<p>To answer it, I scrape the store locations of Sweetgreen and Chipotle, match every store to its metro area, and compare where each chain has chosen to open. Chipotle is the natural reference point. Like Sweetgreen it is fast-casual, with bowls assembled to order at a counter, but it is much further along: with about 4,155 U.S. stores, it shows what a fully built-out version of this format looks like. It plays two roles below. First it provides a naive upper bound for Sweetgreen, and then it serves as a control that separates what matters for Sweetgreen specifically from what matters for restaurants in general.</p>
-<section id="data-collection-and-cleaning" class="level2">
-<h2 data-anchor-id="data-collection-and-cleaning">Data Collection and Cleaning</h2>
-<p>Sweetgreen lists its entire store base on one server-rendered page, so a single request returns all 299 locations. Chipotle publishes a sitemap that encodes the state and city of each of its 4,155 stores, so two XML files cover all of them without fetching a single store page.</p>
-<p>When I tried to match stores to metro areas, there were two problems, and each would have silently removed important markets.</p>
-<ol type="1">
-<li><p><strong>ZIP codes lost their leading zero.</strong> A store in Boston was rendered as <code>2109</code> instead of <code>02109</code>, and 43 of the 299 Sweetgreen ZIPs had the same problem. Left alone, a ZIP-based match would have dropped Boston along with much of the Northeast.</p></li>
-<li><p><strong>Some store cities are not Census places.</strong> New York City’s boroughs are not Census places, so the place file has no “Brooklyn” or “Bronx”, and New England towns are county subdivisions rather than places. I added a county-subdivision layer for the six New England states and handled the boroughs and consolidated city-counties separately.</p></li>
-</ol>
-<p>After both fixes, 95.7% of Sweetgreen locations and 95.2% of Chipotle stores match a metro area. The 280 open Sweetgreen stores inside U.S. metro areas are the base for everything that follows.</p>
+<p>To answer it, I scrape the store locations of Sweetgreen and Chipotle, match every store to its metro area, and compare where each chain has chosen to open. Chipotle serves as the control since it’s also a fast-casual chain, but it’s much further along with about 4,155 U.S. stores. It separates what matters for Sweetgreen specifically from what matters for restaurants in general. Because a single snapshot cannot tell a small market from a young one, I also recover Sweetgreen’s store lists from 2016 and 2018 through the Internet Archive and follow its first markets over time.</p>
+<section id="data" class="level2">
+<h2 data-anchor-id="data">Data</h2>
+<p>Sweetgreen lists its entire store base on one server-rendered page, so a single request returns all 299 locations. Chipotle publishes a sitemap that encodes the state and city of each of its 4,155 stores, so two XML files cover all of them. There are two fixes needed to match stores to metro areas. First, some locations in cities like Boston loses the leading zero in the ZIP codes. For example, 02109 appeared as 2109, so we need to recover the correect codes. Second, we need to add New York’s boroughs and New England’s towns, which are not Census places. After both, 95.7% of Sweetgreen locations and 95.2% of Chipotle stores match a metro area, and the 280 open Sweetgreen stores in U.S. metros are the base for everything that follows.</p>
 </section>
-<section id="the-naive-build" class="level2">
-<h2 data-anchor-id="the-naive-build">The Naive Build</h2>
-<p><img src="https://1iiiiii.github.io/Personal-Website/blog/posts/post2/fig-penetration.png" class="img-fluid"></p>
-<p>The simplest way to size Sweetgreen’s opportunity is to assume it can eventually match Chipotle’s density everywhere. Chipotle runs 3,807 restaurants across U.S. metro areas, about 13.3 per million residents. Give Sweetgreen the same density over the same 286.5 million people and it “should” support about 3,800 restaurants, which is simply Chipotle’s own footprint.</p>
-<p>The figure shows why this naive buildup is unrealistic. In every one of the 25 largest metros, Sweetgreen sits far below Chipotle. The naive build also assumes that Sweetgreen wants the same kinds of places Chipotle does, and the rest of the post tests that assumption.</p>
-</section>
-<section id="predicting-where-sweetgreen-would-open" class="level2">
-<h2 data-anchor-id="predicting-where-sweetgreen-would-open">Predicting where Sweetgreen would open</h2>
-<p>We cannot observe directly which metros could support a Sweetgreen, but we can observe how densely each chain has built in the metros it has already entered and ask what those metros have in common. For each chain separately, I regress log stores per million residents on log median household income, log population density and the share of adults with a bachelor’s degree, using only the metros that chain has entered (47 for Sweetgreen, 353 for Chipotle).</p>
-<p>Taking logs puts two chains of very different sizes on the same percentage scale. In levels, the education coefficients come out almost identical, 12.2 and 13.9 extra stores per million for Sweetgreen and Chipotle. But 12.2 on Sweetgreen’s average of 1.82 stores per million is enormous, while 13.9 on Chipotle’s 11.66 is modest. In logs, each coefficient reads as a percentage response. For income and population density it is an <em>elasticity</em>, the percent change in store density for a 1% change in the variable. For education, which is not logged, it is the percent change for a one-percentage-point rise in the bachelor’s share.</p>
-<section id="education-predicts-sweetgreen-not-chipotle" class="level3">
-<h3 data-anchor-id="education-predicts-sweetgreen-not-chipotle">Education predicts Sweetgreen, not Chipotle</h3>
+<section id="sweetgreen-opens-in-educated-metros" class="level2">
+<h2 data-anchor-id="sweetgreen-opens-in-educated-metros">Sweetgreen Opens in Educated Metros</h2>
+<p>If Sweetgreen could match Chipotle’s density of 13.3 stores per million residents everywhere, it would support about 3,800 restaurants. That assumes every metro suits Sweetgreen equally, so I first need to know what kind of metro Sweetgreen builds densely in. A regression measures how store density varies with each of a metro’s characteristics while holding the others fixed, and the fitted relationship can then be applied to metros with no stores yet.</p>
+<p>For each chain separately, I regress log stores per million residents on log median household income, log population density and the share of adults with a bachelor’s degree. These are the questions store managers think about because they need to know whether residents can afford it, whether enough people live close together to support a store, and how many are college-educated. I use only the metros each chain has entered (47 for Sweetgreen, 353 for Chipotle), because a metro with no stores has a density of zero and the log of zero is undefined. Taking logs puts two chains of very different sizes on the same percentage scale, so each coefficient reads as a percentage change in store density.</p>
 <p><img src="https://1iiiiii.github.io/Personal-Website/blog/posts/post2/fig-education-elasticity.png" class="img-fluid"></p>
-<p>Because the vertical axis is on a log scale, the figure can be read directly. The vertical gap between the two lines is the ratio of the two chains’ densities, and the difference in their slopes is the difference in how strongly each responds to education. Sweetgreen’s line sits far lower because it is a much smaller chain, and it is visibly steeper because it is far more sensitive to how educated a metro is.</p>
-<p>A one-percentage-point rise in the bachelor’s share is associated with about 6.6% more Sweetgreen restaurants per capita, but only about 1.0% more Chipotles, and the two coefficients are roughly four standard errors apart. This is where Chipotle earns its place as a control. This tells us that education is not simply where fast-casual restaurants go, but it is where Sweetgreen goes. The fit also tells the same story in that metro characteristics explain 43% of the variation in Sweetgreen’s density but only 12% of Chipotle’s, because Chipotle is nearly everywhere, and knowing a metro is rich or educated barely helps to guess its Chipotle count.</p>
-<p>The same point can be made without a regression. In the median metro Sweetgreen operates in, 40.6% of adults hold a bachelor’s degree. For Chipotle the figure is 30.8%, almost exactly the 30.6% median across all U.S. metros.</p>
+<p>Each dot is a metro, and each line is fitted to one chain. Because the vertical axis is on a log scale, the steeper Sweetgreen line means its density responds far more to how educated a metro is. A one-percentage-point rise in the bachelor’s share is associated with about 6.6% more Sweetgreen restaurants per capita, but only about 1.0% more Chipotles, and the two coefficients are roughly four standard errors apart. Income adds nothing once education is known. The two move together across Sweetgreen’s metros (correlation 0.55), and income’s coefficient is indistinguishable from zero once education is held fixed.</p>
 </section>
-<section id="income-adds-nothing-once-education-is-known" class="level3">
-<h3 data-anchor-id="income-adds-nothing-once-education-is-known">Income adds nothing once education is known</h3>
-<p><img src="https://1iiiiii.github.io/Personal-Website/blog/posts/post2/fig-income-elasticity.png" class="img-fluid"></p>
-<p>This chart appears to contradict the regression that we have above. Both lines slope upward, as if richer metros attract more of both chains, yet in the regression income’s coefficient is indistinguishable from zero for both. Sweetgreen has −0.49 (standard error 0.60) and Chipotle has 0.18 (0.17). It turns out that the two are not in conflict. The lines here are fitted to income alone, while the regression asks what income adds <em>once you already know a metro’s graduate share</em>. Across the metros Sweetgreen has entered, income and education move together (correlation 0.55), so income on its own picks up education’s effect, and that effect disappears once education is held fixed.</p>
-<p>Population density matters little either way. Chipotle’s density elasticity is statistically significant but small (0.06), and Sweetgreen’s is larger but imprecise (0.12, standard error 0.12). Sweetgreen’s footprint is an education story, and that is exactly why Chipotle’s national density cannot be applied to it. The 340 metros Sweetgreen has not entered have a median bachelor’s share of 29.5%, eleven points below the metros it serves.</p>
+<section id="new-cities-add-only-about-120-stores" class="level2">
+<h2 data-anchor-id="new-cities-add-only-about-120-stores">New Cities Add Only About 120 Stores</h2>
+<p>Carrying the fitted relationship to the 340 metros Sweetgreen has not entered gives about 120 more restaurants, for a total of about 400 (fitting in levels instead of logs gives 406). The largest opportunities are Portland (about 4 stores), St.&nbsp;Louis (3.5), Orlando (3.4), Pittsburgh (3.2), Kansas City (2.9) and Cincinnati (2.8). These metros are simply less educated. Their median bachelor’s share is 29.5%, against 40.6% in the metros Sweetgreen serves.</p>
+<p>So new cities can supply about 120 of the remaining ~700 restaurants. The rest would have to come from the 47 metros Sweetgreen already operates in, raising them to about 880 restaurants, or 5.5 per million residents. That is 3.1 times their current 1.7, and denser than any large market Sweetgreen runs today.</p>
 </section>
+<section id="existing-markets-fill-in-slowly" class="level2">
+<h2 data-anchor-id="existing-markets-fill-in-slowly">Existing Markets Fill In Slowly</h2>
+<p><img src="https://1iiiiii.github.io/Personal-Website/blog/posts/post2/fig-trajectory.png" class="img-fluid"></p>
+<p>Each line follows one of the nine metros Sweetgreen had entered by January 2018. Solid segments connect the two archived store lists, while dashed segments jump to September 2026, because no list is provided in between. Population is held at its 2019–2023 level, so every rise is new stores. The grey dashed line is the 5.5 per million the target requires.</p>
+<p>The six metros Sweetgreen was in by January 2016 now average 2.6 stores per million, against 1.1 for the 38 it entered after January 2018. Part of what makes a metro look sparse today is simply that Sweetgreen arrived recently, so the 400 above is best read as what the footprint supports at its current stage, not a permanent ceiling.</p>
+<p>But even the oldest markets fill in slowly. Washington, where Sweetgreen started in 2007, went from 25 stores in January 2018 to 30 today. The six oldest metros together rose from 1.4 to 2.6 stores per million between January 2018 and September 2026, about 0.15 per million a year. At that pace they would need roughly another 20 years to reach 5.5.</p>
 </section>
-<section id="a-ceiling-of-about-400-restaurants" class="level2">
-<h2 data-anchor-id="a-ceiling-of-about-400-restaurants">A Ceiling of About 400 Restaurants</h2>
-<p><img src="https://1iiiiii.github.io/Personal-Website/blog/posts/post2/fig-ceiling.png" class="img-fluid"></p>
-<p>Carrying the fitted relationship from the 47 metros Sweetgreen has entered to the 340 it has not, and adding up, gives a ceiling of about 399 restaurants. On top of the 280 it runs in metro areas today, there are roughly 120 more that Sweetgreen could open. The same exercise with the levels specification gives 406. Two functional forms that disagree about the mechanism agree about the answer to within 2%, which suggests the number comes from the data rather than from my modelling choices.</p>
-<p>Two adjustments sit behind the log estimate. Exponentiating a fitted log value recovers the <em>typical</em> metro rather than the <em>average</em> one, so predictions are scaled up by a smearing correction (Duan, 1983). Here that factor is 1.17, a 17% adjustment. Predictions are also capped at the highest density Sweetgreen has reached anywhere, but in the log model the cap never binds.</p>
-<p>The log specification is also what makes the model behave sensibly at all. The first version, fitted in levels, named San Juan, Puerto Rico, where neither chain has a single store, as Sweetgreen’s best expansion market. Its income coefficient came out negative, so a poorer metro read as a more promising one. A straight line has no idea that store density cannot be negative. Modelling log density makes that constraint structural, since <img src="https://latex.codecogs.com/png.latex?e"> raised to any power is positive. It is the same reason the discrete-choice demand models from Applied Micro I write market shares as <img src="https://latex.codecogs.com/png.latex?%5Cexp(%5Cdelta_j)/%5Csum_k%20%5Cexp(%5Cdelta_k)"> rather than as a linear index, even though these are locations chosen by a firm rather than purchases chosen by consumers.</p>
-</section>
-<section id="conclusion" class="level2">
-<h2 data-anchor-id="conclusion">Conclusion</h2>
-<p>The naive build implies about 3,800 restaurants, the model about 400, and the target is 1,000. So where would the remaining ~700 come from?</p>
-<p>Not from new cities. The largest opportunities in metros Sweetgreen has not entered are Portland (about 4 stores), St.&nbsp;Louis (3.5), Orlando (3.4), Pittsburgh (3.2), Kansas City (2.9) and Cincinnati (2.8). The top twenty un-entered metros add up to about 40 stores, and the entire un-entered universe to about 120.</p>
-<p>That leaves the 47 metros Sweetgreen already operates in, which would need to hold about 880 restaurants, or 5.5 per million residents. That is 3.1 times their current 1.7. The only metros where Sweetgreen already runs at or near that density are Bloomington, Indiana and Ann Arbor, college towns with one and two stores. Its densest large markets, Washington (4.8 per million) and Boston (4.7), come close but still fall short. Hitting the target would require the <em>average</em> existing market to be denser than Sweetgreen’s best large market is today.</p>
-<p>For an analyst, this changes what the 1,000 target is a bet on. It is not a bet on Sweetgreen finding new cities; it is a bet that New York, Los Angeles and Chicago, now at 2.5, 2.1 and 2.6 stores per million, can roughly triple, and nothing in the current footprint shows that happening anywhere at scale. The target is better treated as an upside scenario than as the base case for revenue growth. The evidence that would justify moving back toward it is a rising share of new openings in metros Sweetgreen already serves, and density in its largest markets climbing toward 5.5 per million.</p>
+<section id="takeaway" class="level2">
+<h2 data-anchor-id="takeaway">Takeaway</h2>
+<p>The 1,000 target is not a bet on Sweetgreen finding new cities. It is a bet that its existing markets fill in far faster than its oldest ones ever have. Sweetgreen’s own filings point the same way: it opened 35 net new restaurants in 2025 and 25 in 2024.<sup>2</sup> At 35 a year, the roughly 290 restaurants open today become about 440 by the end of 2030, and 1,000 arrives around 2046, the same twenty-year horizon the density trajectory gives. Reaching 1,000 by 2030 would take about 165 net openings a year from here, nearly five times the 2025 pace.</p>
+<p>A revenue forecast should therefore use something close to 440 restaurants for 2030 as the base case and treat 1,000 as a long-run ceiling. Two numbers would justify moving the forecast up: annual net openings rising well above 35, and density in Washington and Boston continuing to climb past 5 per million, which would show that even mature markets have room left.</p>
 </section>
 <section id="caveats" class="level2">
 <h2 data-anchor-id="caveats">Caveats</h2>
 <ul>
-<li><strong>This approach only measures strategy from the firm’s perspective.</strong> A store base is a stock: it shows where Sweetgreen has chosen to be so far, constrained by capital, construction and management attention. The choice is also endogenous. Sweetgreen opens where unobserved local appeal (office density, lunch culture, rents, who is already on the block) is high, and I observe none of it. This is the same structure as price in a demand model, where firms charge more where unobserved appeal is high; the standard fix is a cost shifter that moves price without moving demand.</li>
-<li><strong>No opening dates.</strong> I cannot tell “has not entered yet” from “entered and stalled.” This is the biggest thing the analysis cannot answer.</li>
-<li><strong>Income and education are correlated</strong> (0.55 across entered metros), so their individual coefficients are less precise than they look.</li>
+<li><strong>Unobserved appeal that is only available to Sweetgreen</strong> Sweetgreen opens where it expects high local appeal I cannot observe, such as office density, lunch culture and rents. The metros it has not entered are probably weaker than their education levels alone suggest, so the 120 is more likely too high than too low.</li>
+<li><strong>A gap in the history.</strong> No archived store list survives between January 2018 and September 2026, so I cannot tell whether Washington’s growth stopped in 2019 or slowed gradually. The archived lists are also only as complete as the copies the Internet Archive happened to save.</li>
 </ul>
 </section>
 <section id="data-and-code" class="level2">
@@ -753,6 +1028,7 @@ font-style: inherit;">"drop"</span></span>
 <li><strong>Chipotle locations:</strong> <code>locations.chipotle.com/sitemap1.xml</code> and <code>sitemap2.xml</code>, two requests, same date.</li>
 <li><strong>Metro population, income and education:</strong> American Community Survey 2019–2023 5-year estimates, via <code>tidycensus</code>.</li>
 <li><strong>Place, town and metro boundaries:</strong> Census TIGER/Line 2023, via <code>tigris</code>.</li>
+<li><strong>Archived Sweetgreen store lists:</strong> Internet Archive Wayback Machine copies of <code>sweetgreen.com/locations</code> from 13 January 2016 and 3 January 2018, fetched 24 October 2026.</li>
 </ul>
 <p><strong>Code:</strong> <a href="https://github.com/1iiiiii/Web-Scraping-in-R">github.com/1iiiiii/Web-Scraping-in-R</a> contains the scripts and cached raw responses</p>
 
@@ -766,7 +1042,7 @@ font-style: inherit;">"drop"</span></span>
 
 <ol>
 <li id="fn1"><p>Restaurant Dive, <em>Sweetgreen on track for 1K units by 2030 despite profitability challenges</em>, 11 August 2022. <a href="https://www.restaurantdive.com/news/sweetgreen-1000-restaurants-by-2030/629384/" class="uri">https://www.restaurantdive.com/news/sweetgreen-1000-restaurants-by-2030/629384/</a>↩︎</p></li>
-<li id="fn2"><p>Restaurant Business, <em>Sweetgreen wanted to reach 1,000 units by the end of the decade. It may take a bit longer</em>, 2026. <a href="https://www.restaurantbusinessonline.com/operations/sweetgreen-wanted-reach-1000-units-end-decade-it-may-take-bit-longer" class="uri">https://www.restaurantbusinessonline.com/operations/sweetgreen-wanted-reach-1000-units-end-decade-it-may-take-bit-longer</a>↩︎</p></li>
+<li id="fn2"><p>Sweetgreen, Inc., <em>Form 10-K for fiscal year 2025</em>, U.S. Securities and Exchange Commission. <a href="https://www.sec.gov/Archives/edgar/data/1477815/000162828026012520/sg-20251228.htm" class="uri">https://www.sec.gov/Archives/edgar/data/1477815/000162828026012520/sg-20251228.htm</a>↩︎</p></li>
 </ol>
 </section></div> ]]></description>
   <category>web scraping</category>
@@ -777,45 +1053,32 @@ font-style: inherit;">"drop"</span></span>
   <pubDate>Mon, 21 Sep 2026 04:00:00 GMT</pubDate>
 </item>
 <item>
-  <title>Understanding the Nonfarm Payroll Data</title>
+  <title>How to interpret the initial print and revisions of the Nonfarm Payroll Data?</title>
   <link>https://1iiiiii.github.io/Personal-Website/blog/posts/post1/</link>
   <description><![CDATA[ 
 
 
 
 
-<p>Nonfarm payrolls measures the number of jobs that are added in the labor market every month. It may be the most closely watched indicator of the U.S. labor market because of its timeliness and wide coverage of industries. The Federal Reserve closely monitors this indicator to keep track of whether one of its dual mandate (i.e.&nbsp;maximum employment) is achieved. The trend shown by nonfarm payrolls would affect the Fed’s decision on monetary policy, which in turn affects the economy as a whole and the financial market.</p>
-<p>However, the sophisticated statistical methodology of the measure makes it rather hard to interpret beyond the headline. This post attempts to provide an overview, as well as to shed light on some technical details, about the indicator, especially regarding the revisions and seasonal adjustment.</p>
+<p>Nonfarm payrolls (NFP) are a count of paid jobs at U.S. businesses and government agencies, excluding farming. The data are estimated by the Bureau of Labor Statistics (BLS) from a monthly survey of employers. The Federal Reserve closely monitors this indicator to keep track of whether one of its dual mandate (i.e.&nbsp;maximum employment) is achieved, which in turn affects the economy as a whole and the financial market.</p>
+<p>However, the sophisticated statistical methodology of the measure makes it rather hard to interpret beyond the headline. The number that markets reacts to is the <em>initial print</em>, but it is revised several times afterwards. Those revisions became front-page news in August 2025, when the July report revised May and June job downward by a combined 258,000, and the President called for the BLS commissioner to be fired the same day.<sup>1</sup></p>
+<p>Ever since the pandemic, the amount of each revision has been nontrivial. This post asks: how reliable the initial print is, and how a reader should interpret it? It explains where the number comes from and how it is revised, and then splits revisions into the part caused by new data and the part caused by re-estimating the seasonal adjustment.</p>
 <section id="i.-what-the-number-is" class="level1">
 <h1>I. What the number is</h1>
 <ul>
-<li><strong>Definition:</strong> Nonfarm payroll employment counts paid employees on the payrolls of nonfarm establishments, a group that accounts for roughly 80% of the workers who contribute to U.S. GDP.<sup>1</sup></li>
+<li><strong>Definition:</strong> Nonfarm payroll employment counts paid employees on the payrolls of nonfarm establishments, a group that accounts for roughly 80% of the workers who contribute to U.S. GDP.<sup>2</sup></li>
 <li><strong>Source &amp; frequency:</strong> The Bureau of Labor Statistics (BLS) collects the data from private businesses and government agencies <u>on a monthly basis</u> and usually publishes it on the <u>first Friday of each month</u> at 8:30 a.m. ET.</li>
-<li><strong>Reference period:</strong> A person counts as employed if they worked or received pay for any part of the pay period that includes the <u>12th day of the month</u>.<sup>2</sup></li>
-<li><strong>The measure excludes:</strong> “sole proprietors, the unincorporated self-employed, unpaid volunteer or family workers, farm workers, and domestic workers,” along with active-duty military personnel.<sup>3</sup></li>
+<li><strong>Reference period:</strong> A person counts as employed if they worked or received pay for any part of the pay period that includes the <u>12th day of the month</u>.<sup>3</sup></li>
+<li><strong>The measure excludes:</strong> “sole proprietors, the unincorporated self-employed, unpaid volunteer or family workers, farm workers, and domestic workers,” along with active-duty military personnel.<sup>4</sup></li>
 </ul>
-<section id="why-are-certain-groups-excluded" class="level2">
-<h2 data-anchor-id="why-are-certain-groups-excluded">Why are certain groups excluded?</h2>
-<ul>
-<li><strong>Agriculture.</strong>
-<ul>
-<li>CES draws its sample from administrative records held by state unemployment insurance (UI) agencies, so workers outside the UI system never enter the sampling frame in the first place. Agricultural labor is widely exempt from UI coverage requirements.</li>
-<li>Farms are also frequently family-owned and run by sole proprietors, who are out of scope for an establishment survey whether or not they are covered.<sup>4</sup></li>
-<li>And agriculture is small. Farm employment runs at roughly 0.9–1.2% of total employment,<sup>5</sup> so a sample large enough to measure it reliably would cost far more than the resulting estimate is worth.</li>
-<li>None of this means farm employment goes unmeasured. The U.S. Department of Agriculture surveys agricultural labor twice a year.</li>
-</ul></li>
-<li><strong>Active-duty military.</strong> Payrolls are built to track employment that moves with the business cycle. Military headcount moves with national defense requirements instead, so including it would add variation unrelated to what the series is for.</li>
-<li><strong>Sole proprietors and private household employees.</strong> CES is an <em>establishment</em> survey. The self-employed have no employer filing a payroll on their behalf, and a private home is not a business establishment. Both groups are captured instead by the household survey (CPS), which is part of why payroll employment and household employment can move in opposite directions in the same month.</li>
-</ul>
-</section>
 </section>
 <section id="ii.-how-the-number-is-obtained" class="level1">
 <h1>II. How the number is obtained</h1>
 <section id="sources-of-data" class="level2">
 <h2 data-anchor-id="sources-of-data">Sources of data</h2>
 <p>There are two BLS programs that measure the same thing at different frequency, and the relationship between them explains most of what follows.</p>
-<p>The <strong>Quarterly Census of Employment and Wages (QCEW)</strong> is assembled from the unemployment insurance tax reports that essentially every employer is required to file with its state. It is close to a census: in 2025 it covered 12.1 million establishments and 155.7 million employees.<sup>6</sup> About 97% of nonfarm employment within the scope of the establishment survey is covered by UI, and therefore visible to BLS through QCEW records.<sup>7</sup> The price of that completeness is speed. QCEW is quarterly, and each quarter is published within six months of the quarter’s end.<sup>8</sup></p>
-<p>The BLS also runs the <strong>Current Employment Statistics (CES)</strong> survey, which is a monthly sample drawn from that same UI-derived universe, covering about 119,000 businesses and government agencies and approximately 622,000 individual worksites, roughly 26% of all nonfarm payroll jobs.<sup>9</sup> CES reports about three weeks after the reference period rather than six months after the quarter.</p>
+<p>The <strong>Quarterly Census of Employment and Wages (QCEW)</strong> is assembled from the unemployment insurance tax reports that essentially every employer is required to file with its state. It is close to a census: in 2025 it covered 12.1 million establishments and 155.7 million employees.<sup>5</sup> About 97% of nonfarm employment within the scope of the establishment survey is covered by UI, and therefore visible to BLS through QCEW records.<sup>6</sup> The price of that completeness is speed. QCEW is quarterly, and each quarter is published within six months of the quarter’s end.<sup>7</sup></p>
+<p>The BLS also runs the <strong>Current Employment Statistics (CES)</strong> survey, which is a monthly sample drawn from that same UI-derived universe, covering about 119,000 businesses and government agencies and approximately 622,000 individual worksites, roughly 26% of all nonfarm payroll jobs.<sup>8</sup> CES reports about three weeks after the reference period rather than six months after the quarter.</p>
 <p>Below is a comparison table of the two surveys.</p>
 <div class="cell">
 <div id="tbl-ces-qcew" class="cell quarto-float quarto-figure quarto-figure-center">
@@ -874,126 +1137,11 @@ Table&nbsp;1: CES and QCEW compared
 <div class="fig-source">
 <p>Source: BLS, <em>Employment Situation Technical Note</em> (August 2026); <em>CES National Benchmark Article</em>; <em>Employment and Wages, Annual Averages 2025</em>; <em>QCEW Overview</em>.</p>
 </div>
-<p>The sample from the CES has one defect that no amount of additional response will fix. A survey drawn from an existing frame cannot see firms that did not exist when the frame was drawn, and it cannot readily tell a firm that has gone out of business from one that simply has not answered this month. Both problems concern the same population, and BLS handles them together with the net birth-death model.</p>
-</section>
-<section id="the-birth-death-model" class="level2">
-<h2 data-anchor-id="the-birth-death-model">The birth-death model</h2>
-<p>There are two parts to the birth-death model.</p>
-<ul>
-<li><p><strong>First is imputation.</strong> BLS “excludes employment losses due to business deaths from sample-based estimation in order to offset the missing employment gains from business births.” In practice, “not reflecting sample units going out of business and imputing to them the same trend as the other firms in the sample.”<sup>10</sup> BLS says this step “accounts for most of the birth and death employment.”</p></li>
-<li><p><strong>Second is an ARIMA model on the residual only</strong>, estimating “the residual birth-death employment not accounted for by the imputation,” fitted on the trailing five years.<sup>11</sup></p></li>
-</ul>
-<section id="a-falling-response-rate" class="level3">
-<h3 data-anchor-id="a-falling-response-rate">A Falling Response Rate</h3>
-<table class="caption-top table">
-<caption>CES response and collection rates</caption>
-<colgroup>
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: center;">Year</th>
-<th style="text-align: center;">Overall response rate</th>
-<th style="text-align: center;">Collected at 1st release</th>
-<th style="text-align: center;">Collected at final release</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">2016</td>
-<td style="text-align: center;">60.8</td>
-<td style="text-align: center;">74.7</td>
-<td style="text-align: center;">95.7</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">2019</td>
-<td style="text-align: center;">59.3</td>
-<td style="text-align: center;">73.9</td>
-<td style="text-align: center;">93.2</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">2022</td>
-<td style="text-align: center;">45.2</td>
-<td style="text-align: center;">65.4</td>
-<td style="text-align: center;">94.0</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">2025</td>
-<td style="text-align: center;">42.2</td>
-<td style="text-align: center;">65.2</td>
-<td style="text-align: center;">91.5</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">2026</td>
-<td style="text-align: center;">43.3</td>
-<td style="text-align: center;">63.0</td>
-<td style="text-align: center;">—</td>
-</tr>
-</tbody>
-</table>
-<div class="fig-source">
-<p>Source: BLS Office of Survey Methods Research. Annual averages, percent.</p>
-</div>
-<p>The share of <em>units</em> answering has fallen roughly 18 points since 2016. The share of <em>employment</em> collected by final closing has barely moved. Both are true because collection is employment-weighted: the large employers still report. What the survey is losing is small establishments, which is the same population the birth-death model is extrapolating over.</p>
-</section>
-</section>
-<section id="seasonal-adjustment" class="level2">
-<h2 data-anchor-id="seasonal-adjustment">Seasonal adjustment</h2>
-<p>Seasonal adjustments make it easier to determine whether an employment change is due to normal changes throughout the year or an indicator of anomalies. For example, This is a regular seasonal fluctuation, which is reflected in the NSA data, but more hiring or less hiring in this case does not suggest expansion nor recession.</p>
-<ul>
-<li>The question seasonal adjustment answers is “what does a normal January look like?” X-11, the engine inside X-13, answers it by <strong>averaging, not by fitting a model</strong>. Take the same calendar month across several years and average it. Divide it out of the raw series and what is left is trend plus noise. Smooth that to get a cleaner trend, take the trend back out, re-estimate the monthly pattern on the cleaner residual, and go round again.</li>
-<li>Two things follow directly from <em>averaging</em> rather than <em>fitting</em>. <strong>First</strong>, every new observation changes the average, so <em>last</em> January’s factor moves when <em>this</em> January arrives. <strong>Second</strong>, the newest months sit at the end of the sample with no future to average over, so X-13 forecasts the series forward and averages over the forecast.</li>
-<li>CES runs this <strong>concurrently</strong>: factors are recomputed every month with the latest data rather than fixed in advance, and the models are re-specified annually.<sup>12</sup> X-13 wraps X-11 in a regARIMA step that first strips out outliers, trading-day effects and moving holidays (CES adjusts for Easter and Labor Day) so the averaging is not contaminated by them.</li>
-<li><strong>The seasonally adjusted history changes every month even when not one additional survey response arrives</strong></li>
-</ul>
-<table class="caption-top table">
-<caption>January payroll change, unadjusted and adjusted</caption>
-<thead>
-<tr class="header">
-<th style="text-align: center;">January</th>
-<th style="text-align: center;">Unadjusted</th>
-<th style="text-align: center;">Adjusted</th>
-<th style="text-align: center;">Adjustment</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">2023</td>
-<td style="text-align: center;">−2,505</td>
-<td style="text-align: center;">+517</td>
-<td style="text-align: center;">+3,022</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">2024</td>
-<td style="text-align: center;">−2,635</td>
-<td style="text-align: center;">+353</td>
-<td style="text-align: center;">+2,988</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">2025</td>
-<td style="text-align: center;">−2,852</td>
-<td style="text-align: center;">+143</td>
-<td style="text-align: center;">+2,995</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">2026</td>
-<td style="text-align: center;">−2,649</td>
-<td style="text-align: center;">+130</td>
-<td style="text-align: center;">+2,779</td>
-</tr>
-</tbody>
-</table>
-<div class="fig-source">
-<p>Source: author’s calculations from ALFRED vintages of <code>PAYEMS</code> and <code>PAYNSA</code>. Thousands, as first published.</p>
-</div>
 </section>
 </section>
 <section id="iii.-how-the-number-changes" class="level1">
 <h1>III. How the number changes</h1>
-<p>There are three structurally different operations that all get called a revision, yet they have different causes, sizes and meanings. The mix of terms makes the revisions very obscure, but this is easier to hold onto once we sort them by the data sources behind them. This post uses the terms in the first column throughout. The naming is based on my interpretation of each data. The BLS names are the official ones, but they are harder to keep straight.</p>
+<p>There are three structurally different operations that all get called a revision, yet they have different causes, sizes and meanings. The mix of terms makes the revisions very obscure, but this is easier to hold onto once we sort them by the data sources behind them. This post uses the terms in the first column throughout. The naming is based on my own interpretation of each data. The BLS names are the official ones, but they are harder to keep straight.</p>
 <div class="cell">
 <div id="tbl-vocab" class="cell quarto-float quarto-figure quarto-figure-center">
 <figure class="quarto-float quarto-float-tbl figure">
@@ -1052,10 +1200,10 @@ Table&nbsp;2: Vocabulary for payroll revisions
 <p>Source: BLS, <em>CES Frequently Asked Questions</em>.</p>
 </div>
 <p>The first three rows all rest on the CES sample. Each is built from whatever survey responses have arrived by the time of publication, which is exactly what “preliminary” means here. That is, the data are open to change as the rest of the sample reports. The last two rows rest on QCEW instead. That is why they arrive once a year rather than once a month, and why they reset the <em>level</em> of employment rather than nudging a single month’s change.</p>
-<p>Two of the official labels can seem misleading, as there are two “finals”. The “final estimate” is final only in that no further <em>monthly</em> revision is coming, but the benchmark still is. And the benchmark figure that makes the news is almost always the <em>preliminary</em> benchmark, which is itself revised by the “final benchmark” the following February.</p>
+<p>Two of the official labels can seem misleading, as there are two “finals”. The “final estimate” is final only in the sense that no further <em>monthly</em> revision is coming, but the benchmark still is. And the benchmark figure that makes the news is almost always the <em>preliminary</em> benchmark, which is itself revised by the “final benchmark” the following February.</p>
 <section id="the-monthly-cycle" class="level2">
 <h2 data-anchor-id="the-monthly-cycle">The monthly cycle</h2>
-<p>CES “revises its initial monthly estimates twice, in the immediately succeeding 2 months, to incorporate additional sample receipts from respondents in the survey.”<sup>13</sup> For example, the June NFP data has its initial print in early July. In early August, not only does BLS release the initial print of the July NFP data, but it also releases the first monthly revision of the June data, as well as the second monthly revision of the May data. In early September, when the August NFP is released, June receives its second monthly revision.</p>
+<p>CES “revises its initial monthly estimates twice, in the immediately succeeding 2 months, to incorporate additional sample receipts from respondents in the survey.”<sup>9</sup> For example, the June NFP data has its initial print in early July. In early August, not only does BLS release the initial print of the July NFP data, but it also releases the first monthly revision of the June data, as well as the second monthly revision of the May data. In early September, when the August NFP is released, June receives its second monthly revision.</p>
 <div id="fig-schedule" class="quarto-float quarto-figure quarto-figure-center">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-schedule-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -1072,7 +1220,7 @@ Figure&nbsp;1: Monthly release and revision schedule
 </section>
 <section id="the-annual-benchmark" class="level2">
 <h2 data-anchor-id="the-annual-benchmark">The annual benchmark</h2>
-<p>The final benchmark is published with the initial print of January NFP in early February of the following year, and it affects <strong>21 months</strong> of previously published data, anchored to <strong>March of the previous year</strong>.<sup>14</sup></p>
+<p>The final benchmark is published with the initial print of January NFP in early February of the following year, and it affects <strong>21 months</strong> of previously published data, anchored to <strong>March of the previous year</strong>.<sup>10</sup></p>
 <div id="fig-benchmark" class="quarto-float quarto-figure quarto-figure-center">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-benchmark-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -1086,36 +1234,95 @@ Figure&nbsp;2: Successive benchmark windows
 <div class="fig-source">
 <p>Source: BLS, <em>CES Frequently Asked Questions</em>; BofA Global Research, <em>QCEW: 2025 FAQs</em>, 3 September 2025.</p>
 </div>
-<p>The 12 months up to the March anchor get the QCEW revision, and the 9 months after it are only rescaled and re-modelled. BofA states that April–December 2025 payrolls “will not be revised based on the QCEW until 2027.”<sup>15</sup> So a payroll number is roughly eighteen months old before anyone checks it against tax records.</p>
+<p>The 12 months up to the March anchor get the QCEW revision, and the 9 months after it are only rescaled and re-modelled. BofA states that April–December 2025 payrolls “will not be revised based on the QCEW until 2027.”<sup>11</sup> So a payroll number is roughly eighteen months old before anyone checks it against tax records.</p>
 </section>
 <section id="decomposition-of-revisions" class="level2">
 <h2 data-anchor-id="decomposition-of-revisions">Decomposition of Revisions</h2>
-<p>The decomposition is arithmetic on two vintages of the same month:</p>
-<p><img src="https://latex.codecogs.com/png.latex?%5Cunderbrace%7B%5Ctext%7BSA%7D_%7B%5Ctext%7Blatest%7D%7D%20-%20%5Ctext%7BSA%7D_%7B%5Ctext%7Bfirst%7D%7D%7D_%7B%5Ctext%7Btotal%20revision%7D%7D%0A%5C;=%5C;%0A%5Cunderbrace%7B%5Ctext%7BNSA%7D_%7B%5Ctext%7Blatest%7D%7D%20-%20%5Ctext%7BNSA%7D_%7B%5Ctext%7Bfirst%7D%7D%7D_%7B%5Ctext%7Bdata:%20late%20responses%7D%5C,+%5C,%5Ctext%7Bbenchmark%7D%7D%0A%5C;+%5C;%0A%5Cunderbrace%7B%5C;%5Ctext%7Bresidual%7D%5C;%7D_%7B%5Ctext%7Bseasonal-factor%20re-estimation%7D%7D"></p>
-<p>The unadjusted series never touches a seasonal factor, so anything that moves it is incoming data. Whatever is left when you subtract that from the adjusted revision is the adjustment changing its mind.</p>
+<p>A revision is the difference between the latest published number for a month and its initial print. A month’s number can change for two reasons.</p>
+<p>The first is <strong>new data</strong>. Some employers don’t answer to the survey on a timely manner, and BLS revises trhe number as new survey responses arrive. The second is <strong>seasonal adjustment</strong>. The headline number is seasonally adjusted, meaning BLS removes the hiring and layoffs that happen at the same time every year, so that what is left is the unusual part.</p>
+<p>BLS also publishes the series <em>without</em> seasonal adjustment, and that version changes only when new data arrive. This lets me split every revision in two:</p>
+<p><img src="https://latex.codecogs.com/png.latex?%5Cunderbrace%7B%5Ctext%7BSA%7D_%7B%5Ctext%7Blatest%7D%7D%20-%20%5Ctext%7BSA%7D_%7B%5Ctext%7Bfirst%7D%7D%7D_%7B%5Ctext%7Btotal%20revision%7D%7D%0A%5C;=%5C;%0A%5Cunderbrace%7B%5Ctext%7BNSA%7D_%7B%5Ctext%7Blatest%7D%7D%20-%20%5Ctext%7BNSA%7D_%7B%5Ctext%7Bfirst%7D%7D%7D_%7B%5Ctext%7Bnew%20data%7D%7D%0A%5C;+%5C;%0A%5Cunderbrace%7B%5C;%5Ctext%7Bresidual%7D%5C;%7D_%7B%5Ctext%7Bseasonal%20adjustment%7D%7D"></p>
+<p>Here SA is the seasonally adjusted number and NSA the unadjusted one. The revision to the unadjusted number is the part due to new data, and whatever remains of the total revision is the part due to the re-estimation of the model.</p>
 <div id="fig-decomp" class="quarto-float quarto-figure quarto-figure-center">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-decomp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="https://1iiiiii.github.io/Personal-Website/blog/posts/post1/fig-revision-decomposition.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-decomp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3: Cumulative revision by mechanism
+Figure&nbsp;3: Revisions split into new data and seasonal adjustment
 </figcaption>
 </figure>
 </div>
 <div class="fig-source">
 <p>Source: author’s calculations from ALFRED vintages. Total nonfarm, thousands.</p>
 </div>
+<p>Figure&nbsp;3 does the same split for every month. The blue bar is the part due to new data, the orange bar the part due to seasonal adjustment, and the black line is their sum, which is the revision BLS actually published. Over the 47 months from September 2022 to July 2026, three things stand out.</p>
 <ul>
-<li>The <strong>drift</strong> is data. Mean total revision <strong>−61k</strong>; mean data component <strong>−50k</strong>, mean factor component <strong>−11k</strong>. Payrolls have been revised down persistently, and late reporting plus the benchmark explains most of it.</li>
-<li>The <strong>noise</strong> is not. Mean absolute factor component is <strong>48k</strong> against <strong>71k</strong> for data, and the factor component is the <em>larger</em> of the two in <strong>20 of 47 months</strong>.</li>
-<li>The two pull in <strong>opposite directions in 26 of 47 months</strong> (correlation −0.46). The published revision routinely understates how much actually moved underneath it.</li>
+<li><strong>Revisions have mostly been downward, and new data is the reason.</strong> The average month was revised down by 61,000. New data accounts for 50,000 of that and seasonal adjustment for 11,000, which is why most blue bars sit below zero.</li>
+<li><strong>Seasonal adjustment still moves the number a lot.</strong> Its ups and downs largely cancel out on average, but ignoring direction, the seasonal part averaged 48,000 a month, against 71,000 for new data. It was the larger of the two in 20 of the 47 months.</li>
+<li><strong>The two parts often offset each other.</strong> In 26 of the 47 months they moved in opposite directions, as in October 2024. When that happens, the published revision is smaller than the total change underneath it.</li>
 </ul>
 </section>
-<section id="questions-worth-further-exploration" class="level2">
-<h2 data-anchor-id="questions-worth-further-exploration">Questions worth further exploration</h2>
-<p><strong>Is the CES sample shrinking, and does it matter?</strong> The August 2026 technical note puts the sample at 119,000 businesses and 622,000 worksites, against 121,000 and 631,000 a year earlier, which is a decline of roughly 1.5%. Over the same period the stated coverage moved from “about one-third” of nonfarm payroll jobs to “approximately 26 percent.” A 1.5% reduction in the sample cannot produce a shift of that size, so either the denominator changed or BLS restated the basis. This is a separate question from <strong>?@tbl-response</strong> because that one is about who answers, this one is about how many are asked. The worry is that if the sample really is contracting, the standard error on every monthly print is widening.</p>
-<p><strong>Can the adjustment be reproduced?</strong> The seasonal adjustment tool X-13ARIMA-SEATS is public. The Census Bureau distributes the binary and the <code>seasonal</code> package wraps it in R.</p>
+<section id="a-falling-response-rate" class="level2">
+<h2 data-anchor-id="a-falling-response-rate">A Falling Response Rate</h2>
+<table class="caption-top table">
+<caption>CES response and collection rates</caption>
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Year</th>
+<th style="text-align: center;">Overall response rate</th>
+<th style="text-align: center;">Collected at 1st release</th>
+<th style="text-align: center;">Collected at final release</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">2016</td>
+<td style="text-align: center;">60.8</td>
+<td style="text-align: center;">74.7</td>
+<td style="text-align: center;">95.7</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2019</td>
+<td style="text-align: center;">59.3</td>
+<td style="text-align: center;">73.9</td>
+<td style="text-align: center;">93.2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">2022</td>
+<td style="text-align: center;">45.2</td>
+<td style="text-align: center;">65.4</td>
+<td style="text-align: center;">94.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2025</td>
+<td style="text-align: center;">42.2</td>
+<td style="text-align: center;">65.2</td>
+<td style="text-align: center;">91.5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">2026</td>
+<td style="text-align: center;">43.3</td>
+<td style="text-align: center;">63.0</td>
+<td style="text-align: center;">—</td>
+</tr>
+</tbody>
+</table>
+<div class="fig-source">
+<p>Source: BLS Office of Survey Methods Research. Annual averages, percent.</p>
+</div>
+<p>One of the main drivers of the large revisions is due to a falling survey response rate from the employers. The overall response rate has fallen roughly 18 percentage points since 2016, yet the share of <em>employment</em> collected by final closing has barely moved. Both are true because collection is employment-weighted, and large employers still report. What the survey is losing is small establishments, which is the same population the birth-death model is extrapolating over.</p>
+</section>
+<section id="takeaway" class="level2">
+<h2 data-anchor-id="takeaway">Takeaway</h2>
+<p>To conclude, the initial print is an early estimate and not a final count. On average, the initial print overstated job growth in this period. Over the 47 months from September 2022 to July 2026, first prints were revised down by 61,000 on average, and 50,000 of that came from new data (late survey responses and the benchmark).</p>
+<p>I would read the data from three angles. First, since a single month is noisy, we could look at the 3-month moving average. Three months is chosen because it combines the latest initial print with the two previous months, which are revised with late responses. We could then see if the current month has any anomalous movement against the average. Second, I would look at the size and direction of revision for each month in the past five years. As the decomposition above shows, the downward drift has come mostly from new data rather than seasonal adjustment, so it has been a consistent pattern rather than noise. That gives a rough sense of where the current print is likely to be revised, though not an exact number. Third, I would break the headline down by sector or industry. This shows what is driving the total, and lets me check those sectors against other sources.</p>
 
 
 <!-- -->
@@ -1127,21 +1334,17 @@ Figure&nbsp;3: Cumulative revision by mechanism
 <div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
 
 <ol>
-<li id="fn1"><p>Federal Reserve Bank of St.&nbsp;Louis, <em>All Employees, Total Nonfarm (PAYEMS)</em>. <a href="https://fred.stlouisfed.org/series/payems" class="uri">https://fred.stlouisfed.org/series/payems</a>↩︎</p></li>
-<li id="fn2"><p>BLS, <em>CES Frequently Asked Questions</em>. <a href="https://www.bls.gov/web/empsit/cesfaq.htm" class="uri">https://www.bls.gov/web/empsit/cesfaq.htm</a>↩︎</p></li>
-<li id="fn3"><p>BLS, <em>Handbook of Methods: Current Employment Statistics — Concepts</em>. <a href="https://www.bls.gov/opub/hom/ces/concepts.htm" class="uri">https://www.bls.gov/opub/hom/ces/concepts.htm</a>↩︎</p></li>
-<li id="fn4"><p>BLS, <em>Why doesn’t CES collect agricultural employment?</em> <a href="https://www.bls.gov/web/empsit/cesfaq.htm" class="uri">https://www.bls.gov/web/empsit/cesfaq.htm</a>↩︎</p></li>
-<li id="fn5"><p>USDA Economic Research Service, <em>Ag and Food Sectors and the Economy</em>. <a href="https://www.ers.usda.gov/data-products/chart-gallery/58282" class="uri">https://www.ers.usda.gov/data-products/chart-gallery/58282</a>↩︎</p></li>
-<li id="fn6"><p>BLS, <em>Employment and Wages, Annual Averages 2025</em>. <a href="https://www.bls.gov/cew/publications/employment-and-wages-annual-averages/current/" class="uri">https://www.bls.gov/cew/publications/employment-and-wages-annual-averages/current/</a>↩︎</p></li>
-<li id="fn7"><p>BLS, <em>CES National Benchmark Article</em>. <a href="https://www.bls.gov/web/empsit/cesbmart.htm" class="uri">https://www.bls.gov/web/empsit/cesbmart.htm</a>↩︎</p></li>
-<li id="fn8"><p>BLS, <em>QCEW Overview</em>. <a href="https://www.bls.gov/cew/overview.htm" class="uri">https://www.bls.gov/cew/overview.htm</a>↩︎</p></li>
-<li id="fn9"><p>BLS, <em>Employment Situation Technical Note</em>, August 2026. <a href="https://www.bls.gov/news.release/empsit.tn.htm" class="uri">https://www.bls.gov/news.release/empsit.tn.htm</a>↩︎</p></li>
-<li id="fn10"><p>BLS, <em>CES Net Birth-Death Model</em>. <a href="https://www.bls.gov/web/empsit/cesbd.htm" class="uri">https://www.bls.gov/web/empsit/cesbd.htm</a>↩︎</p></li>
-<li id="fn11"><p>BLS, <em>CES Net Birth-Death Model</em>. <a href="https://www.bls.gov/web/empsit/cesbd.htm" class="uri">https://www.bls.gov/web/empsit/cesbd.htm</a>↩︎</p></li>
-<li id="fn12"><p>BLS, <em>CES Seasonal Adjustment</em>. <a href="https://www.bls.gov/web/empsit/cesseasadj.htm" class="uri">https://www.bls.gov/web/empsit/cesseasadj.htm</a>↩︎</p></li>
-<li id="fn13"><p>BLS, <em>CES Frequently Asked Questions</em>. <a href="https://www.bls.gov/web/empsit/cesfaq.htm" class="uri">https://www.bls.gov/web/empsit/cesfaq.htm</a>↩︎</p></li>
-<li id="fn14"><p>BLS, <em>CES Frequently Asked Questions</em>. <a href="https://www.bls.gov/web/empsit/cesfaq.htm" class="uri">https://www.bls.gov/web/empsit/cesfaq.htm</a>↩︎</p></li>
-<li id="fn15"><p>BofA Global Research, <em>US Economic Viewpoint — QCEW: 2025 FAQs</em>, 3 September 2025.↩︎</p></li>
+<li id="fn1"><p>WTTW News, <em>Trump Demands Official Overseeing Jobs Data Be Fired After Dismal Employment Report</em>, 1 August 2025. <a href="https://news.wttw.com/2025/08/01/trump-demands-official-overseeing-jobs-data-be-fired-after-dismal-employment-report" class="uri">https://news.wttw.com/2025/08/01/trump-demands-official-overseeing-jobs-data-be-fired-after-dismal-employment-report</a>↩︎</p></li>
+<li id="fn2"><p>Federal Reserve Bank of St.&nbsp;Louis, <em>All Employees, Total Nonfarm (PAYEMS)</em>. <a href="https://fred.stlouisfed.org/series/payems" class="uri">https://fred.stlouisfed.org/series/payems</a>↩︎</p></li>
+<li id="fn3"><p>BLS, <em>CES Frequently Asked Questions</em>. <a href="https://www.bls.gov/web/empsit/cesfaq.htm" class="uri">https://www.bls.gov/web/empsit/cesfaq.htm</a>↩︎</p></li>
+<li id="fn4"><p>BLS, <em>Handbook of Methods: Current Employment Statistics — Concepts</em>. <a href="https://www.bls.gov/opub/hom/ces/concepts.htm" class="uri">https://www.bls.gov/opub/hom/ces/concepts.htm</a>↩︎</p></li>
+<li id="fn5"><p>BLS, <em>Employment and Wages, Annual Averages 2025</em>. <a href="https://www.bls.gov/cew/publications/employment-and-wages-annual-averages/current/" class="uri">https://www.bls.gov/cew/publications/employment-and-wages-annual-averages/current/</a>↩︎</p></li>
+<li id="fn6"><p>BLS, <em>CES National Benchmark Article</em>. <a href="https://www.bls.gov/web/empsit/cesbmart.htm" class="uri">https://www.bls.gov/web/empsit/cesbmart.htm</a>↩︎</p></li>
+<li id="fn7"><p>BLS, <em>QCEW Overview</em>. <a href="https://www.bls.gov/cew/overview.htm" class="uri">https://www.bls.gov/cew/overview.htm</a>↩︎</p></li>
+<li id="fn8"><p>BLS, <em>Employment Situation Technical Note</em>, August 2026. <a href="https://www.bls.gov/news.release/empsit.tn.htm" class="uri">https://www.bls.gov/news.release/empsit.tn.htm</a>↩︎</p></li>
+<li id="fn9"><p>BLS, <em>CES Frequently Asked Questions</em>. <a href="https://www.bls.gov/web/empsit/cesfaq.htm" class="uri">https://www.bls.gov/web/empsit/cesfaq.htm</a>↩︎</p></li>
+<li id="fn10"><p>BLS, <em>CES Frequently Asked Questions</em>. <a href="https://www.bls.gov/web/empsit/cesfaq.htm" class="uri">https://www.bls.gov/web/empsit/cesfaq.htm</a>↩︎</p></li>
+<li id="fn11"><p>BofA Global Research, <em>US Economic Viewpoint — QCEW: 2025 FAQs</em>, 3 September 2025.↩︎</p></li>
 </ol>
 </section></div> ]]></description>
   <category>labor market</category>

@@ -1,0 +1,216 @@
+---
+title: "[SQL tutorial using PSID data]"
+description: "[WRITE LAST — one or two sentences: what the tutorial shows and the headline numbers.]"
+date: 2026-10-24
+categories: [SQL, Python, PSID, intergenerational mobility]
+---
+
+If your parents earned twice what a neighbor's parents earned, how much more will you earn
+compared to the neighbor's children? This questions is the motivation for the Great Gatsby curve
+and the "American Dream" debate. Policy economists comparing countries, people arguing about
+whether the US is a land of opportunity. connect more to economics
+
+Paragraph 2: the question, stated as a question. Then the twist this post is about: the answer depends on WHEN you measure
+income — and measuring it at the wrong moment can hide almost half of the persistence. This post walks through the
+whole pipeline, from raw survey file to estimation using SQL inside Python, so a reader with basic Python and SQL can redo it.]
+
+## What the intergenerational elasticity measures
+
+Intergenerational elasticity (IGE) measures the link between parents' income and 
+their children's income after they leave the family. The equation is:
+
+$$
+\ln y_{\text{child}} = \alpha + \beta\, \ln y_{\text{parent}} + \varepsilon
+$$
+It is a log-log regression of child income on parent income, where β is the IGE. A
+β of 0.4 means that if one father earned 10% more than another, his children earn 4% more
+than the other's children on average. A β of 0 means there is no relationship, and a β of 1 would mean a caste system
+where there is no mobility whatsoever. 
+
+There are two problems 
+(1) one year of income is a noisy reading of a family's long-run position (a bonus, a layoff, a farm loss);
+(2) a 25-year-old's income is a poor reading of their lifetime income (the high-earners-to-be are still in grad school).]
+
+## Introduction of the data source
+
+The Panel Study of Income Dynamics (PSID) began in 1968 with about
+5,000 US families and has interviewed the same people, their children, and their grandchildren. 
+Because children are followed when they leave home, the same file contains a father's income in 1985
+and his daughter's income in 2015. That is what makes a parent–child match possible.
+
+We rely on two unique identifiers for the match:
+- **Every person's permanent ID.** This is the interview number of the family they were first observed in 1968 (for the original
+  families) plus a person number within it. It never changes.
+- **Interview number each family gets every year.** Income is recorded once per family per year
+  under that number, and each member's record carries the same number. So a person's record says "in 1990 I was in family 517",
+  and the family record says "family 517 earned $38,400 in 1989".
+
+The raw data downloaded from the Data Center gives one wide spreadsheet (85,536 people × 308 columns, one column per variable per
+year), and the first job is to turn it into three tables. A table with individuals, a table with one row per
+person-year and a table with one row per family-year can be joined on (year, interview number)
+
+| Table | One row per | Rows | Key |
+|---|---|---|---|
+| `individuals` | person | 85,536 | permanent ID (`id_1968`, `person_num`) |
+| `persons` | person × survey year | 910,869 | permanent ID + `year`; carries that year's `interview`, `age`, relationship to head |
+| `families` | family × survey year | 320,456 | `year`, `fam_interview`; carries total family income (CPI-adjusted to 2023 dollars) |
+
+## Step 1: Filter the children
+
+A child observation is a person-year in which the person becomes the head of their own household
+or is the spouse of the head, aged 25–45. The relationship filter is needed and 
+we can't rely on age alone. For example, a 32-year-old still
+living with their parents carries the parents' income on their record.
+
+```sql
+SELECT id_1968, person_num, year, age, interview
+FROM persons
+WHERE rel_head IN (1, 2, 10, 20, 22) #survey code change
+  AND age BETWEEN 25 AND 45;
+```
+
+SELECT picks columns, FROM chooses the table, and WHERE filters those rows we need. Note that there is
+code change in 1983, so 1 and 2 are before 1983 and 10, 20, and 22 are after. Refer to the codebook for more information. 
+We should get 259,398 persons-years from 34,533 people.
+
+## Step 2: Attach each person-year to its family's income
+
+The JOIN clause lines up rows of two tables that share a key. The key here is (year, interview
+number). We should check the row count before and after JOIN. Same count (259,398 → 259,398) means
+nothing was duplicated and every person-year found its family.
+
+```sql
+SELECT p.id_1968, p.person_num, p.year, p.age, f.fam_income_real
+FROM persons AS p
+JOIN families AS f
+  ON p.year = f.year AND p.interview = f.fam_interview
+WHERE p.rel_head IN (1, 2, 10, 20, 22)
+  AND p.age BETWEEN 25 AND 45;
+```
+
+We use INNER JOIN here because we want to drop a person-year with no family record.
+That is, the family is not interviewed during that year. 
+
+## Step 3: JOIN on identifiers to find each child's father
+
+The `individuals` table has the child's own ID in two columns and the father's ID in two other columns.
+Joining the table to itself — the child's father columns against the father's own ID columns — is the parent–child match.
+
+```sql
+SELECT c.id_1968, c.person_num,            
+       dad.id_1968, dad.person_num         
+FROM individuals AS c
+LEFT JOIN individuals AS dad
+  ON c.father_id_1968 = dad.id_1968
+ AND c.father_person_num = dad.person_num;
+```
+
+A LEFT JOIN here keeps every child and fills the father columns with NULL when no match
+exists, so the NULLs can be counted. Of 34,533 people in the child sample, 24,690 have no
+father in the data. Among the 24,690 NULLs, 15,316 was because their parents were never 
+surveyed, and 9,374 was because the father's ID points to someone not in the extract. 
+The matched children we get are those whose fathers were PSID members. 
+
+We then join the father's ID to his rows in `persons`, and those to `families`, keeping the years when
+the child was 13–17. The reason we use a window between 13-17 is that it measures 
+the family's resources while the child was growing up. 
+It is the same ages for every child, and it falls in the annual-interview era for most of the sample.
+
+```sql
+SELECT c.id_1968, c.person_num,
+       fp.year, fp.year - b.birth_year AS child_age,
+       f.fam_income_real
+FROM individuals AS c
+JOIN birth    AS b  ON b.id_1968 = c.id_1968 AND b.person_num = c.person_num
+JOIN persons  AS fp ON fp.id_1968 = c.father_id_1968
+                   AND fp.person_num = c.father_person_num
+JOIN families AS f  ON f.year = fp.year AND f.fam_interview = fp.interview
+WHERE fp.year - b.birth_year BETWEEN 13 AND 17;
+```
+
+## Step 4: GROUP BY and AVG: one year of income versus several
+
+After JOINing, we then aggregate the data to get the income information we want. 
+GROUP BY collapses many rows per child into one, and we are grouping by two
+identifiers, so both conditions need to be met. 
+AVG takes the mean and COUNT gives the number of rows. The two parent
+income measures: the single year when the child was closest to 15, and the average over the observed years at ages 13–17
+(at least two years required, so both measures use the same 3,951 children — say why that matters: the gap between the two
+estimates is then measurement, not sample.
+
+```sql
+SELECT id_1968, person_num,
+       AVG(fam_income_real) AS parent_inc_avg,
+       COUNT(*)             AS parent_years
+FROM father_income
+GROUP BY id_1968, person_num;
+```
+
+[WRITE — one sentence on the child side: the same GROUP BY gives the child's average family income over ages 30–40, and a
+window function picks the single-year readings at ages 25, 30, 35, 40 and 45 for the next section.]
+
+## Result: Lifecycle bias for a single year
+
+![](fig1_ige_single_vs_multi.png)
+
+[WRITE — explain the figure before interpreting it (Post 3 lesson): each dot is the average child income within a bin of
+parent income; the lines are the regression fits; both axes are log scales so the slope IS β. Then the numbers from
+`ige_estimates.csv`: single-year parent income gives β = 0.25; averaging the same fathers over 13–17 gives β = 0.43. Say what that
+means in plain words: the one-year measure understates how much of a parent's advantage persists by about 40%. Relative framing
+(Post 3 lesson): "relative to the single-year baseline, averaging raises the estimate from 0.25 to 0.43".]
+
+[WRITE — why, in two sentences, no jargon: a single year's income = long-run income + that year's luck. The luck part is
+noise in the regressor, and noise in a regressor pulls the slope toward zero (attenuation). Averaging cancels some of the luck,
+so the slope recovers. Mention that this is the classic result (Solon 1992; Mazumder 2005 pushed averages further and found
+β closer to 0.6).]
+
+## Result 2 — the answer also depends on how old the child is
+
+![](fig2_ige_by_child_age.png)
+
+[WRITE — explain the figure: each point is a separate regression using the child's income in a single year at that age
+(parent income is always the 13–17 average); the band is the 95% confidence interval; the dashed line is the 30–40 average
+from Result 1. Numbers from `ige_by_child_age.csv`: 0.25 at 25, 0.35 at 30, 0.45 at 35, 0.52 at 40, 0.45 at 45.]
+
+[WRITE — this is life-cycle bias, defined plainly: at 25, children of high-income parents are disproportionately still in
+school or at the bottom of steep career ladders, so their current income understates their lifetime income more than it does
+for others. Measured at 25 the IGE looks like 0.25; measured at 40 it is twice that. Haider and Solon (2006) showed current
+income tracks lifetime income best in the early 30s to early 40s, which is why the main estimate averages 30–40. Then the
+composition caveat from the notebook: different children at each age (younger cohorts aren't 45 yet).]
+
+## Why averaging is the better measure of long-run status
+
+[WRITE — pull the two results together in one short section, keeping the two biases distinct (they are often conflated):
+- measurement noise in parent income → fixed by averaging years (Result 1)
+- life-cycle bias in child income → fixed by measuring near mid-career, and averaging across those years (Result 2)
+Both go the same direction (down), so a study that measures one year of income at a young age can halve the true IGE.
+State what "long-run economic status" means and why a multi-year average is closer to it.]
+
+## Caveats
+
+[WRITE from the notebook's decisions cell, in reader language:
+- Only children whose fathers were in the study can be matched — children born into PSID families. Not a random sample of US
+  children; the SRC sample is used without weights (the SEO low-income oversample as a robustness check gives 0.33 and 0.50).
+- Family income, not the father's earnings: it includes the mother's earnings and transfers. Standard in this literature but not
+  the only choice.
+- Child's age in the father's years is inferred from birth year = min(year − age), which can be off by one.
+- Negative and zero incomes (business and farm losses) are dropped before taking logs.
+- Correlation of generations, not a causal effect of parental income.]
+
+## Takeaway
+
+[WRITE — two or three sentences with numbers, answering the opening question. E.g. "In the PSID, about 0.43 of a father's
+(log) income advantage persists into his children's family income at ages 30–40 — but measure parent income in a single year
+and you would report 0.25; measure the child at 25 and you would report 0.25 again. Nearly half of what gets passed on is
+invisible to a one-year snapshot." Bookend: read with the opening paragraph.]
+
+## Data and code
+
+| Source | What | Access |
+|---|---|---|
+| Panel Study of Income Dynamics (PSID), public-use data, 1968–2023 | Individual file: permanent person ID, sex, father's and mother's IDs, and per wave age, interview number, relationship to head, sequence number. Family files: family interview number and total family money income | PSID Data Center custom extract (job J366383), downloaded 17 October 2026; variable list and code-to-name crosswalk in the repository |
+| U.S. Bureau of Labor Statistics, CPI-U all items (CPIAUCSL), via FRED | Annual-average CPI used to express all incomes in 2023 dollars (PSID income in survey year *t* refers to calendar year *t* − 1) | FRED CSV endpoint, accessed 23 October 2026 |
+
+Panel Study of Income Dynamics, public use dataset. Produced and distributed by the Survey Research Center, Institute for Social Research, University of Michigan, Ann Arbor, MI (2025).
+
+Code, the SQL, and every number in this post: [github.com/1iiiiii/Intergenerational-Mobility](https://github.com/1iiiiii/Intergenerational-Mobility).
