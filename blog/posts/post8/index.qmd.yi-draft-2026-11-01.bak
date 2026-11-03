@@ -1,0 +1,126 @@
+---
+title: Is gold a good inflation hedge?
+date: 2026-11-02
+categories: [gold, inflation, simulation, bootstrap, hypothesis testing, Plotly, Python]
+resources:
+  - fig1_bootstrap.html
+  - fig2_coverage.html
+  - fig3_null.html
+---
+
+A widely held thesis about holding gold is that it protects us when inflation is high.
+The period from 2021-2023 saw CPI rise as high as 8.98%. 
+
+"relatively stable inflation expectations
+limit its appeal as an inflation hedge" (cite the report)
+The question is: does gold do better than usual when inflation is high? 
+
+holding gold as insurance against a second inflation wave is betting on this, and it rests on 29 months.
+
+D is gold's average return in the 10% of months with the highest CPI prints minus that in
+the remaining 253 months. 
+
+$$
+D = \bar{r}^{\,\text{gold}}_{\text{flagged}} - \bar{r}^{\,\text{gold}}_{\text{other}}
+$$
+The data showed that gold returned +0.08% in those months with highest inflation and +1.05% in the others, so
+D = −0.97 percentage points per month. 
+
+The null hypothesis H₀: D = 0. This means that high-inflation month is no different for gold than any other month. We are comparing with other months rather than zero because it allows us to see
+how gold performs relative to normal, not relative to its own baseline. The alternative hypothesis is then H1: D > 0,
+which means gold does outperform when inflation is high.
+
+
+## Resample to test -0.97
+
+Since we only have one history with relatively few data points, we couldn't know 
+whether -0.97 is due to chance or not. Thus, we use bootstrap to randomly select
+measurements from the original sample, allowing the same measurement to be selected
+multiple times. For each bootstrap sample, we calculate the D, and we repeat the process
+many times to get the spread of Ds. 
+
+<iframe src="fig1_bootstrap.html" width="100%" height="560" style="border:none;" loading="lazy" title="Figure 1: bootstrap distribution of D"></iframe>
+
+*Figure 1. Bootstrap distribution of D, gold's return in the flagged months minus its return in other months.*
+
+The histogram shows the distribution of D when we resample by 100, 500, 1000, 5000
+and 10000 times. The histogram starts being ragged, and gradually smooth out as we increase
+the number of resamples. Resampling many times allows us to get a more reliable
+distribution. 
+At 10000 times, the 95% interval (shaded band) sits
+between −2.8 and +0.9 pp. It's noteworthy that the 95% interval
+straddles zero, so we cannot reject the null hypothesis. 
+This indicates that gold's high-inflation months are not
+distinguishable from its ordinary ones. And if anything, it actually leans
+towards the negative direction, with D sitting close to -1pp. 
+
+The figure'd dropdowns also test three other definitions of inflation, including the 12-month rate, and months when expected inflation rose or fell most. We will return to those at the end.
+
+
+## Simulation to test the 95% bootstrap interval
+
+We use simulation to check whether the interval from Figure 1 actually catches the
+true D 95% of the time. We treat our 282 months as
+the whole population, so the true D is −0.97. Then, we draw a fresh 24-year history from it, build a 95% bootstrap interval from that history alone, and repeat 1,000 times. 
+Each line on the left panel is one simulated history's interval, with a dot at that history's own estimate. The lines are sorted by the
+estimate, so that the estimates that miss the truth (rust intervals) sit at the two
+ends. The result on the right panel shows that using 24 years of data, 93% of the 1,000 cover the true D, which is close to
+95%. We could also see how different years of data change the share the selecting from the dropdown menu. The right panel plots the share of the simulations that cover the truth using 
+different windows. Five years of data has the lowest share, but from 10 years on it is
+93–94%. As such, an interval built from a short history is less confident that it
+reports. 
+
+<iframe src="fig2_coverage.html" width="100%" height="660" style="border:none;" loading="lazy" title="Figure 2: simulated confidence intervals against the true D, and coverage by years of data"></iframe>
+
+*Figure 2. Left: 100 of the 1,000 simulated histories, each drawn from the 282 months with replacement, sorted by the
+history's own estimate of D; Right: the
+share of all 1,000 intervals that contain the true D, by years of history, against the nominal level.*
+
+## Null distribution and the test
+
+If H₀ is true, high inflation is just a label in 29 months of the sample, and it should not matter which 29. To test whether this is true or not, we shuffle the labels, pick 29 months at random and call them
+the inflation months, then compute D, for a total of 10000 times. 
+The grayish brown histogram is what D
+looks like when nothing is going on. It is centred on zero with 95% it between −2 and +2. The rejection region (rust) is the outer 5% of that distribution, meaning that D's so
+far from zero that chance produces them only one time in twenty. The critical values are about ±1.9 pp. The p-value is the
+share of shuffled D's at least as extreme as the actual one. −0.97 sits inside the grayish brown region, and we do not reject H₀ at any significance level. Switch the dropdown to "expected
+inflation rose most", and we get D = +1.55 pp. This is the
+closest any version comes to the rejection region, and at 10% one-sided it just clears it. The 12-month-inflation version
+(p = 0.79) and the "expectations fell" version (p = 0.21) do not. 
+The interval (Fig. 1), the null (Fig. 3) and the actual D all point at the
+same thing. That is, we cannot reject the null hypothesis. 
+
+<iframe src="fig3_null.html" width="100%" height="560" style="border:none;" loading="lazy" title="Figure 3: D under the null, rejection region and p-value"></iframe>
+
+*Figure 3. Distribution of D when the labels are shuffled at random for 10000 times; the rust bins are the two-sided
+rejection region at the chosen significance level, the vertical line the actual D.*
+
+## Caveats
+
+- The shuffle and the resample could ignore that volatility
+clusters in time, so a block bootstrap would widen the intervals instead of
+narrowing them. This might be the reason why non-rejection survives.
+- The CPI
+for month t is published in the middle of month t+1, so "the month inflation was highest" is known only after gold's return
+for that month. On the other hand, the breakeven version has no such lag, which is one reason to trust it more. 
+
+## Takeaway
+
+To conclude, looking at the entire history, gold is not a good hedge against inflation.
+It gained about 0.08% in the 29 highest-inflation months against 1.05% in ordinary ones. 
+A better characterization of gold is that gold responds to a *change in expected* inflation.
+When the breakeven rose most, D = +1.55 and p = 0.11, and the
+10-year breakeven has sat between 2.15% and 2.46% for the last 30 months — stable expectations, nothing to react to. So
+"gold as an inflation hedge" is a bet on expectations moving, not on prices rising. Label any broader claim as a hypothesis
+and point to MS and to Post 7 (gold's real-yield and dollar exposures). And the methodological line: a 95% interval from
+five years of data covered the truth 88% of the time — short histories overstate their own precision.]
+
+## Data and code
+
+- Gold: COMEX gold futures, front-month continuous contract (`GC=F`), monthly total return from month-end closes, from Yahoo Finance daily data via `yfinance`
+- Inflation print: Consumer Price Index for All Urban Consumers, all items, seasonally adjusted (`CPIAUCSL`, Bureau of
+  Labor Statistics), monthly, via FRED
+- Expected inflation: 10-year breakeven inflation rate (`T10YIE`, Federal Reserve Bank of St. Louis), month-end value via
+  FRED
+
+Code, data and every number quoted above: [github.com/1iiiiii/Gold-Hedge-Inference](https://github.com/1iiiiii/Gold-Hedge-Inference).

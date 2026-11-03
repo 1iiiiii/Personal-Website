@@ -1,0 +1,125 @@
+---
+title: "Is gold a good inflation hedge?"
+description: "In the 29 months with the highest CPI inflation since 2003, gold returned 0.08% a month against 1.05% otherwise. Bootstrap intervals and a permutation test find no sign of an inflation hedge, and the one hint of one looks more like falling real yields."
+date: 2026-11-02
+categories: [gold, inflation, simulation, bootstrap, hypothesis testing, Plotly, Python]
+resources:
+  - fig1_bootstrap.html
+  - fig2_coverage.html
+  - fig3_null.html
+---
+
+A widely held thesis about holding gold is that it protects us when inflation is high. Between 2021 and 2023 that
+thesis got its biggest test in four decades. 12-month inflation in the Consumer Price Index (CPI)
+reached 8.98% in June 2022, the highest since 1981.[^cpi] Yet Morgan Stanley argues that
+"relatively stable inflation expectations limit its appeal as an inflation hedge",[^ms13] suggesting gold reacts to
+*expected* inflation rather than to inflation itself. The question is: does gold do better than usual when inflation is
+high? Anyone holding gold as insurance against another inflation wave is betting that it does.
+
+We flag the 10% of months with the highest CPI prints, where a print is the month's inflation rate. 
+These are the 29 of the 282 months, each at 0.54% or more (equivalent to 6.7% at an annual rate). Then
+
+$$
+D = \bar{r}^{\,\text{gold}}_{\text{flagged}} - \bar{r}^{\,\text{gold}}_{\text{other}}
+$$
+
+where the two terms are gold's average monthly return in the flagged months and in the other 253. Gold returned +0.08% a
+month in the months with highest inflation and +1.05% in the others, so D = −0.97 percentage points per month.
+
+The null hypothesis H₀: D = 0 means a high-inflation month is no different for gold than any other month, while the
+alternative H₁: D ≠ 0 means it is different, in either direction. We also test the 12-month inflation rate, and the months when expected
+inflation (measured by the gap between nominal and inflation-protected Treasury yields), rose or
+fell most.
+
+## How precise is −0.97?
+
+With only 29 flagged months, −0.97 may be measured loosely, and we couldn't know whether it is due to chance or not. Thus, we use bootstrap to randomly select
+measurements from the original sample, allowing the same measurement to be selected
+multiple times. For each bootstrap sample, we calculate the D, and we repeat the process
+many times to get the spread of Ds. 
+
+<iframe src="fig1_bootstrap.html" width="100%" height="560" style="border:none;" loading="lazy" title="Figure 1: bootstrap distribution of D"></iframe>
+
+*Figure 1. Bootstrap distribution of D, gold's return in the flagged months minus its return in other months.*
+
+The histogram shows the distribution of D as resample goes from 100 to 10000 times
+. The histogram starts being ragged, and gradually smooth out as we increase
+the number of resamples. More resamples remove simulation noise but add no information
+beyond the 29 months. 
+At 10000 times, the 95% interval (shaded band) sits
+between −2.8 and +0.9 pp. It's noteworthy that the 95% interval
+straddles zero, so we cannot reject the null hypothesis. 
+This indicates that gold's high-inflation months are not
+distinguishable from its ordinary ones. And if anything, it actually leans
+towards the negative direction, with D sitting close to -1pp. 
+
+## Does a 95% interval catch the truth 95% of the time?
+
+To check, we treat our 282 months as the whole population, so the true D is −0.97, draw 1,000 fresh 24-year histories
+from it with replacement, and build a 95% interval from each. On the left panel, each line is one history's interval,
+sorted by its estimate (the dot); the misses (rust) sit at the two ends, where the estimate landed far from the truth.
+93% of the 1,000 cover it, close to 95%, so Figure 1's interval can be trusted. The right panel shows the catch: with five
+years of data, coverage falls to 88%, because six flagged months usually look calmer than the full set. An interval built
+from a short history is less confident than it reports.
+
+<iframe src="fig2_coverage.html" width="100%" height="660" style="border:none;" loading="lazy" title="Figure 2: simulated confidence intervals against the true D, and coverage by years of data"></iframe>
+
+*Figure 2. Left: 100 of the 1,000 simulated histories, each drawn from the 282 months with replacement, sorted by the
+history's own estimate of D. Right: the share of all 1,000 intervals that contain the true D, by years of history, against
+the nominal level.*
+
+## Could −0.97 be chance?
+
+If H₀ is true, high inflation is just a label on 29 months of the sample, and it should not matter which 29. So we
+shuffle the labels 10,000 times, recomputing D each time. The grey histogram is what D looks like when nothing is going
+on. The rejection region (rust) is its outer 5%, where D's so far from zero that chance produces them only one time in twenty. 
+The p-value is the share of shuffled D's at least as extreme as the actual one. At −0.97, p = 0.32,
+so we do not reject H₀ at the 1%, 5% or 10% level; nor do the 12-month rate (p = 0.79) or "expectations fell" (p = 0.21).
+The closest scenario is when "expected inflation rose most." Gold returned +2.36% a month against +0.82% otherwise, D = +1.55 pp,
+p = 0.11 two-sided (0.05 one-sided).
+
+<iframe src="fig3_null.html" width="100%" height="560" style="border:none;" loading="lazy" title="Figure 3: D under the null, rejection region and p-value"></iframe>
+
+*Figure 3. Distribution of D when the labels are shuffled at random 10,000 times; the rust bins are the two-sided
+rejection region at the chosen significance level, the vertical line the actual D.*
+
+Why would gold lean negative when inflation runs hot? The highest prints in this sample come from supply shocks, such as oil in
+2008, 2021–22 and the energy shock of 2026. Gold "struggles in supply shocks, especially where inflation expectations and
+bond yields rally",[^ms13] because the Fed answers with higher real yields, and [my previous post](../post7/) found gold
+falls about 3.5% for each percentage point the 10-year real yield rises.
+
+## Caveats
+
+- Months are treated as independent, but volatility clusters in time, so the intervals are probably too narrow; a block
+  bootstrap would widen them, which only strengthens the non-rejection.
+- Not rejecting H₀ is not proof that D = 0: with 29 months, the test can only detect a large difference.
+- In 19 of the 30 months when expected inflation rose most, real yields also fell, and gold's gain sits there (+3.76% a
+  month against −0.05% in the other 11). That result may be the real-yield channel, not demand for an inflation hedge.
+- CPI for a month is published in the middle of the next, so the high-inflation months are known only after gold's
+  return; the breakeven version has no such lag.
+
+## Takeaway
+
+From 2003 to 2026, gold showed no sign of hedging the inflation that actually arrived: it returned 0.08% a month in the
+29 highest-inflation months against 1.05% otherwise, a gap within what chance produces (p = 0.32). The only hint of a
+hedge comes when expected inflation rises (p = 0.11), and even that gain sits in months when real yields fell. A
+hypothesis that fits both results and my previous post is that gold behaves as a real-yield asset, so inflation helps it only
+when it pulls real yields down. With the 10-year breakeven between 2.15% and 2.46% since mid-2024, expectations have
+barely moved, leaving gold little to react to.
+
+## Data and code
+
+- Gold: COMEX gold futures, front-month continuous contract (`GC=F`), monthly return from month-end closes, built for
+  [Post 7](../post7/) from Yahoo Finance daily data via `yfinance`
+- Inflation print: Consumer Price Index for All Urban Consumers, all items, seasonally adjusted (`CPIAUCSL`, Bureau of
+  Labor Statistics), monthly, via FRED; the month's inflation is the percentage change in the index.
+- Expected inflation: 10-year breakeven inflation rate (`T10YIE`, Federal Reserve Bank of St. Louis), month-end value via
+  FRED
+
+Code, data and every number quoted above: [github.com/1iiiiii/Gold-Hedge-Inference](https://github.com/1iiiiii/Gold-Hedge-Inference).
+
+[^cpi]: Seasonally adjusted, from `CPIAUCSL`. News reports at the time quoted 9.1%, the not-seasonally-adjusted figure,
+the largest 12-month increase since November 1981.
+
+[^ms13]: Morgan Stanley Research, *metal&ROCK: Gold: More Than a Rates Trade* (Amy Gower, Ben Kelson, Martijn Rats),
+13 October 2026, pp. 2 and 5.
