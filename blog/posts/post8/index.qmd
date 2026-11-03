@@ -45,7 +45,7 @@ fell most.
 
 ## Use bootstrap to measure how precisely D is
 
-With only 29 flagged months, −0.97 may be measured loosely, and we couldn't know whether it is due to chance or not. Thus, we use bootstrap to randomly select
+W use bootstrap to randomly select
 measurements from the original sample, allowing the same measurement to be selected
 multiple times. For each bootstrap sample, we calculate the D, and we repeat the process
 many times to get the spread of Ds. 
@@ -98,13 +98,6 @@ The closest scenario is when "expected inflation rose most," and gold returned +
 
 *Figure 3. Distribution of D when the labels are shuffled at random 10,000 times; the rust bins are the two-sided
 rejection region at the chosen significance level, the vertical line the actual D.*
-
-Why would gold lean negative when inflation runs hot? The highest prints in this sample come from supply shocks, such as oil in
-2008, 2021–22 and the energy shock of 2026. In those months expected inflation may rise, but the Fed responds by raising
-rates, so nominal yields rise by more and the real yield (the nominal yield minus expected inflation) goes up. Morgan
-Stanley puts it as gold "struggles in supply shocks, especially where inflation expectations and bond yields
-rally",[^ms13] and [my previous post](../post7/) found gold falls about 3.5% for each percentage point the 10-year real
-yield rises.
 
 ## Caveats
 
