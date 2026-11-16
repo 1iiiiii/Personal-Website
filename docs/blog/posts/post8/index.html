@@ -267,7 +267,7 @@ D = \bar{r}^{\,\text{gold}}_{\text{flagged}} - \bar{r}^{\,\text{gold}}_{\text{ot
 </section>
 <section id="use-bootstrap-to-measure-how-precisely-d-is" class="level2">
 <h2 data-anchor-id="use-bootstrap-to-measure-how-precisely-d-is">Use bootstrap to measure how precisely D is</h2>
-<p>With only 29 flagged months, −0.97 may be measured loosely, and we couldn’t know whether it is due to chance or not. Thus, we use bootstrap to randomly select measurements from the original sample, allowing the same measurement to be selected multiple times. For each bootstrap sample, we calculate the D, and we repeat the process many times to get the spread of Ds.</p>
+<p>W use bootstrap to randomly select measurements from the original sample, allowing the same measurement to be selected multiple times. For each bootstrap sample, we calculate the D, and we repeat the process many times to get the spread of Ds.</p>
 <iframe src="fig1_bootstrap.html" width="100%" height="560" style="border:none;" loading="lazy" title="Figure 1: bootstrap distribution of D">
 </iframe>
 <p><em>Figure 1. Bootstrap distribution of D, gold’s return in the flagged months minus its return in other months.</em></p>
@@ -286,7 +286,6 @@ D = \bar{r}^{\,\text{gold}}_{\text{flagged}} - \bar{r}^{\,\text{gold}}_{\text{ot
 <iframe src="fig3_null.html" width="100%" height="560" style="border:none;" loading="lazy" title="Figure 3: D under the null, rejection region and p-value">
 </iframe>
 <p><em>Figure 3. Distribution of D when the labels are shuffled at random 10,000 times; the rust bins are the two-sided rejection region at the chosen significance level, the vertical line the actual D.</em></p>
-<p>Why would gold lean negative when inflation runs hot? The highest prints in this sample come from supply shocks, such as oil in 2008, 2021–22 and the energy shock of 2026. In those months expected inflation may rise, but the Fed responds by raising rates, so nominal yields rise by more and the real yield (the nominal yield minus expected inflation) goes up. Morgan Stanley puts it as gold “struggles in supply shocks, especially where inflation expectations and bond yields rally”,<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> and <a href="../post7/">my previous post</a> found gold falls about 3.5% for each percentage point the 10-year real yield rises.</p>
 </section>
 <section id="caveats" class="level2">
 <h2 data-anchor-id="caveats">Caveats</h2>
@@ -299,7 +298,7 @@ D = \bar{r}^{\,\text{gold}}_{\text{flagged}} - \bar{r}^{\,\text{gold}}_{\text{ot
 </section>
 <section id="takeaway" class="level2">
 <h2 data-anchor-id="takeaway">Takeaway</h2>
-<p>From 2003 to 2026, gold showed no sign of hedging the inflation that actually arrived. It returned 0.08% a month in the 29 highest-inflation months against 1.05% otherwise, a gap within what chance produces (p = 0.32). The only hint of a hedge comes when expected inflation rises (p = 0.11), and even that gain sits in months when real yields fell. A hypothesis that fits both results and my previous post is that gold behaves as a real-yield asset, so rising inflation expectations help it only when they pull real yields down. With the 10-year breakeven between 2.15% and 2.46% since mid-2024, expectations have barely moved. As Morgan Stanley notes, September’s rise in yields came almost entirely from real yields, with breakevens up just 4 basis points, and “relatively stable inflation expectations limit its appeal as an inflation hedge”.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
+<p>From 2003 to 2026, gold showed no sign of hedging the inflation that actually arrived. It returned 0.08% a month in the 29 highest-inflation months against 1.05% otherwise, a gap within what chance produces (p = 0.32). The only hint of a hedge comes when expected inflation rises (p = 0.11), and even that gain sits in months when real yields fell. A hypothesis that fits both results and my previous post is that gold behaves as a real-yield asset, so rising inflation expectations help it only when they pull real yields down. With the 10-year breakeven between 2.15% and 2.46% since mid-2024, expectations have barely moved. As Morgan Stanley notes, September’s rise in yields came almost entirely from real yields, with breakevens up just 4 basis points, and “relatively stable inflation expectations limit its appeal as an inflation hedge”.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
 </section>
 <section id="data-and-code" class="level2">
 <h2 data-anchor-id="data-and-code">Data and code</h2>
@@ -322,7 +321,6 @@ D = \bar{r}^{\,\text{gold}}_{\text{flagged}} - \bar{r}^{\,\text{gold}}_{\text{ot
 <ol>
 <li id="fn1"><p>Seasonally adjusted, from <code>CPIAUCSL</code>. News reports at the time quoted 9.1%, the not-seasonally-adjusted figure, the largest 12-month increase since November 1981.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn2"><p>Morgan Stanley Research, <em>metal&amp;ROCK: Gold: More Than a Rates Trade</em> (Amy Gower, Ben Kelson, Martijn Rats), 13 October 2026, pp.&nbsp;2 and 5.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3"><p>Morgan Stanley Research, <em>metal&amp;ROCK: Gold: More Than a Rates Trade</em> (Amy Gower, Ben Kelson, Martijn Rats), 13 October 2026, pp.&nbsp;2 and 5.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -821,7 +819,7 @@ D = \bar{r}^{\,\text{gold}}_{\text{flagged}} - \bar{r}^{\,\text{gold}}_{\text{ot
 <span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="fu">## Use bootstrap to measure how precisely D is</span></span>
 <span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>With only 29 flagged months, −0.97 may be measured loosely, and we couldn't know whether it is due to chance or not. Thus, we use bootstrap to randomly select</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>W use bootstrap to randomly select</span>
 <span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>measurements from the original sample, allowing the same measurement to be selected</span>
 <span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>multiple times. For each bootstrap sample, we calculate the D, and we repeat the process</span>
 <span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>many times to get the spread of Ds. </span>
@@ -875,50 +873,43 @@ D = \bar{r}^{\,\text{gold}}_{\text{flagged}} - \bar{r}^{\,\text{gold}}_{\text{ot
 <span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a>*Figure 3. Distribution of D when the labels are shuffled at random 10,000 times; the rust bins are the two-sided</span>
 <span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a>rejection region at the chosen significance level, the vertical line the actual D.*</span>
 <span id="cb1-101"><a href="#cb1-101" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a>Why would gold lean negative when inflation runs hot? The highest prints in this sample come from supply shocks, such as oil in</span>
-<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a>2008, 2021–22 and the energy shock of 2026. In those months expected inflation may rise, but the Fed responds by raising</span>
-<span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a>rates, so nominal yields rise by more and the real yield (the nominal yield minus expected inflation) goes up. Morgan</span>
-<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a>Stanley puts it as gold "struggles in supply shocks, especially where inflation expectations and bond yields</span>
-<span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a>rally",<span class="ot">[^ms13]</span> and <span class="co">[</span><span class="ot">my previous post</span><span class="co">](../post7/)</span> found gold falls about 3.5% for each percentage point the 10-year real</span>
-<span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a>yield rises.</span>
-<span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a><span class="fu">## Caveats</span></span>
-<span id="cb1-110"><a href="#cb1-110" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Months are treated as independent, but volatility clusters in time, so the intervals are probably too narrow. Using a block</span>
-<span id="cb1-112"><a href="#cb1-112" aria-hidden="true" tabindex="-1"></a>  bootstrap would widen them, which would only make the non-rejection more secure.</span>
-<span id="cb1-113"><a href="#cb1-113" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Not rejecting H₀ is not proof that D = 0. With 29 months, the test can only detect a large difference.</span>
-<span id="cb1-114"><a href="#cb1-114" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>In 19 of the 30 months when expected inflation rose most, real yields also fell, and gold's gain sits there (+3.76% a</span>
-<span id="cb1-115"><a href="#cb1-115" aria-hidden="true" tabindex="-1"></a>  month against −0.05% in the other 11). That result may be the real-yield channel, not demand for an inflation hedge.</span>
-<span id="cb1-116"><a href="#cb1-116" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>CPI for a month is published in the middle of the next, so the high-inflation months are known only after gold's</span>
-<span id="cb1-117"><a href="#cb1-117" aria-hidden="true" tabindex="-1"></a>  return; the breakeven version has no such lag.</span>
-<span id="cb1-118"><a href="#cb1-118" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-119"><a href="#cb1-119" aria-hidden="true" tabindex="-1"></a><span class="fu">## Takeaway</span></span>
-<span id="cb1-120"><a href="#cb1-120" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-121"><a href="#cb1-121" aria-hidden="true" tabindex="-1"></a>From 2003 to 2026, gold showed no sign of hedging the inflation that actually arrived. It returned 0.08% a month in the</span>
-<span id="cb1-122"><a href="#cb1-122" aria-hidden="true" tabindex="-1"></a>29 highest-inflation months against 1.05% otherwise, a gap within what chance produces (p = 0.32). The only hint of a</span>
-<span id="cb1-123"><a href="#cb1-123" aria-hidden="true" tabindex="-1"></a>hedge comes when expected inflation rises (p = 0.11), and even that gain sits in months when real yields fell. A</span>
-<span id="cb1-124"><a href="#cb1-124" aria-hidden="true" tabindex="-1"></a>hypothesis that fits both results and my previous post is that gold behaves as a real-yield asset, so rising inflation expectations help it only</span>
-<span id="cb1-125"><a href="#cb1-125" aria-hidden="true" tabindex="-1"></a>when they pull real yields down. With the 10-year breakeven between 2.15% and 2.46% since mid-2024, expectations have</span>
-<span id="cb1-126"><a href="#cb1-126" aria-hidden="true" tabindex="-1"></a>barely moved. As Morgan Stanley notes, September's rise in yields came almost entirely from real yields, with breakevens</span>
-<span id="cb1-127"><a href="#cb1-127" aria-hidden="true" tabindex="-1"></a>up just 4 basis points, and "relatively stable inflation expectations limit its appeal as an inflation hedge".<span class="ot">[^ms13]</span></span>
-<span id="cb1-128"><a href="#cb1-128" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-129"><a href="#cb1-129" aria-hidden="true" tabindex="-1"></a><span class="fu">## Data and code</span></span>
-<span id="cb1-130"><a href="#cb1-130" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-131"><a href="#cb1-131" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Gold: COMEX gold futures, front-month continuous contract (<span class="in">`GC=F`</span>), monthly return from month-end closes, built for</span>
-<span id="cb1-132"><a href="#cb1-132" aria-hidden="true" tabindex="-1"></a>  <span class="co">[</span><span class="ot">Post 7</span><span class="co">](../post7/)</span> from Yahoo Finance daily data via <span class="in">`yfinance`</span> (accessed 24–25 October 2026)</span>
-<span id="cb1-133"><a href="#cb1-133" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Inflation print: Consumer Price Index for All Urban Consumers, all items, seasonally adjusted (<span class="in">`CPIAUCSL`</span>, Bureau of</span>
-<span id="cb1-134"><a href="#cb1-134" aria-hidden="true" tabindex="-1"></a>  Labor Statistics), monthly, via FRED; the month's inflation is the percentage change in the index.</span>
-<span id="cb1-135"><a href="#cb1-135" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Expected inflation: 10-year breakeven inflation rate (<span class="in">`T10YIE`</span>, Federal Reserve Bank of St. Louis), month-end value via</span>
-<span id="cb1-136"><a href="#cb1-136" aria-hidden="true" tabindex="-1"></a>  FRED</span>
-<span id="cb1-137"><a href="#cb1-137" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Period: February 2003 to October 2026 (CPI to September 2026); FRED series accessed 31 October 2026.</span>
-<span id="cb1-138"><a href="#cb1-138" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-139"><a href="#cb1-139" aria-hidden="true" tabindex="-1"></a>Code, data and every number quoted above: <span class="co">[</span><span class="ot">github.com/1iiiiii/Gold-Hedge-Inference</span><span class="co">](https://github.com/1iiiiii/Gold-Hedge-Inference)</span>.</span>
-<span id="cb1-140"><a href="#cb1-140" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-141"><a href="#cb1-141" aria-hidden="true" tabindex="-1"></a><span class="ot">[^cpi]: </span>Seasonally adjusted, from <span class="in">`CPIAUCSL`</span>. News reports at the time quoted 9.1%, the not-seasonally-adjusted figure,</span>
-<span id="cb1-142"><a href="#cb1-142" aria-hidden="true" tabindex="-1"></a>the largest 12-month increase since November 1981.</span>
-<span id="cb1-143"><a href="#cb1-143" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-144"><a href="#cb1-144" aria-hidden="true" tabindex="-1"></a><span class="ot">[^ms13]: </span>Morgan Stanley Research, *metal&amp;ROCK: Gold: More Than a Rates Trade* (Amy Gower, Ben Kelson, Martijn Rats),</span>
-<span id="cb1-145"><a href="#cb1-145" aria-hidden="true" tabindex="-1"></a>13 October 2026, pp. 2 and 5.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a><span class="fu">## Caveats</span></span>
+<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Months are treated as independent, but volatility clusters in time, so the intervals are probably too narrow. Using a block</span>
+<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a>  bootstrap would widen them, which would only make the non-rejection more secure.</span>
+<span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Not rejecting H₀ is not proof that D = 0. With 29 months, the test can only detect a large difference.</span>
+<span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>In 19 of the 30 months when expected inflation rose most, real yields also fell, and gold's gain sits there (+3.76% a</span>
+<span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a>  month against −0.05% in the other 11). That result may be the real-yield channel, not demand for an inflation hedge.</span>
+<span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>CPI for a month is published in the middle of the next, so the high-inflation months are known only after gold's</span>
+<span id="cb1-110"><a href="#cb1-110" aria-hidden="true" tabindex="-1"></a>  return; the breakeven version has no such lag.</span>
+<span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-112"><a href="#cb1-112" aria-hidden="true" tabindex="-1"></a><span class="fu">## Takeaway</span></span>
+<span id="cb1-113"><a href="#cb1-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-114"><a href="#cb1-114" aria-hidden="true" tabindex="-1"></a>From 2003 to 2026, gold showed no sign of hedging the inflation that actually arrived. It returned 0.08% a month in the</span>
+<span id="cb1-115"><a href="#cb1-115" aria-hidden="true" tabindex="-1"></a>29 highest-inflation months against 1.05% otherwise, a gap within what chance produces (p = 0.32). The only hint of a</span>
+<span id="cb1-116"><a href="#cb1-116" aria-hidden="true" tabindex="-1"></a>hedge comes when expected inflation rises (p = 0.11), and even that gain sits in months when real yields fell. A</span>
+<span id="cb1-117"><a href="#cb1-117" aria-hidden="true" tabindex="-1"></a>hypothesis that fits both results and my previous post is that gold behaves as a real-yield asset, so rising inflation expectations help it only</span>
+<span id="cb1-118"><a href="#cb1-118" aria-hidden="true" tabindex="-1"></a>when they pull real yields down. With the 10-year breakeven between 2.15% and 2.46% since mid-2024, expectations have</span>
+<span id="cb1-119"><a href="#cb1-119" aria-hidden="true" tabindex="-1"></a>barely moved. As Morgan Stanley notes, September's rise in yields came almost entirely from real yields, with breakevens</span>
+<span id="cb1-120"><a href="#cb1-120" aria-hidden="true" tabindex="-1"></a>up just 4 basis points, and "relatively stable inflation expectations limit its appeal as an inflation hedge".<span class="ot">[^ms13]</span></span>
+<span id="cb1-121"><a href="#cb1-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-122"><a href="#cb1-122" aria-hidden="true" tabindex="-1"></a><span class="fu">## Data and code</span></span>
+<span id="cb1-123"><a href="#cb1-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-124"><a href="#cb1-124" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Gold: COMEX gold futures, front-month continuous contract (<span class="in">`GC=F`</span>), monthly return from month-end closes, built for</span>
+<span id="cb1-125"><a href="#cb1-125" aria-hidden="true" tabindex="-1"></a>  <span class="co">[</span><span class="ot">Post 7</span><span class="co">](../post7/)</span> from Yahoo Finance daily data via <span class="in">`yfinance`</span> (accessed 24–25 October 2026)</span>
+<span id="cb1-126"><a href="#cb1-126" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Inflation print: Consumer Price Index for All Urban Consumers, all items, seasonally adjusted (<span class="in">`CPIAUCSL`</span>, Bureau of</span>
+<span id="cb1-127"><a href="#cb1-127" aria-hidden="true" tabindex="-1"></a>  Labor Statistics), monthly, via FRED; the month's inflation is the percentage change in the index.</span>
+<span id="cb1-128"><a href="#cb1-128" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Expected inflation: 10-year breakeven inflation rate (<span class="in">`T10YIE`</span>, Federal Reserve Bank of St. Louis), month-end value via</span>
+<span id="cb1-129"><a href="#cb1-129" aria-hidden="true" tabindex="-1"></a>  FRED</span>
+<span id="cb1-130"><a href="#cb1-130" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Period: February 2003 to October 2026 (CPI to September 2026); FRED series accessed 31 October 2026.</span>
+<span id="cb1-131"><a href="#cb1-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-132"><a href="#cb1-132" aria-hidden="true" tabindex="-1"></a>Code, data and every number quoted above: <span class="co">[</span><span class="ot">github.com/1iiiiii/Gold-Hedge-Inference</span><span class="co">](https://github.com/1iiiiii/Gold-Hedge-Inference)</span>.</span>
+<span id="cb1-133"><a href="#cb1-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-134"><a href="#cb1-134" aria-hidden="true" tabindex="-1"></a><span class="ot">[^cpi]: </span>Seasonally adjusted, from <span class="in">`CPIAUCSL`</span>. News reports at the time quoted 9.1%, the not-seasonally-adjusted figure,</span>
+<span id="cb1-135"><a href="#cb1-135" aria-hidden="true" tabindex="-1"></a>the largest 12-month increase since November 1981.</span>
+<span id="cb1-136"><a href="#cb1-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-137"><a href="#cb1-137" aria-hidden="true" tabindex="-1"></a><span class="ot">[^ms13]: </span>Morgan Stanley Research, *metal&amp;ROCK: Gold: More Than a Rates Trade* (Amy Gower, Ben Kelson, Martijn Rats),</span>
+<span id="cb1-138"><a href="#cb1-138" aria-hidden="true" tabindex="-1"></a>13 October 2026, pp. 2 and 5.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">

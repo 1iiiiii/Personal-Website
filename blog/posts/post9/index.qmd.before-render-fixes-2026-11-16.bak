@@ -1,0 +1,137 @@
+---
+title: "Using XGBoost and Financial Indicators to Predict Stock Returns"
+date: 2026-11-16
+categories: [stocks, machine learning, gradient boosting, backtest, Plotly, Python]
+resources:
+  - fig1_class_experiment.html
+  - fig2_growth.html
+  - fig3_random_portfolios.html
+---
+Machine learning uses algorithms to identify patterns in a large swath of data.
+For non-parametric tree models, it can make
+predictions without relying on a specific functional form or identification. This makes
+it particularly powerful when data availability is not in issue. 
+For this post specifically, we use gradient boosting, which is a tree-based model
+that learn from the error term iteratively. We have a model from the class
+as a benchmark, and test whether a refined version of the class model actually
+pick better stocks.
+
+## The class experiment
+The class experiment sets up teams of two, and each team has two $100,000
+portfolios on Investopedia's simulator. Portfolio 1 uses discretion, while 
+Portfolio 2 uses indicators like Sharpe ratio, Jensen's alpha, etc. to optimize
+the weight or to pick stocks. 
+
+Figure 1 below shows that the mean final value for the discretion-based is $\$101,179$, and that for indicators-based is $\$103,087$, with a mean difference of $+\$1,909$. The band in Figure 1 is the 95% bootstrap interval for the mean difference from $−\$340$ to $+\$4,109$, which includes zero. Therefore, we cannot conclude
+that indicators necessarily beat intuition, although 30 out of 45 teams have higher
+returns from using indicators and the band runs up to $+\$4,109$.
+
+<iframe src="fig1_class_experiment.html" width="100%" height="570" style="border:none;" loading="lazy" title="Figure 1: indicator portfolio minus intuition portfolio, by team"></iframe>
+
+*Figure 1. [Difference between indicators-based and intuition-based approach]*
+
+## Why stock returns are hard to predict
+The price of a stock today reflects investors' expectations of it in the future.
+Once the expectations are priced in, what moves the price is unforseen news, such
+as an earinings report that beats market expectation.
+
+To put it into context, in an average month, actual returns differ across stocks by about 8.6 points a month, whereas our model’s forecasts differ by only 0.34. 
+As such, almost all of a stock's monthly move is news no model could predict
+beforehand. More importantly, an observable pattern in past prices attracts
+more investors to trade on that pattern. However, the profit in a pattern is the gap
+between the current stock price and where the pattern says it's heading. More buying
+closes the gap faster and destroys the pattern, so investors have to constantly
+seek new patterns.
+
+## The Original Gradient Boosting Model
+The original gradient boosting model takes daily prices for 96 large U.S. stocks from 2022, learns from mid-2022 to the end of 2023, then predicts each stock’s return over the next month from 2024 on. On the first trading day of each month it buys the ten stocks with the highest predictions.
+
+Based on the model, $\$1$ turns to $\$2.51$ against the benchmark $\$1.64$. 
+It claims a Sharpe ratio of 8.84 and a stagger 330% alpha a year. However,
+the right scaling factor should be $\sqrt{12}$ instead of $\sqrt{252}$ because
+the returns are monthly. With the right factor, the Sharpe ratio is 1.93, and
+the alpha is 15.7%.
+
+It also has three other problems:
+1. Uses raw share price and volume as predictors
+Raw share price depends on how many shares the company has issued and split into,
+so a $\$500$ stock isn’t more expensive than a $\$50$ one in any useful sense. 
+Similarly, bigger companies tend to trade more shares. 
+
+2. Static training data
+The model was trained on 18 months of data without retraining. However,
+there are regime changes from 2022-2023 to 2026, and the patterns hthe model
+learns can change.
+
+3. Risk of data leakage / rear-view bias
+The 96 stocks are chose in 2026, and hence the portfolio is made of companies
+that are large today, which is some information an investor in 2022 couldn't
+know. Any strategy that picks from this list starts with some winners built in.
+
+## Three changes to the model
+
+1. New features and a new target
+The raw prices are replaced with twelve measures of how a stock has behaved,
+including momentum, unusual trading volume, sensitivity to the market, etc. 
+Each measure is ranked against the other 95 stocks on the same day so that
+the signals mean the same thing across different years. The target is the stock’s return minus 
+the average stock’s so the portfolio only needs to know
+which stocks will do better than the others.
+
+2 & 3. Tuning and monthly retraining
+The window becomes 2011-2023 instead of mid-2022 to 2023. The model is refitted
+every month only on things known by then. This avoids data leakage and allows
+the model to adjust as patterns fade. The model is tuned to have smaller trees
+with slower learning rate. This makes the model less flexible and memorizes
+less noise.
+
+## Out-of-sample test of the improved model
+The test date is from January 2024 to November 2026. Each month every model ranks the 96 stocks,
+and the top ten
+are bought in equal amounts the next day and held a month. 
+Each month, the correlation between a model's ranking of the stocks and the
+ranking of the returns that followed is the rank IC. Zero means that ranking 
+carries no information, and one is a perfect ranking. The rank IC shows that
+no model ranks stocks reliably, and the improved one (0.024) ranks no better than the class model (0.045.
+
+Figure 2 shows the growth of $\$1$ since Jan 2024. It becomes $\$2.50$ for the improved model, 
+$\$2.09$ for the class model , $\$1.69$ for all 96 stocks, and $\$1.66$ for SPY.
+Beta for the improved model is 1.63, meaning that 
+it moves 1.6% when SPY moves 1%. The volatility is 31% a year against 15% for SPY.
+Both higher beta and volatility seem to point at the model including more risk
+exposure in exchange for higher return. However, borrowing to hold SPY at the same 1.6× would have made +105%, compared to the model’s +150%. Thus, extra market risk only explains part of the gain. 
+
+When we compare the model with the momentum rule, which made +142%, the correlation
+is 0.82. The model held the same volatile chip stocks (Micron and AMD), and its most important inputs were volatility measures. Thus, momentum bet also explains part
+of the improved model.
+
+<iframe src="fig2_growth.html" width="100%" height="570" style="border:none;" loading="lazy" title="Figure 2: growth of one dollar, January 2024 to November 2026"></iframe>
+
+*Figure 2. Growth of $1 since Jan 2024*
+
+## Caveats
+
+- The 96 stocks were chosen in 2026 with hindsight bias, and the improved model could
+not address the problem. To address the bias, we need the stocks that were actually in the index on each date, including ones later dropped or delisted, plus their prices. Yet, the Yahoo Finance API doesn't have delisted prices. 
+- Six models were tried on the same 34 months, so the best t-statistic among them (2.1) is weaker evidence than it looks.
+- Prices only: no earnings, valuations or analyst forecasts.
+
+## Takeaway
+To conclude, in terms of investment performance, the improved model beats the class model and SPY on return (+150% against +109% and +66%). However, it does not have a better predictive performance, as its rank IC is 0.024 with t = 0.7, compared with rank IC of 0.045 and 
+t= 2.1 for the class model. Matter of fact, neither of the two models ranks stocks
+reliably since both have rank IC that are not apart from 0 over 34 months. 
+
+Moreover, the Sharpe ratio of the improved model is 1.06, which is also below the 
+class model's 1.21. The reason why the 
+improved model, despite having lower predictive performance, has higher return
+is that it's making a momentum bet on the stocks. The momentum rule returned +142% with a Sharpe ratio of 1.08, and its daily returns in excess of the 96 stocks have a 0.82 correlation with the improved model's. Another reason is that the improved model increases its risk exposure, 
+as buying SPY with borrowed money at the same 1.6× beta made +105%.
+
+## Data and code
+
+- Stock prices: daily prices for 96 large U.S. stocks and the S&P 500 ETF (`SPY`), adjusted for splits and dividends, from Yahoo Finance; 4 January 2010 to 12 November 2026 (accessed 13 November 2026). The stock list is the one in the class script.
+- Risk-free rate: 13-week Treasury-bill yield (`^IRX`), from Yahoo Finance, same dates.
+- Class experiment: final portfolio values of 45 teams, AEDS 6400, Fall 2026, from the instructor's results file.
+- Class model: the course's XGBoost script (Yisroel Cahn).
+
+Code, data and every number quoted above: [github.com/1iiiiii/Stock-Return-Boosting](https://github.com/1iiiiii/Stock-Return-Boosting).

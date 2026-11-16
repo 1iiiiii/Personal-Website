@@ -162,6 +162,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#is-gold-still-a-safe-asset" id="toc-is-gold-still-a-safe-asset" class="nav-link" data-scroll-target="#is-gold-still-a-safe-asset">Is gold still a safe asset?</a></li>
   <li><a href="#where-the-returns-actually-came-from" id="toc-where-the-returns-actually-came-from" class="nav-link" data-scroll-target="#where-the-returns-actually-came-from">Where the returns actually came from</a></li>
   <li><a href="#what-might-the-drift-be" id="toc-what-might-the-drift-be" class="nav-link" data-scroll-target="#what-might-the-drift-be">What might the drift be?</a></li>
+  <li><a href="#caveats" id="toc-caveats" class="nav-link" data-scroll-target="#caveats">Caveats</a></li>
   <li><a href="#takeaway" id="toc-takeaway" class="nav-link" data-scroll-target="#takeaway">Takeaway</a></li>
   <li><a href="#data-and-code" id="toc-data-and-code" class="nav-link" data-scroll-target="#data-and-code">Data and code</a></li>
   </ul>
@@ -206,7 +207,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p>After its peak at $5,318 per ounce in January, gold price has dipped to about $4,000 right now, marking a drawdown of about 25%. Because gold is non-yielding (i.e.&nbsp;holding it does not generate any interest), the opportunity cost of holding gold is the interest a saver could earn by lending to the government. Given recent increase in yield on 10-year Treasury Inflation-Protected Securities (10Y TIPS), which is a Treasury bond whose principal adjusts to inflation and rise in energy price, the drop in gold price seems reasonable. Yet, when we zoom out a little, the price of gold has actually doubled since 2021, while the 10Y TIPS rate rose 3.6 percentage points. This seems to contradict the theory that there is an inverse relationship between gold and the real interest rate.</p>
-<p>Other factors seem to dominate the movement, at least periodically. Usually, there are three candidates other than real interest rate: dollar, stocks, and oil. I regress gold’s weekly return on all four at once, so each number below is one factor’s effect with the other three held fixed. This post tries to answer: which of these exposures does the price of gold carry, how big is each, and does that change after 2022? Understanding the correlations and movements can be important to central banks, especially those in the emerging market, as they divert away from U.S. government bonds and dollars when Russian accounts were frozen. Knowing which risk gold actually carries is also pertinent to anyone who wishes to invest in assets with relatively stable long-term return, since gold is a precious physical good with inherent value and no credit risk.</p>
+<p>Other factors seem to dominate the movement, at least periodically. Usually, there are three candidates other than real interest rate: dollar, stocks, and oil. I regress gold’s weekly return on all four at once, so each number below is one factor’s effect with the other three held fixed. This post tries to answer: which of these exposures does the price of gold carry and how big is each? Understanding the correlations and movements can be important to central banks, especially those in the emerging market, as they divert away from U.S. government bonds and dollars when Russian accounts were frozen. Knowing which risk gold actually carries is also pertinent to anyone who wishes to invest in assets with relatively stable long-term return, since gold is a precious physical good with inherent value and no credit risk.</p>
 <section id="golds-exposure-to-dollar-real-yield-stock-and-oil" class="level2">
 <h2 data-anchor-id="golds-exposure-to-dollar-real-yield-stock-and-oil">Gold’s exposure to dollar, real yield, stock, and oil</h2>
 <p>The interactive figure below gives a rolling sensitivity analysis of gold against other factors, with a two-standard-error confidence band. Click the dropdown menu to select the factor/asset.</p>
@@ -239,15 +240,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="what-might-the-drift-be" class="level2">
 <h2 data-anchor-id="what-might-the-drift-be">What might the drift be?</h2>
-<p>Prices cannot say what the drift is, but there are two candidates. Central banks bought more than 1,000 tonnes of gold a year in 2022-24, over twice their 2010-21 average of 473;<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> a buyer who ignores TIPS yields and the dollar shows up here as pure drift. But their buying slowed to 863 tonnes in 2025, the year the drift peaked, while gold ETFs took in 801 tonnes.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> So central banks fit 2022-24, and investors fit 2025 better. Both remain hypotheses.</p>
+<p>There are many candidate explanations for the drift, and the post is only making a tentative approach to explain two of the candidates. First, central banks bought more than 1,000 tonnes of gold a year in 2022-24, over twice their 2010-21 average of 473.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> Central bank is a buyer who ignores TIPS yields and the dollar, so Central Bank purchase raises gold’s average return without changing how gold reacts to those factors. The increase in purchase from central banks was probably due to security reasons, as the G7 froze Russia’s account and imposed a series of sanctions after the outbreak of war. This is why it was mainly central banks from emerging markets that were making the purchases.</p>
+<p>Second, gold ETFs took in 801 tonnes<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> in 2025 when central banks buying slowed to 863 tonnes. This signifies that investors flow started to support gold as well. As such, the main driver of the drift was central bank purchase from 2022-2024, and 2025 was a combined force from both investors and central banks.</p>
+</section>
+<section id="caveats" class="level2">
+<h2 data-anchor-id="caveats">Caveats</h2>
+<ul>
+<li>Gold and the four factors react to the same news, so this post only analyzes the comovement/correlation and not causation</li>
+<li>The post-2022 samples are relatively short. There are 251 weeks for the regressions, and only 8 to 13 bad months in each part of the hedge test.</li>
+</ul>
 </section>
 <section id="takeaway" class="level2">
 <h2 data-anchor-id="takeaway">Takeaway</h2>
-<p>Holding gold is first a bet against the dollar (1.6% per 1%, steady for twenty years) and second a bet against real yields (6.3% per point, half of it through the dollar). Oil enters only through those two, and there is not direct link between oil and gold. Gold cannot be insurance for a 60/40 portfolio because it rose in 48% of the worst months and falls when bonds fall. And since 2024 these exposures explain none of its rise in gold. The 120% came from a drift that prices alone cannot explain, and that turned negative in 2026.</p>
+<p>Holding gold is first a bet against the dollar (1.6% per 1%, steady for twenty years) and second a bet against real yields (6.3% per point, half of it through the dollar). Oil enters only through those two, and there is not direct link between oil and gold. Gold has not been be a reliable insurance for a 60/40 portfolio because it rose in 48% of the worst months and falls when bonds fall. And since 2024 these exposures explain none of its rise in gold. The 120% came from a drift that prices alone cannot explain, and that turned negative in 2026. What changed after 2022 is not how gold reacts to the dollar or real yields, which is about the same before and after, but the drift, which doubled, and the weak stock hedge, which disappeared.</p>
 </section>
 <section id="data-and-code" class="level2">
 <h2 data-anchor-id="data-and-code">Data and code</h2>
-<p>Gold: COMEX gold futures, front-month continuous contract (<code>GC=F</code>), daily close in US dollars per troy ounce; stocks: SPDR S&amp;P 500 ETF (<code>SPY</code>); bonds: iShares 7–10 Year Treasury ETF (<code>IEF</code>), both dividend-adjusted — all from Yahoo Finance via <code>yfinance</code>. Real yield: 10-year Treasury inflation-indexed constant-maturity yield (<code>DFII10</code>, Federal Reserve Board H.15); dollar: nominal broad trade-weighted dollar index (<code>DTWEXBGS</code>, Federal Reserve Board); oil: Brent crude spot (<code>DCOILBRENTEU</code>, EIA) — all from FRED. Daily data from 2 January 2003 (the dollar index from 2 January 2006, where the four-factor regressions start) to 22 October 2026; accessed 24–25 October 2026. Regressions use weekly (Friday-to-Friday) changes with Newey–West standard errors; the hedge test uses monthly total returns from month-end prices; the 60/40 portfolio is 60% SPY and 40% IEF, rebalanced monthly.</p>
+<ul>
+<li>Gold: COMEX gold futures, front-month continuous contract (<code>GC=F</code>), daily close in US dollars per troy ounce; Yahoo Finance via <code>yfinance</code></li>
+<li>Stocks: SPDR S&amp;P 500 ETF (<code>SPY</code>), dividend-adjusted; Yahoo Finance via <code>yfinance</code></li>
+<li>Bonds: iShares 7–10 Year Treasury ETF (<code>IEF</code>), dividend-adjusted; Yahoo Finance via <code>yfinance</code></li>
+<li>Real yield: 10-year Treasury inflation-indexed constant-maturity yield (<code>DFII10</code>, Federal Reserve Board H.15); FRED</li>
+<li>Dollar: nominal broad trade-weighted dollar index (<code>DTWEXBGS</code>, Federal Reserve Board); FRED</li>
+<li>Oil: Brent crude spot (<code>DCOILBRENTEU</code>, U.S. Energy Information Administration); FRED</li>
+</ul>
+<p>Daily data from 2 January 2003 to 22 October 2026, accessed 24–25 October 2026. The four-factor regressions start in January 2006, when the dollar index begins.</p>
+<p>Method: the regressions use weekly (Friday-to-Friday) changes with Newey–West standard errors; Figure 1 uses a two-year (104-week) rolling window. Figure 2 uses monthly total returns from month-end prices; the 60/40 portfolio is 60% SPY and 40% IEF, rebalanced monthly, and the worst months are those at or below each portfolio’s 10th-percentile return. Figure 3 multiplies each factor’s full-sample coefficient by the factor’s cumulative move in each year.</p>
 <p>Code, data and every number quoted above: <a href="https://github.com/1iiiiii/Gold-vs.-Real-Yield">github.com/1iiiiii/Gold-vs.-Real-Yield</a>.</p>
 
 
@@ -738,8 +756,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>Usually, there are three candidates other than real interest rate: dollar, stocks, and oil.</span>
 <span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>I regress gold's weekly return on all four at once, so each number</span>
 <span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>below is one factor's effect with the other three held fixed.</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>This post tries to answer: which of these exposures does the price of gold carry, how big is</span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>each, and does that change after 2022? Understanding the correlations and movements can be</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>This post tries to answer: which of these exposures does the price of gold carry and how big is</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>each? Understanding the correlations and movements can be</span>
 <span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>important to central banks, especially those in the emerging market, as they divert away</span>
 <span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>from U.S. government bonds and dollars when Russian accounts were frozen. Knowing</span>
 <span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>which risk gold actually carries is also</span>
@@ -819,7 +837,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a>a year in 2022-24, over twice their 2010-21 average of 473.<span class="ot">[^wgc24]</span> Central bank </span>
 <span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a>is a buyer who ignores TIPS yields and the dollar, so Central Bank purchase raises </span>
 <span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a>gold’s average return without changing how gold reacts to those factors. The increase</span>
-<span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a>in purchase from central banks was probably due to security reasons, as the U.S. froze </span>
+<span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a>in purchase from central banks was probably due to security reasons, as the G7 froze </span>
 <span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a>Russia's account and imposed a series of sanctions after the outbreak of war. This is why</span>
 <span id="cb1-110"><a href="#cb1-110" aria-hidden="true" tabindex="-1"></a>it was mainly central banks from emerging markets that were making the purchases.</span>
 <span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a></span>
@@ -837,24 +855,41 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-123"><a href="#cb1-123" aria-hidden="true" tabindex="-1"></a>revised to 1,092 tonnes) <span class="ot">&lt;https://gold.org/goldhub/research/gold-demand-trends/gold-demand-trends-full-year-2025/central-banks&gt;</span>;</span>
 <span id="cb1-124"><a href="#cb1-124" aria-hidden="true" tabindex="-1"></a>ETF inflows of 801 tonnes as reported in "Gold demand tops 5,000 tonnes for the first time", *Graphic Online*, 1 February 2026.</span>
 <span id="cb1-125"><a href="#cb1-125" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-126"><a href="#cb1-126" aria-hidden="true" tabindex="-1"></a><span class="fu">## Takeaway</span></span>
+<span id="cb1-126"><a href="#cb1-126" aria-hidden="true" tabindex="-1"></a><span class="fu">## Caveats</span></span>
 <span id="cb1-127"><a href="#cb1-127" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-128"><a href="#cb1-128" aria-hidden="true" tabindex="-1"></a>Holding gold is first a bet against the dollar (1.6% per 1%, steady for twenty years) and second a bet against real</span>
-<span id="cb1-129"><a href="#cb1-129" aria-hidden="true" tabindex="-1"></a>yields (6.3% per point, half of it through the dollar). Oil enters only through those two, and there is</span>
-<span id="cb1-130"><a href="#cb1-130" aria-hidden="true" tabindex="-1"></a>not direct link between oil and gold. Gold cannot be insurance for a</span>
-<span id="cb1-131"><a href="#cb1-131" aria-hidden="true" tabindex="-1"></a>60/40 portfolio because it rose in 48% of the worst months and falls when bonds fall. And since 2024 these exposures explain</span>
-<span id="cb1-132"><a href="#cb1-132" aria-hidden="true" tabindex="-1"></a>none of its rise in gold. The 120% came from a drift that prices alone cannot explain, and that turned negative in 2026.</span>
-<span id="cb1-133"><a href="#cb1-133" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-134"><a href="#cb1-134" aria-hidden="true" tabindex="-1"></a><span class="fu">## Data and code</span></span>
-<span id="cb1-135"><a href="#cb1-135" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-136"><a href="#cb1-136" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Gold: COMEX gold futures, front-month continuous contract, daily close in US dollars per troy ounce;</span>
-<span id="cb1-137"><a href="#cb1-137" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Stocks: SPDR S&amp;P 500 ETF (<span class="in">`SPY`</span>)</span>
-<span id="cb1-138"><a href="#cb1-138" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Bonds: iShares 7–10 Year Treasury ETF (<span class="in">`IEF`</span>)</span>
-<span id="cb1-139"><a href="#cb1-139" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Real yield: 10-year Treasury inflation-indexed constant-maturity yield (<span class="in">`DFII10`</span>)</span>
-<span id="cb1-140"><a href="#cb1-140" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Dollar: nominal broad trade-weighted dollar index (<span class="in">`DTWEXBGS`</span>, Federal Reserve Board)</span>
-<span id="cb1-141"><a href="#cb1-141" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Oil: Brent crude spot (<span class="in">`DCOILBRENTEU`</span>, EIA)</span>
+<span id="cb1-128"><a href="#cb1-128" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Gold and the four factors react to the same news, so this post only analyzes the comovement/correlation and not</span>
+<span id="cb1-129"><a href="#cb1-129" aria-hidden="true" tabindex="-1"></a>  causation</span>
+<span id="cb1-130"><a href="#cb1-130" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The post-2022 samples are relatively short. There are 251 weeks for the regressions, and only 8 to 13 bad months in each part of the</span>
+<span id="cb1-131"><a href="#cb1-131" aria-hidden="true" tabindex="-1"></a>  hedge test.</span>
+<span id="cb1-132"><a href="#cb1-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-133"><a href="#cb1-133" aria-hidden="true" tabindex="-1"></a><span class="fu">## Takeaway</span></span>
+<span id="cb1-134"><a href="#cb1-134" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-135"><a href="#cb1-135" aria-hidden="true" tabindex="-1"></a>Holding gold is first a bet against the dollar (1.6% per 1%, steady for twenty years) and second a bet against real</span>
+<span id="cb1-136"><a href="#cb1-136" aria-hidden="true" tabindex="-1"></a>yields (6.3% per point, half of it through the dollar). Oil enters only through those two, and there is</span>
+<span id="cb1-137"><a href="#cb1-137" aria-hidden="true" tabindex="-1"></a>not direct link between oil and gold. Gold has not been be a reliable insurance for a</span>
+<span id="cb1-138"><a href="#cb1-138" aria-hidden="true" tabindex="-1"></a>60/40 portfolio because it rose in 48% of the worst months and falls when bonds fall. And since 2024 these exposures explain</span>
+<span id="cb1-139"><a href="#cb1-139" aria-hidden="true" tabindex="-1"></a>none of its rise in gold. The 120% came from a drift that prices alone cannot explain, and that turned negative in 2026.</span>
+<span id="cb1-140"><a href="#cb1-140" aria-hidden="true" tabindex="-1"></a>What changed after 2022 is not how gold reacts to the dollar or real yields, which is about the same before and</span>
+<span id="cb1-141"><a href="#cb1-141" aria-hidden="true" tabindex="-1"></a>after, but the drift, which doubled, and the weak stock hedge, which disappeared.</span>
 <span id="cb1-142"><a href="#cb1-142" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-143"><a href="#cb1-143" aria-hidden="true" tabindex="-1"></a>Code, data and every number quoted above: <span class="co">[</span><span class="ot">github.com/1iiiiii/Gold-vs.-Real-Yield</span><span class="co">](https://github.com/1iiiiii/Gold-vs.-Real-Yield)</span>.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb1-143"><a href="#cb1-143" aria-hidden="true" tabindex="-1"></a><span class="fu">## Data and code</span></span>
+<span id="cb1-144"><a href="#cb1-144" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-145"><a href="#cb1-145" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Gold: COMEX gold futures, front-month continuous contract (<span class="in">`GC=F`</span>), daily close in US dollars per troy ounce; Yahoo Finance via <span class="in">`yfinance`</span></span>
+<span id="cb1-146"><a href="#cb1-146" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Stocks: SPDR S&amp;P 500 ETF (<span class="in">`SPY`</span>), dividend-adjusted; Yahoo Finance via <span class="in">`yfinance`</span></span>
+<span id="cb1-147"><a href="#cb1-147" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Bonds: iShares 7–10 Year Treasury ETF (<span class="in">`IEF`</span>), dividend-adjusted; Yahoo Finance via <span class="in">`yfinance`</span></span>
+<span id="cb1-148"><a href="#cb1-148" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Real yield: 10-year Treasury inflation-indexed constant-maturity yield (<span class="in">`DFII10`</span>, Federal Reserve Board H.15); FRED</span>
+<span id="cb1-149"><a href="#cb1-149" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Dollar: nominal broad trade-weighted dollar index (<span class="in">`DTWEXBGS`</span>, Federal Reserve Board); FRED</span>
+<span id="cb1-150"><a href="#cb1-150" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Oil: Brent crude spot (<span class="in">`DCOILBRENTEU`</span>, U.S. Energy Information Administration); FRED</span>
+<span id="cb1-151"><a href="#cb1-151" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-152"><a href="#cb1-152" aria-hidden="true" tabindex="-1"></a>Daily data from 2 January 2003 to 22 October 2026, accessed 24–25 October 2026. The four-factor regressions start in</span>
+<span id="cb1-153"><a href="#cb1-153" aria-hidden="true" tabindex="-1"></a>January 2006, when the dollar index begins.</span>
+<span id="cb1-154"><a href="#cb1-154" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-155"><a href="#cb1-155" aria-hidden="true" tabindex="-1"></a>Method: the regressions use weekly (Friday-to-Friday) changes with Newey–West standard errors; Figure 1 uses a two-year</span>
+<span id="cb1-156"><a href="#cb1-156" aria-hidden="true" tabindex="-1"></a>(104-week) rolling window. Figure 2 uses monthly total returns from month-end prices; the 60/40 portfolio is 60% SPY and</span>
+<span id="cb1-157"><a href="#cb1-157" aria-hidden="true" tabindex="-1"></a>40% IEF, rebalanced monthly, and the worst months are those at or below each portfolio's 10th-percentile return.</span>
+<span id="cb1-158"><a href="#cb1-158" aria-hidden="true" tabindex="-1"></a>Figure 3 multiplies each factor's full-sample coefficient by the factor's cumulative move in each year.</span>
+<span id="cb1-159"><a href="#cb1-159" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-160"><a href="#cb1-160" aria-hidden="true" tabindex="-1"></a>Code, data and every number quoted above: <span class="co">[</span><span class="ot">github.com/1iiiiii/Gold-vs.-Real-Yield</span><span class="co">](https://github.com/1iiiiii/Gold-vs.-Real-Yield)</span>.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">
